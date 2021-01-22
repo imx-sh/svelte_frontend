@@ -4,12 +4,13 @@ import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import livereload from 'rollup-plugin-livereload';
 import { terser } from 'rollup-plugin-terser';
-import { copySync, removeSync } from 'fs-extra'
-import { spassr } from 'spassr'
-import getConfig from '@roxi/routify/lib/utils/config'
-import autoPreprocess from 'svelte-preprocess'
-import postcssImport from 'postcss-import'
-import { injectManifest } from 'rollup-plugin-workbox'
+import { copySync, removeSync } from 'fs-extra';
+import { spassr } from 'spassr';
+import getConfig from '@roxi/routify/lib/utils/config';
+import autoPreprocess from 'svelte-preprocess';
+import postcssImport from 'postcss-import';
+import { injectManifest } from 'rollup-plugin-workbox';
+import json from '@rollup/plugin-json';
 
 
 const { distDir } = getConfig() // use Routify's distDir for SSOT
@@ -48,6 +49,7 @@ export default {
         chunkFileNames:`[name]${production && '-[hash]' || ''}.js`
     },
     plugins: [
+				json(),
         svelte({
             dev: !production, // run-time checks      
             // Extract component CSS — better performance
