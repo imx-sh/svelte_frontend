@@ -1,0 +1,5 @@
+npx @roxi/routify init
+npm install --save-dev @rollup/plugin-json
+npm install --save-dev @popperjs/core 
+npm install --save-dev sveltestrap@v5.0.0-beta
+npm install --save-dev svelte-i18n
