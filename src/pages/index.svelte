@@ -1,9 +1,11 @@
 <script>
     //import RoutifyIntro from './example/_components/RoutifyIntro.svelte'
     import { metatags } from '@roxi/routify'
+		import { Icon } from 'sveltestrap';
+
     metatags.title = 'My Routify app'
     metatags.description = 'Description coming soon...'
 </script>
 
-<h5> Hello world! </h5>
+<h5> Hello <Icon name="globe2" /> ... </h5>
 <!--RoutifyIntro /-->

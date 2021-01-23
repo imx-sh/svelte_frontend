@@ -1,0 +1,10 @@
+@font-face {
+	font-family: 'uthmantn';
+	src: url('./uthmantn1_v10.otf')  format('opentype');
+}
+
+@font-face {
+	font-family:'uthmantn-bold';
+	src: url('./uthmantn1b_v10.otf')  format('opentype');
+}
+
