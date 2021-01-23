@@ -1,6 +1,9 @@
 {
-  "name": "svelte-app",
-  "version": "1.0.0",
+  "name": "imx-svelte-frontend",
+  "version": "0.0.1",
+  "browser": {
+    "custom-fetch.js": "./custom-fetch-browser.js"
+  },
   "@comments scripts": {
     "dev": "develop with blazing fast rebuilds",
     "dev:features": "develop with features like SSR and serviceworker enabled",
@@ -68,5 +71,9 @@
     "blacklist": [
       "/example/modal/basic/4"
     ]
+  },
+  "dependencies": {
+    "prettier": "^2.2.1",
+    "prettier-plugin-svelte": "^2.1.1"
   }
 }
