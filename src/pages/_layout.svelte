@@ -2,6 +2,7 @@
 <script>
 	import { _, locale } from '../i18n';
   import { website } from "../space_config";
+		import { Badge } from 'sveltestrap';
 	function switchLocale(event) {
     event.preventDefault();
     ///dispatch('locale-changed', event.target.value);
@@ -11,7 +12,12 @@
 </script>
 
 <p>
-{$_("language")} | {website.languages[$locale]}
+{$_("language")}:
+{#each Object.keys(website.languages) as key}
+	<Badge href="#" color="info">{key}</Badge>
+{/each}
+
+
 </p>
 <div class="choose-locale">
   <div class="select"> <select value={$locale} on:blur={switchLocale}>
@@ -22,3 +28,10 @@
 </div>
 
 <slot />
+
+<style>
+a {
+	text-decoration: none;
+}
+
+</style>
