@@ -11,7 +11,7 @@
 		link.rel = 'stylesheet';
 		link.type = 'text/css';
 		if($dir == "rtl") {
-			link.href = '/bootstrap-rtl.min.css';
+			link.href = '/bootstrap.rtl.min.css';
 			let rtl_fonts = document.createElement('link');
 			rtl_fonts.href='/fonts/rtl_fonts.css';
 			rtl_fonts.rel='stylesheet';
