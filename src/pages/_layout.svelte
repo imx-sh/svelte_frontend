@@ -2,36 +2,41 @@
 <script>
 	import { _, locale } from '../i18n';
   import { website } from "../space_config";
-		import { Badge } from 'sveltestrap';
-	function switchLocale(event) {
+	import { ButtonGroup, Button} from 'sveltestrap';
+
+	function switchLocale(_locale) {
     event.preventDefault();
-    ///dispatch('locale-changed', event.target.value);
-		console.log(`Switching to locale : ${event.target.value}`);
-		locale.set(event.target.value);
+		//console.log(`Switching to locale : ${_locale}`);
+		locale.set(_locale);
   }
 </script>
 
 <p>
-{$_("language")}:
+<ButtonGroup>
 {#each Object.keys(website.languages) as key}
-	<Badge href="#" color="info">{key}</Badge>
+	<Button outline color="info" active={key == $locale} on:click={() => switchLocale(key) }>{key}</Button>
 {/each}
+</ButtonGroup>
 
 
 </p>
-<div class="choose-locale">
+<span>
+{$_("language")}: {$locale}
+</span>
+
+<!--div class="choose-locale">
   <div class="select"> <select value={$locale} on:blur={switchLocale}>
       <option value="en">English</option>
       <option value="ar">عربي</option>
       <option value="fr">French</option>
     </select> </div>
-</div>
+</div-->
 
 <slot />
 
 <style>
-a {
+/*a {
 	text-decoration: none;
-}
+}*/
 
 </style>
