@@ -10,7 +10,7 @@
   }
 </script>
 
-<ButtonGroup class="py-2">
+<ButtonGroup class="py-0">
 	{#each locales as key}
 		<Button
 			outline
