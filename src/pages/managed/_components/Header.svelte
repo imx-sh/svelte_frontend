@@ -1,6 +1,7 @@
 <script>
   import { Nav, NavItem, NavLink, UncontrolledDropdown, DropdownMenu, DropdownItem, DropdownToggle, Navbar, Icon, NavbarBrand, Form, Input, InputGroup, InputGroupText } from "sveltestrap";
 	import { _, locale } from "../../../i18n";
+	import SelectLanguage from "./SelectLanguage.svelte";
 
 </script>
 
@@ -14,6 +15,7 @@
 		</InputGroup>
 	</Form>
 	<Nav class="ms-auto" navbar>
+		<SelectLanguage />
 		<NavItem><NavLink href="/">
 			<Icon name="envelope" /><span class="badge rounded-pill bg-danger custom-badge">19</span>
 		</NavLink></NavItem>

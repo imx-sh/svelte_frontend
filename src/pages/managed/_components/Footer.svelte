@@ -4,6 +4,6 @@
   export { classes as class };
 </script>
 
-<Navbar {...$$restProps} class={classes} color="secondary" light >
+<Navbar {...$$restProps} class="{'py-0 px-2 ' + classes}" color="light" lighti >
 <NavbarBrand href="/">my Navbar</NavbarBrand>
 </Navbar>
