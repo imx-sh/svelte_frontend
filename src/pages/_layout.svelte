@@ -1,13 +1,13 @@
 <!-- routify:options preload="proximity" -->
 <script>
-  import { _, locale } from "../i18n";
+  import { _, locale, available_locales } from "../i18n";
   import { website } from "../space_config";
+  import { switchLocale } from "../../locale-preference-browser.js";
   import { ButtonGroup, Button } from "sveltestrap";
 
-  function switchLocale(_locale) {
+  function selectLocale(_locale) {
     event.preventDefault();
-    //console.log(`Switching to locale : ${_locale}`);
-    locale.set(_locale);
+    switchLocale(_locale);
   }
 </script>
 
@@ -18,14 +18,16 @@
         outline
         color="info"
         active={key == $locale}
-        on:click={() => switchLocale(key)}>{key}</Button
+        on:click={() => selectLocale(key)}>{key}</Button
       >
     {/each}
   </ButtonGroup>
 </p>
-<span>
+<p>
   {$_("language")}: {$locale}
-</span>
+  <br />
+  {available_locales.join()}
+</p>
 
 <!--div class="choose-locale">
   <div class="select"> <select value={$locale} on:blur={switchLocale}>

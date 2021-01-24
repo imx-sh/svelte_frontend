@@ -1,34 +1,27 @@
 // import { dictionary, locale, _ } from 'svelte-i18n';
-import { addMessages, getLocaleFromNavigator , locale, init, _, time, date, number } from 'svelte-i18n';
+import { addMessages, locale, init, _, time, date, number } from 'svelte-i18n';
 import { derived } from 'svelte/store';
+import { getPreferredLocale } from "../../locale-preference-browser.js";
+
+// Add all ./xx.json localizations here
 import ar from './ar.json';
 import en from './en.json';
+addMessages('ar', ar);
+addMessages('en', en);
+let l17ns = {"ar": ar, "en": en};
+let available_locales = ["ar", "en"];
 
-function setupI18n(spaceLocales = {"en" : "English"}) {
-	let fallback_locale = null;
-	let initial_locale = getLocaleFromNavigator();
-	let initial_locale_match_found = false;
-	for (const key in spaceLocales) {
-		// Assign first locale as fallback
-		if (fallback_locale == null) {
-			fallback_locale = key; 
-		}
-		// Match User locale from browser to existing locale.
-		if (!initial_locale_match_found && initial_locale.startsWith(key)) {
-			initial_locale = key;
-			initial_locale_match_found = true;
-		}
-		if(key == 'en') addMessages('en', en);
-		if(key == 'ar') addMessages('ar', ar);
+function setupI18n() {
+
+	let _locale = getPreferredLocale();
+
+	if (!(_locale in l17ns)) {
+		_locale = "en";
 	}
 
-	if (!initial_locale_match_found) {
-		initial_locale = fallback_locale;
-	}
-	
 	init({
-		fallbackLocale: fallback_locale,
-		initialLocale: initial_locale,
+		initialLocale: _locale,
+		fallbackLocale: "en"
 	});
 }
 
@@ -37,4 +30,4 @@ const rtl = ["ar","fa","ur"]; // Arabic, Farsi, Urdu
 const dir = derived(locale, $locale => rtl.indexOf($locale) >= 0  ? 'rtl' : 'ltr');
 const isLocaleLoaded = derived(locale, $locale => typeof $locale === 'string');
 
-export { _, dir, setupI18n, time, date, number, locale, isLocaleLoaded };
+export { _, dir, setupI18n, time, date, number, locale, isLocaleLoaded, available_locales };

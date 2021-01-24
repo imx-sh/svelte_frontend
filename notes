@@ -6,4 +6,4 @@ npm install --save-dev bootstrap@next
 npm install --save-dev bootstrap-icons
 npm install --save-dev svelte-i18n
 npm install prettier-plugin-svelte prettier
-npx prettier --write --svelte-sort-order scripts-markup-styles ./src/**/*.svelte
+npx prettier --write --svelte-strict-mode --svelte-sort-order options-scripts-markup-styles ./src/**/*.svelte
