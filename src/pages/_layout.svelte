@@ -2,11 +2,11 @@
 <script>
   import { _, locale, available_locales } from "../i18n";
   import { website } from "../space_config";
-  import { switchLocale } from "../../locale-preference-browser.js";
+  import { switchLocale } from "../../locale-preference.js";
   import { ButtonGroup, Button } from "sveltestrap";
 
-	let locales = available_locales.filter(x => x in website.languages);
-	console.log(locales);
+  let locales = available_locales.filter((x) => x in website.languages);
+  console.log(locales);
 
   function selectLocale(_locale) {
     event.preventDefault();
@@ -32,7 +32,7 @@
   {available_locales.join()}
 </p>
 
-<slot />
+<slot scoped="" />
 
 <style>
 </style>

@@ -8,4 +8,3 @@
 </script>
 
 <h5>Hello <Icon name="globe2" /> ...</h5>
-<!--RoutifyIntro /-->

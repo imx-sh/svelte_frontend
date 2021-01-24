@@ -1,7 +1,7 @@
 // import { dictionary, locale, _ } from 'svelte-i18n';
 import { addMessages, locale, init, _, time, date, number } from 'svelte-i18n';
 import { derived } from 'svelte/store';
-import { getPreferredLocale } from "../../locale-preference-browser.js";
+import { getPreferredLocale } from "../../locale-preference.js";
 
 // Add all ./xx.json localizations here
 import ar from './ar.json';
