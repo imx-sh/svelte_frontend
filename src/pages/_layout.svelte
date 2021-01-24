@@ -1,8 +1,7 @@
 <!-- routify:options preload="proximity" -->
 <script>
-  import { _, locale, available_locales } from "../i18n";
+  import { _, switchLocale, locale, available_locales } from "../i18n";
   import { website } from "../space_config";
-  import { switchLocale } from "../../locale-preference.js";
   import { ButtonGroup, Button } from "sveltestrap";
 
   let locales = available_locales.filter((x) => x in website.languages);

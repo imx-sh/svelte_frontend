@@ -1,14 +1,13 @@
 {
   "name": "imx-svelte-frontend",
   "version": "0.0.1",
-	"license": "AGPL-3.0-or-later",
-	"repository": {
-		"type": "git",
-		"url": "git://iyi.cz/imx/svelte_frontend.git"
-	},
+  "license": "AGPL-3.0-or-later",
+  "repository": {
+    "type": "git",
+    "url": "git://iyi.cz/imx/svelte_frontend.git"
+  },
   "browser": {
-    "custom-fetch.js": "./custom-fetch-browser.js",
-    "locale-preference.js": "./locale-preference-browser.js"
+    "custom-fetch.js": "./custom-fetch-browser.js"
   },
   "@comments scripts": {
     "dev": "develop with blazing fast rebuilds",
