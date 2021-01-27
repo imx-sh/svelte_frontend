@@ -135,5 +135,8 @@
 	"create_entry": "Create Entry",
 	"page_of_total": "Page {page} of {total}",
 	"open_tabs": "Open tabs",
+	"views": "Views",
+	"actions": "Actions",
+	"status": "Status",
   "under_development": "Under development"
 }

@@ -135,5 +135,8 @@
 	"create_entry": "إنشاء محتوى جديد",
 	"page_of_total": "الصفحة {page} من {total}",
 	"open_tabs": "المُدخلات المفتوحة",
+	"views": "المناظر",
+	"actions": "الإجراءات",
+	"status": "الحالة",
   "under_development": "تحت التطوير"
 }
