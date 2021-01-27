@@ -9,6 +9,7 @@ addMessages('ar', ar);
 addMessages('en', en);
 let l17ns = {"ar": ar, "en": en};
 let available_locales = ["ar", "en"];
+let actual_locales = available_locales.filter((x) => x in website.languages);
 
 
 function switchLocale(_locale) {
@@ -71,4 +72,4 @@ const rtl = ["ar","fa","ur"]; // Arabic, Farsi, Urdu
 const dir = derived(locale, $locale => rtl.indexOf($locale) >= 0  ? 'rtl' : 'ltr');
 const isLocaleLoaded = derived(locale, $locale => typeof $locale === 'string');
 
-export { _, dir, setupI18n, time, date, number, locale, isLocaleLoaded, switchLocale, available_locales };
+export { _, dir, setupI18n, time, date, number, locale, isLocaleLoaded, switchLocale, available_locales, actual_locales };

@@ -1,11 +1,11 @@
 <!-- routify:options preload="proximity" -->
 <script>
-  import { _, switchLocale, locale, available_locales } from "../i18n";
+  import { _, switchLocale, locale, actual_locales } from "../i18n";
   import { website } from "../space_config";
   import { ButtonGroup, Button } from "sveltestrap";
 
-  let locales = available_locales.filter((x) => x in website.languages);
-  console.log(locales);
+  //let locales = available_locales.filter((x) => x in website.languages);
+  //console.log(locales);
 
   function selectLocale(_locale) {
     event.preventDefault();
@@ -15,7 +15,7 @@
 
 <p>
   <ButtonGroup>
-    {#each locales as key}
+    {#each actual_locales as key}
       <Button
         outline
         color="info"
@@ -28,7 +28,7 @@
 <p>
   {$_("language")}: {$locale}
   <br />
-  {available_locales.join()}
+  {actual_locales.join()}
 </p>
 
 <slot scoped="" />
