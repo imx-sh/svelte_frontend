@@ -1,7 +1,23 @@
-
 <script>
+ import { Container, Row, Col, Breadcrumb, BreadcrumbItem, Button, ButtonToolbar } from 'sveltestrap';
+
 
 </script>
+<!--Breadcrumb>
+	<BreadcrumbItem>Tickets</BreadcrumbItem>
+	<BreadcrumbItem>Personal</BreadcrumbItem>
+	<BreadcrumbItem>Todos</BreadcrumbItem>
+</Breadcrumb-->
+<div class="d-flex flex-row align-items-center">
+<span> Hello </span>
+<ButtonToolbar class="ms-auto align-items-center">
+	<span class="pe-2"> Actions </span>
+  <Button size="sm" outline color="success">Alpha</Button>
+  <Button size="sm" outline color="success">Bravo</Button>
+  <Button size="sm" outline color="success">Charlie</Button>
+</ButtonToolbar>
+</div>
+<hr class="py-0 my-0"/>
 
 <h6> The main thing goes here </h6>
 <p>

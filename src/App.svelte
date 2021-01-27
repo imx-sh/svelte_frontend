@@ -7,21 +7,35 @@
   $: { 
 		document.dir = $dir; 
 		let head = document.getElementsByTagName('HEAD')[0];
-		let link = document.createElement('link');
-		link.rel = 'stylesheet';
-		link.type = 'text/css';
+		
+		let old_bootstrap = document.getElementById("bootstrap");
+		if(old_bootstrap) {
+			head.removeChild(old_bootstrap);
+		}
+		let bootstrap = document.createElement('link');
+		bootstrap.id = "bootstrap";
+		bootstrap.rel = 'stylesheet';
+		bootstrap.type = 'text/css';
+
+		let old_fonts = document.getElementById("fonts");
+		if(old_fonts) {
+			head.removeChild(old_fonts);
+		}
+		let fonts = document.createElement('link');
+		fonts.id = "fonts";
+		fonts.rel = 'stylesheet';
+		fonts.type = 'text/css';
+
 		if($dir == "rtl") {
-			link.href = '/bootstrap.rtl.min.css';
-			let rtl_fonts = document.createElement('link');
-			rtl_fonts.href='/fonts/rtl_fonts.css';
-			rtl_fonts.rel='stylesheet';
-			rtl_fonts.type='text/css';
-			head.appendChild(rtl_fonts);
+			bootstrap.href = '/bootstrap.rtl.min.css';
+			fonts.href='/fonts/rtl_fonts.css';
 		} else {
-			link.href = '/bootstrap.min.css';
+			bootstrap.href = '/bootstrap.min.css';
+			fonts.href='/fonts/fonts.css';
 		}
 
-		head.appendChild(link);
+		head.appendChild(bootstrap);
+		head.appendChild(fonts);
 	}
 </script>
 
