@@ -41,6 +41,7 @@
 
 <style  global>
   @import "../assets/global.css";
+  @import "../assets/bootstrap-icons";
 </style>
 
 <Router {routes} />
