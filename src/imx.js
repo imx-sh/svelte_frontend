@@ -1,10 +1,10 @@
 import imx_fetch from '../custom-fetch.js';
-import { website } from './space';
+import { website } from './space_config';
 import { get } from 'svelte/store';
-import user from './stores/user';
+import signedin_user from './pages/managed/_stores/signedin_user';
 import sha1 from "./sha1";
 
-let loggedinUser = get(user);
+let loggedinUser = get(signedin_user);
 
 export async function imx_login(username, password) {
 	const browse_query = { 
