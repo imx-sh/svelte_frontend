@@ -1,6 +1,6 @@
 <script>
  import { Container, Row, Col, Breadcrumb, BreadcrumbItem, Button, ButtonToolbar } from 'sveltestrap';
- import EntryEditorHeader from '_components/EntryEditorHeader.svelte';
+ import EntryEditorHeader from './_components/EntryEditorHeader.svelte';
 
 
 </script>
