@@ -1,8 +1,42 @@
 <script>
- import { Container, Row, Col, Breadcrumb, BreadcrumbItem, Button, ButtonToolbar } from 'sveltestrap';
- import EntryEditorHeader from './_components/EntryEditorHeader.svelte';
+  import { Container, Row, Col, Breadcrumb, BreadcrumbItem, Button, ButtonToolbar } from 'sveltestrap';
+  import EntryEditorHeader from './_components/EntryEditorHeader.svelte';
+  import { ready } from "@roxi/routify";
+
+  import { entries } from '../_stores/entries.js';
+  import { imx_entries } from '../../imx.js';
 
 
+  let queryType = "subpath";
+  let resourceTypes = ["folder", "post", "media"];
+  let shortnames = [];
+  let search = "";
+  let subpath = "posts";
+  let max_returned_items = 100;
+  let imx_request;
+  $: {
+      imx_request = imx_entries(
+          subpath, 
+          resourceTypes, 
+          shortnames,
+          queryType,
+          search,
+          max_returned_items).then( (_entries) => {
+              _entries.forEach( (entry) => {
+                  let file = { data: entry };
+                  if(entry.resource_type == "folder") {
+                      file.files=[];
+                      file.data.subpath=`${entry.subpath}/${entry.shortname}`
+                      file.expande = false;
+                      file.loaded = false;
+                    }
+                  entries.add(entry.subpath.split("/").filter(x => x!=""), file);
+                  //console.log(file);
+
+                });
+              $ready();
+            });
+    }
 </script>
 <!--Breadcrumb>
 	<BreadcrumbItem>Tickets</BreadcrumbItem>

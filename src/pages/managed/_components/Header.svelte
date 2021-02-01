@@ -2,6 +2,7 @@
   import { Nav, Badge, NavItem, NavLink, Collapse, UncontrolledDropdown, DropdownMenu, DropdownItem, DropdownToggle, Navbar, Icon, NavbarBrand, Form, Input, InputGroup, InputGroupText, NavbarToggler } from "sveltestrap";
 	import { _, locale, dir } from "../../../i18n";
 	import SelectLanguage from "./SelectLanguage.svelte";
+	import signedin_user from "../_stores/signedin_user.js";
 
 	/*let isOpen = false; // Collapse status
   function handleUpdate(event) {
@@ -39,6 +40,7 @@
 		<NavLink href="#" title="System admin"><Icon name="wrench"></Icon></NavLink>
 		<NavLink href="/managed/query" title={$_("query")}><Icon name="question-circle" /></NavLink>
 		<NavLink href="#" title={$_("published")}><Icon name="globe" /></NavLink>
+		<NavLink href="#" title={$_("logout")} on:click={signedin_user.logout}><Icon name="power" /></NavLink>
 		<!--UncontrolledDropdown>
 			<DropdownToggle nav caret title="my dropdown">More</DropdownToggle>
 			<DropdownMenu start={true}>
