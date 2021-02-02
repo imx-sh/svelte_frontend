@@ -8,6 +8,7 @@
 3. Bootstrap 5.x with Sveltestrap
 4. Svelte i18n 3.x
 5. Rollup
+6. Javascript (not typescript)
 
 
 ### Running
