@@ -1,0 +1,13 @@
+[
+  { "name": "userprofile", "path": "/managed/userprofile", "icon": "person-circle"},
+  { "name": "dashboard", "path": "/managed/dashboard", "icon": "house-door"},
+  { "name": "content", "path": "/managed/content", "icon": "journals", "imx_path": "posts"},
+  { "name": "tickets", "path": "/managed/tickets", "icon": "calendar2-check", "imx_path": "tickets"},
+  { "name": "calendar", "path": "/managed/calendar", "icon": "calendar", "imx_path": "calendar"},
+  { "name": "messages", "path": "/managed/messages", "icon": "envelope", "imx_path": "messages"},
+  { "name": "notifications", "path": "/managed/notifications", "icon": "bell"},
+  { "name": "contacts", "path": "/managed/contacts", "icon": "people", "imx_path": "contacts"},
+  { "name": "sysadmin", "path": "/managed/sysadmin", "icon": "wrench" },
+  { "name": "query", "path": "/managed/query", "icon": "question-circle"},
+  { "name": "published", "path": "/", "icon": "globe"} 
+]
