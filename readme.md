@@ -1,7 +1,12 @@
 # IMX Svelte Frontend
 
+This is a rudimentary desktop web frontend for IMX member experience (logged-in users' UI). 
+
+
 
 ### Technology stack
+
+
 
 Name | Version | Description
 --- | --- | ---
@@ -11,13 +16,6 @@ Name | Version | Description
 **Rollup** | 2.x | Web resources build/bundle tool
 **Svelte-i18n** | 3.x | Internationalization for svelte based on formatjs
 **Javascript** | >= ES6 | Browser (client-side) programming language. (Typescript is not used)
-
-1. Svelte 3.x
-2. Routify 2.x
-3. Bootstrap 5.x with Sveltestrap
-4. Svelte i18n 3.x
-5. Rollup
-6. Javascript (not typescript)
 
 
 ### Running
