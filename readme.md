@@ -3,6 +3,15 @@
 
 ### Technology stack
 
+Name | Version | Description
+--- | --- | ---
+**Svelte** | 3.x | Reactive JS Compiler
+**Routify** | 2.x | File-based routing library for Svelte
+**Bootstrap** | 5.x | CSS Framework. Used via Sveltestrap
+**Rollup** | 2.x | Web resources build/bundle tool
+**Svelte-i18n** | 3.x | Internationalization for svelte based on formatjs
+**Javascript** | >= ES6 | Browser (client-side) programming language. (Typescript is not used)
+
 1. Svelte 3.x
 2. Routify 2.x
 3. Bootstrap 5.x with Sveltestrap
