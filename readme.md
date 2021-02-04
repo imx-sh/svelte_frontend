@@ -4,9 +4,7 @@ This is a rudimentary desktop web frontend for IMX member experience (logged-in 
 
 
 
-### Technology stack
-
-
+### Technology stack and major libraries used.
 
 Name | Version | Description
 --- | --- | ---

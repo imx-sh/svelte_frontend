@@ -4,12 +4,22 @@ export const entries = {
     set: (value) => set(value),
 		subscribe,
 		reset: () => set({}),
-    add: (parents, entry) => update(entries => {
-      entries[parents.join("/")] = entry;
+    /*add_many: (subpath, items) => update(entries => {
+      if(! subpath in entries)
+        entries[subpath] = {};
+
+      items.forEach( (item) => {
+        entries[subpath][item.shortname] = item;
+      });
+    }),*/
+    add: (subpath, entry) => update(entries => {
+      if(!(subpath in entries))
+        entries[subpath] = {};
+      entries[subpath][entry.shortname] = entry;
       return entries;
 		}),
-    del: (parents, shortname) => update(entries => {
-			return entries[parents.join("/")].delete(shortname);
+    del: (subpath, shortname) => update(entries => {
+			return entries[subpath].delete(shortname);
 		}),
-		get: (parents, shortname) => { return entries[parents.join("/")][shortname]; },
+		get: (subpath, shortname) => { return entries[subpath][shortname]; },
 };

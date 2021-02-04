@@ -5,17 +5,18 @@
 	import signedin_user from "../_stores/signedin_user.js";
   import { isActive, url } from '@roxi/routify'
   import sections from "../_stores/sections.json";
+
+  let section_path = $url();
 </script>
 
 <Navbar color="light" light="{true}" expand="md" class="py-0 px-2">
 	<Nav tabs class="align-items-center w-100">
     {#each sections as section}
       <NavLink href="{$url(section.path)}" title="{section.title}" active="{$isActive(section.path)}">
-        <Icon name="{section.icon}">
-          {#if section.notifications > 0}
-            <span class="badge rounded-pill bg-danger custom-badge">{section.notifications}</span>
-          {/if}
-        </Icon>
+        <Icon name="{section.icon}"/>
+        {#if section.notifications > 0}
+          <span class="badge rounded-pill bg-danger custom-badge">{section.notifications}</span>
+        {/if}
       </NavLink>
     {/each}
     <NavLink href="#" title={$_("logout")} on:click={signedin_user.logout}>

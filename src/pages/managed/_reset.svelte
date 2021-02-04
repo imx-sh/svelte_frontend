@@ -6,7 +6,9 @@
 	import Login from "./_components/Login.svelte";
   import sections from "./_stores/sections.json";
   import active_section from "./_stores/active_section.js";
+  import active_entry from "./_stores/active_entry.js";
   import { isActive, url, afterPageLoad, isChangingPage } from '@roxi/routify';
+  import EntryEditor from "./_components/EntryEditor.svelte";
 
 	let window_height;
 	let header_height;
@@ -14,24 +16,21 @@
 
 
   $afterPageLoad(page => {
-
     // Try to determine the Active Section. 
     let found = false;
     sections.forEach( (section) => {
-        if($isActive(section.path)) {
-            found = true;
-            $active_section = section;
-            console.log(`Active section ${section.name} page title ${page.title}`);
-          }
-      });
-    
-    if(!found) {
-        $active_section = {};
-        console.log("No active section");
+      if($isActive(section.path)) {
+        found = true;
+        $active_section = section;
+        //console.log(`Active section ${section.name} page title ${page.title}`);
       }
     });
-
-
+    
+    if(!found) {
+      $active_section = {};
+      console.log("No active section");
+    }
+  });
 </script>
 
 <svelte:window bind:innerHeight={window_height} />
@@ -42,13 +41,15 @@
 </div>
 {:else}
 <div bind:clientHeight={header_height} class="fixed-top" ><Header /></div>
-<Container fluid={true} id="mymain" class="border border-secondary position-relative p-0" style="top: {header_height}px; height: {calced_body_height}px;">
+  <Container fluid={true} id="mymain" class="border border-secondary position-relative p-0" style="top: {header_height}px; height: {calced_body_height}px; overflow: hidden auto;">
   <Row class="h-100" noGutters> 
     <Col sm="2" class="h-100 border border-success">
       <Sidebar />
     </Col>
     <Col class="border border-primary" >
-      <slot scoped="" />
+      {#if $active_entry.data}
+      <EntryEditor />
+      {/if}
     </Col>
   </Row>
 </Container>

@@ -11,6 +11,7 @@ import autoPreprocess from 'svelte-preprocess';
 import postcssImport from 'postcss-import';
 import { injectManifest } from 'rollup-plugin-workbox';
 import json from '@rollup/plugin-json';
+//import replace from '@rollup/plugin-replace';
 
 
 const { distDir } = getConfig() // use Routify's distDir for SSOT
@@ -62,6 +63,9 @@ export default {
                 })
             ]
         }),
+      /*replace({
+          'process.env.NODE_ENV': JSON.stringify('production'),
+        }),*/
 
         // resolve matching modules from current working directory
         resolve({

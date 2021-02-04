@@ -1,15 +1,16 @@
 <script>
 	import { Badge, Nav, Icon, Button, ButtonToolbar, ButtonGroup } from "sveltestrap";
 	import { _ } from "../../../i18n";
-	export let tab_option = 'edit';
-	export let shortname = 'placeholder';
-	export let status_message = 'placeholder';
+  import active_entry from "../_stores/active_entry.js";
+	let tab_option = 'edit';
+	//export let shortname = 'placeholder';
+	let status_message = '';
 </script>
 
 <Nav class="w-100">
 	<ButtonGroup size="sm" class="align-items-center">
-		<span class="ps-2 pe-1"> {$_("shortname")} </span>
-		<span class="font-monospace" ><small>{shortname}</small></span>
+		<!--span class="ps-2 pe-1"> {$_("shortname")} </span-->
+		<span class="font-monospace" ><small>{$active_entry.data.displayname}</small></span>
 	</ButtonGroup>
 	<ButtonGroup size="sm" class="ms-auto align-items-center">
 		<span class="ps-2 pe-1"> {$_("views")} </span>

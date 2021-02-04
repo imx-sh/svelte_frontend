@@ -1,0 +1,48 @@
+<script>
+  //import MarkdownEditor from "./MarkdownEditor.svelte";
+  import EntryHeader from './EntryHeader.svelte';
+  import active_entry from "../_stores/active_entry.js";
+  import MediaView from "../../_components/MediaView.svelte";
+
+	let header_height;
+  //console.log("loading active entry ");
+  //console.log($active_entry);
+	let modifiedValue;
+	let displayname;
+	let description;
+	let entryurl;
+	let content_type;
+	let embedded;
+  let uid;
+  //console.log($active_entry.data);
+	uid = $active_entry.data.subpath + "/" + $active_entry.data.shortname;
+  if ($active_entry.data.attributes) {
+    if ($active_entry.data.attributes.description) description = $active_entry.data.attributes.description;
+    if ($active_entry.data.attributes.displayname) displayname = $active_entry.data.attributes.displayname;
+    if ($active_entry.data.attributes.payload && $active_entry.data.attributes.payload.embedded)
+      embedded = $active_entry.data.attributes.payload.embedded;
+		if($active_entry.data.attributes.payload && $active_entry.data.attributes.payload.content_type)
+			content_type = $active_entry.data.attributes.payload.content_type;
+		if($active_entry.data.attributes.payload && $active_entry.data.attributes.payload.filepath)
+			entryurl = `${website.backend}/media/${website.space_name}/${$active_entry.data.subpath}/entry/${$active_entry.data.attributes.payload.filepath}`;
+  }
+
+</script>
+<div bind:clientHeight="{header_height}">
+<EntryHeader />
+<hr class="my-0" />
+</div>
+<div class="px-1 pb-1 h-100" style="height: calc(100% - {header_height}px); overflow: hidden auto;">
+  {#if content_type.startsWith("text/html;")}
+    <!--HtmlEditor {uid} bind:modifiedValue /-->
+    <pre> HTML goes here </pre>
+    {$active_entry.data.shortname}
+  {:else if content_type.startsWith("text/markdown;")}
+    <!--MarkdownEditor {uid} bind:modifiedValue /-->
+    <pre> Markdown goes here </pre>
+    {$active_entry.data.shortname}
+  {:else}
+    <h5> Can't edit this content type </h5> 
+    <MediaView url={entryurl} {displayname} {content_type} />
+  {/if}
+</div>
