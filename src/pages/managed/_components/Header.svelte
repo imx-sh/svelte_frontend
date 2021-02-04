@@ -5,7 +5,7 @@
 	import SelectLanguage from "./SelectLanguage.svelte";
 	import signedin_user from "../_stores/signedin_user.js";
   import { url } from '@roxi/routify'
-  import active_section from "../_stores/active_section.js";
+  import { active_section } from "../_stores/active_section.js";
   import sections from "../_stores/sections.json";
 
 </script>
@@ -13,7 +13,7 @@
 <Navbar color="light" light="{true}" expand="md" class="py-0 px-2">
 	<Nav tabs class="align-items-center w-100">
     {#each sections as section}
-      <NavLink href="#" title="{$_(section.name)}" on:click="{() => { $active_section = section; }}" active="{$active_section.path == section.path}">
+      <NavLink href="{$url(section.path)}" title="{$_(section.name)}" on:click="{() => { $active_section = section; }}" active="{$active_section.path == section.path}">
         <Icon name="{section.icon}"/>
         {#if section.notifications > 0}
           <span class="badge rounded-pill bg-danger custom-badge">{section.notifications}</span>

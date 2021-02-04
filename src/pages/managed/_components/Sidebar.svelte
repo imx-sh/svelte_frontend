@@ -1,8 +1,8 @@
 <script>
   //import { entries } from '../../_stores/entries.js';
   import { imx_entries } from '../../../imx.js';
-  import active_section from "../_stores/active_section.js";
-  import active_entry from "../_stores/active_section.js";
+  import {active_section} from "../_stores/active_section.js";
+  import active_entry from "../_stores/active_entry.js";
   import Folder from "./Folder.svelte";
   import { _ } from "../../../i18n";
   import { ready } from "@roxi/routify";
@@ -44,5 +44,8 @@
 </div>
 <div bind:clientHeight="{footer_height}">
 	<hr class="my-0" />
-  Hello world ... this is the footer
+  {#if $active_entry.data}
+    Shortname: {$active_entry.data.shortname} <br/>
+    Displayname: {$active_entry.data.displayname} <br/>
+  {/if}
 </div>

@@ -5,34 +5,25 @@
 	import signedin_user from "./_stores/signedin_user.js";
 	import Login from "./_components/Login.svelte";
   import sections from "./_stores/sections.json";
-  import active_section from "./_stores/active_section.js";
+  import {active_section} from "./_stores/active_section.js";
   import active_entry from "./_stores/active_entry.js";
-  import { url } from '@roxi/routify';
-  //import { url, afterPageLoad } from '@roxi/routify';
+  import { leftover } from '@roxi/routify';
   import EntryEditor from "./_components/EntryEditor.svelte";
 
 	let window_height;
 	let header_height;
 	$: calced_body_height =  window_height - header_height - 8 ; //- footer_height;
 
-  //$afterPageLoad(page => {
-    // Try to determine the Active Section. 
-  /*
-    let found = false;
-    sections.forEach( (section) => {
-      console.log("Comparing " + $url() + " to " + section.path); 
-      if($url().startsWith(section.path)) {
-        found = true;
+  if($leftover && ! $leftover.startsWith($active_section.name)) {
+    for(let section of sections) { 
+      //console.log("Comparing " + $leftover + " to " + section.name); 
+      if($leftover.startsWith(section.name)) {
         $active_section = section;
         console.log(`Setting active section to ${section.name}.`); //Page title: ${page.title}`);
+        break;
       }
-    });
-    
-    if(!found) {
-      $active_section = sections[0];
-      console.log("Setting default active section: " + $active_section.path);
-    }*/
-  //});
+    }
+  }
 </script>
 
 <svelte:window bind:innerHeight={window_height} />
