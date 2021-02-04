@@ -2,7 +2,7 @@
   import { imx_entries } from "../../../imx.js";
   //import { entries } from '../../_stores/entries.js';
   import active_entry from "../_stores/active_entry.js";
-  import { Icon } from "sveltestrap";
+  import Icon from "../../_components/Icon.svelte";
   import File from "./File.svelte";
   
   let expanded = false;
@@ -36,7 +36,7 @@
 </script>
 
 <span class:expanded class="folder ps-2" on:click="{toggle}">
-  <Icon name="folder{expanded ? '2-open' : ''}" /> {displayname}
+  <Icon class="text-start" name="folder{expanded ? '2-open' : ''}" /> {displayname}
 </span>
 
 {#if expanded}

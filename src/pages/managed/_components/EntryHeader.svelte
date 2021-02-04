@@ -1,5 +1,6 @@
 <script>
-	import { Badge, Nav, Icon, Button, ButtonToolbar, ButtonGroup } from "sveltestrap";
+	import { Badge, Nav, Button, ButtonToolbar, ButtonGroup } from "sveltestrap";
+  import Icon from "../../_components/Icon.svelte";
 	import { _ } from "../../../i18n";
   import active_entry from "../_stores/active_entry.js";
 	let tab_option = 'edit';

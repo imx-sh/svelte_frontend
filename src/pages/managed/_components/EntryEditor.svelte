@@ -32,7 +32,8 @@
 <EntryHeader />
 <hr class="my-0" />
 </div>
-<div class="px-1 pb-1 h-100" style="height: calc(100% - {header_height}px); overflow: hidden auto;">
+<div class="px-1 pb-1 " style="height: calc(100% - {header_height}px); overflow: hidden auto;">
+  {JSON.stringify($active_entry)} 
   {#if content_type.startsWith("text/html;")}
     <!--HtmlEditor {uid} bind:modifiedValue /-->
     <pre> HTML goes here </pre>

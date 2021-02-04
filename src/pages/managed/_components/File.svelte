@@ -5,7 +5,7 @@
 </script>
 
 <script>
-  import { Icon } from "sveltestrap";
+  import Icon from "../../_components/Icon.svelte";
   import active_entry from "../_stores/active_entry.js";
 
   export let data;

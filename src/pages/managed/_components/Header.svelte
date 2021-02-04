@@ -1,5 +1,6 @@
 <script>
-  import { Nav, Badge, NavItem, NavLink, Collapse, UncontrolledDropdown, DropdownMenu, DropdownItem, DropdownToggle, Navbar, Icon, NavbarBrand, Form, Input, InputGroup, InputGroupText, NavbarToggler } from "sveltestrap";
+  import { Nav, Badge, NavItem, NavLink, Collapse, UncontrolledDropdown, DropdownMenu, DropdownItem, DropdownToggle, Navbar, NavbarBrand, Form, Input, InputGroup, InputGroupText, NavbarToggler } from "sveltestrap";
+  import Icon from "../../_components/Icon.svelte";
 	import { _, locale, dir } from "../../../i18n";
 	//import SelectLanguage from "./SelectLanguage.svelte";
 	import signedin_user from "../_stores/signedin_user.js";

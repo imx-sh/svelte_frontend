@@ -17,12 +17,13 @@
 
   $afterPageLoad(page => {
     // Try to determine the Active Section. 
+    console.log ("Active url: " + $url());
     let found = false;
     sections.forEach( (section) => {
       if($isActive(section.path)) {
         found = true;
         $active_section = section;
-        //console.log(`Active section ${section.name} page title ${page.title}`);
+        console.log(`Setting active section to ${section.name}. Page title: ${page.title}`);
       }
     });
     
@@ -40,13 +41,13 @@
   <Login />
 </div>
 {:else}
-<div bind:clientHeight={header_height} class="fixed-top" ><Header /></div>
-  <Container fluid={true} id="mymain" class="border border-secondary position-relative p-0" style="top: {header_height}px; height: {calced_body_height}px; overflow: hidden auto;">
+  <div bind:clientHeight={header_height} class="fixed-top" ><Header /></div>
+  <Container fluid={true} id="mymain" class="border border-secondary position-relative p-0" style="top: {header_height}px; height: {calced_body_height}px;">
   <Row class="h-100" noGutters> 
     <Col sm="2" class="h-100 border border-success">
       <Sidebar />
     </Col>
-    <Col class="border border-primary" >
+    <Col sm="10" class="h-100 border border-primary" >
       {#if $active_entry.data}
       <EntryEditor />
       {/if}
