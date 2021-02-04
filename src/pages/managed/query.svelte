@@ -1,1 +1,0 @@
-<p>Query.svelte</p>

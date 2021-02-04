@@ -8,6 +8,5 @@
   { "name": "notifications", "path": "/managed/notifications", "icon": "bell"},
   { "name": "contacts", "path": "/managed/contacts", "icon": "people", "imx_path": "contacts"},
   { "name": "sysadmin", "path": "/managed/sysadmin", "icon": "wrench" },
-  { "name": "query", "path": "/managed/query", "icon": "question-circle"},
-  { "name": "published", "path": "/", "icon": "globe"} 
+  { "name": "query", "path": "/managed/query", "icon": "question-circle"}
 ]

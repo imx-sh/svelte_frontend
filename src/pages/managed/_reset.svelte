@@ -7,31 +7,32 @@
   import sections from "./_stores/sections.json";
   import active_section from "./_stores/active_section.js";
   import active_entry from "./_stores/active_entry.js";
-  import { isActive, url, afterPageLoad, isChangingPage } from '@roxi/routify';
+  import { url } from '@roxi/routify';
+  //import { url, afterPageLoad } from '@roxi/routify';
   import EntryEditor from "./_components/EntryEditor.svelte";
 
 	let window_height;
 	let header_height;
 	$: calced_body_height =  window_height - header_height - 8 ; //- footer_height;
 
-
-  $afterPageLoad(page => {
+  //$afterPageLoad(page => {
     // Try to determine the Active Section. 
-    console.log ("Active url: " + $url());
+  /*
     let found = false;
     sections.forEach( (section) => {
-      if($isActive(section.path)) {
+      console.log("Comparing " + $url() + " to " + section.path); 
+      if($url().startsWith(section.path)) {
         found = true;
         $active_section = section;
-        console.log(`Setting active section to ${section.name}. Page title: ${page.title}`);
+        console.log(`Setting active section to ${section.name}.`); //Page title: ${page.title}`);
       }
     });
     
     if(!found) {
-      $active_section = {};
-      console.log("No active section");
-    }
-  });
+      $active_section = sections[0];
+      console.log("Setting default active section: " + $active_section.path);
+    }*/
+  //});
 </script>
 
 <svelte:window bind:innerHeight={window_height} />
