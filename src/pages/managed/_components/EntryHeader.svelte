@@ -2,16 +2,19 @@
 	import { Badge, Nav, Button, ButtonToolbar, ButtonGroup } from "sveltestrap";
   import Icon from "../../_components/Icon.svelte";
 	import { _ } from "../../../i18n";
-  import active_entry from "../_stores/active_entry.js";
-	let tab_option = 'edit';
-	//export let shortname = 'placeholder';
-	let status_message = '';
+  import { createEventDispatcher } from "svelte";
+
+  const dispatch = createEventDispatcher();
+
+	export let tab_option;
+	export let title;
+  export let status;
 </script>
 
 <Nav class="w-100">
 	<ButtonGroup size="sm" class="align-items-center">
 		<!--span class="ps-2 pe-1"> {$_("shortname")} </span-->
-		<span class="font-monospace" ><small>{$active_entry.data.displayname}</small></span>
+		<span class="font-monospace" ><small>{title}</small></span>
 	</ButtonGroup>
 	<ButtonGroup size="sm" class="ms-auto align-items-center">
 		<span class="ps-2 pe-1"> {$_("views")} </span>
@@ -30,7 +33,7 @@
 	</ButtonGroup>
 	<ButtonGroup size="sm" class="align-items-center">
 		<span class="ps-2 pe-1"> {$_("status")} </span>
-		<span class="font-monospace" ><small>{status_message}</small></span>
+		<span class="font-monospace" ><small>{status}</small></span>
 	</ButtonGroup>
 </Nav>
 
