@@ -10,7 +10,7 @@
       <textarea maxlength="4096" class="h-100 w-100 font-monospace" bind:value={content} />
     </Col>
     <Col sm="6" class="h-100">
-      <div class="h-100 w-100">{@html marked(content)}</div>
+      <div class="h-100 w-100" style="overflow: hidden auto">{@html marked(content)}</div>
     </Col>
   </Row>
 </Container>
