@@ -1,9 +1,8 @@
 <script>
   import {Container, Row, Col} from "sveltestrap";
   import { createEventDispatcher } from "svelte";
-  export let content; // = "<h2> Example title</h2>\n<p> Paragraph <small> small </small></p>";
+  export let content;
   const dispatch = createEventDispatcher();
-
 </script>
 
 <Container fluid={true} class="h-100">
@@ -16,5 +15,3 @@
     </Col>
   </Row>
 </Container>
-
-

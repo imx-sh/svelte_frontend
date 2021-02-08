@@ -33,114 +33,19 @@
 
   onDestroy(unsubscribe);
 
-/*
-  $: {
-    uid = $active_entry.data.subpath + '/' + $active_entry.data.shortname;
-    content = $active_entry.data.attributes.payload.embedded;
-    content_type = $active_entry.data.attributes.payload.content_type;
-    displayname = $active_entry.data.attributes.displayname;
-    url = ($active_entry.data.attributes.payload.filepath) ? `${website.backend}/media/${website.space_name}/entry/${$active_entry.data.attributes.payload.filepath}` : null;
-  }
-*/
-  //$: {
-  //  console.log("Content:", content);
-  //}
-
-
   function hasChanged() {
     let _has_changed = !(content === $active_entry.data.attributes.payload.embedded);
     //console.log("Entry", $active_entry);
     //console.log("hasChanged called: ", _has_changed, $has_changed);
-    //console.log("content vs embedded", content, $active_entry.data.attributes.payload.embedded);
+    //console.log("content vs embedded", content, "|", $active_entry.data.attributes.payload.embedded);
     if(_has_changed != $has_changed) { 
       $has_changed = _has_changed;
       //console.log("Has *actually* changed: ", $has_changed);
     }
   }
 
-  //console.log("loading active entry ");
-  //console.log($active_entry);
-  /*
-	let modifiedValue;
-	let displayname;
-	let description;
-	let entryurl;
-	let content_type;
-	let embedded;
-  let uid;
-  let title = "";
-
-
-  let data = false;
-
-  let has_changed = true; // true for testing
-
-  active_entry.subscribe(entry => {
-    if(data && has_changed) {
-      if(confirm("Content is modified.\nIgnore?")) {
-      }
-    } else if (entry.data) {
-      new_data = entry.data;
-      acceptNewEntry();
-    }
-  });
-
-  function acceptNewEntry() {
-    if(new_data) {
-      data = new_data;
-      uid = data.subpath + "/" + data.shortname;
-
-      if (data.attributes) {
-        if (data.attributes.description) description = data.attributes.description;
-        if (data.attributes.displayname) displayname = data.attributes.displayname;
-        if (data.attributes.payload && data.attributes.payload.embedded)
-          embedded = data.attributes.payload.embedded;
-        if(data.attributes.payload && data.attributes.payload.content_type)
-          content_type = data.attributes.payload.content_type;
-        if(data.attributes.payload && data.attributes.payload.filepath)
-          entryurl = `${website.backend}/media/${website.space_name}/${data.subpath}/entry/${data.attributes.payload.filepath}`;
-          title = ` Title: ${displayname} `;
-      }
-    } else {
-      data = false;
-      description = displayname = embedded = content_type = entryurl = title = "";
-    }
-    new_data = false;
-  }
-*/
-
-  //console.log($active_entry.data);
-/*
-  $: {
-  data = $active_entry.data
-  if(data) {
-	uid = data.subpath + "/" + data.shortname;
-  if (data.attributes) {
-    if (data.attributes.description) description = data.attributes.description;
-    if (data.attributes.displayname) displayname = data.attributes.displayname;
-    if (data.attributes.payload && data.attributes.payload.embedded)
-      embedded = data.attributes.payload.embedded;
-		if(data.attributes.payload && data.attributes.payload.content_type)
-			content_type = data.attributes.payload.content_type;
-		if(data.attributes.payload && data.attributes.payload.filepath)
-			entryurl = `${website.backend}/media/${website.space_name}/${data.subpath}/entry/${data.attributes.payload.filepath}`;
-      title = ` Title: ${displayname} `;
-  }
-    }
-  }
-*/
   let tab_option = "edit";
   let status = "";
-
-  /*let show_close_warning = false;
-
-  function hideCloseWarning() { show_close_warning = false; }
-  function closeView() { $active_entry = { data: false}; }
-  function saveEntry() {
-    // TBD do the actual saving here
-  }*/
-  //onDestroy(() => show_close_warning = true);
-
 
 </script>
 <div bind:clientHeight="{header_height}">
@@ -172,7 +77,6 @@
     <Button outline color="warning" class="justify-contnet-center text-center" size="sm" on:click="{() => {active_entry.reset() }}"><Icon name="x-circle" /></Button>
   </ButtonGroup>
 </Nav>
-  <!--EntryHeader bind:tab_option {title} {status} /-->
 <hr class="my-0" />
 </div>
 <div class="px-1 pb-1 tab-content" style="height: calc(100% - {header_height}px); overflow: hidden auto;">
@@ -189,10 +93,9 @@
     <h5> You can only preview this content type {content_type} </h5> 
     <MediaView {url} {displayname} {content_type} />
   {:else if content_type.startsWith("text/html;")}
-    <!--HtmlEditor {uid} bind:modifiedValue /-->
-    <HtmlEditor bind:content on:changed={hasChanged}/>
+    <HtmlEditor bind:content on:changed={hasChanged} />
   {:else if content_type.startsWith("text/markdown;")}
-    <!--MarkdownEditor {content} /--> <p>{content}</p>
+    <MarkdownEditor bind:content on:changed={hasChanged} />
   {:else}
     <h4> Unrecognized conent type {content_type} </h4>
     <div class="px-1 pb-1 h-100" style="text-align: left; direction: ltr; overflow: hidden auto;">
