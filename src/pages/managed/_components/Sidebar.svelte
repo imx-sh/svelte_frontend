@@ -2,7 +2,7 @@
   //import { entries } from '../../_stores/entries.js';
   import { imx_entries } from '../../../imx.js';
   import {active_section} from "../_stores/active_section.js";
-  import active_entry from "../_stores/active_entry.js";
+  import { active_entry } from "../_stores/active_entry.js";
   import Folder from "./Folder.svelte";
   import { _ } from "../../../i18n";
   import { ready } from "@roxi/routify";
@@ -47,5 +47,6 @@
   {#if $active_entry.data}
     Shortname: {$active_entry.data.shortname} <br/>
     Displayname: {$active_entry.data.displayname} <br/>
+    Content type: {$active_entry.data.attributes.payload.content_type}
   {/if}
 </div>

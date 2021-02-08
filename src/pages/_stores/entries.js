@@ -1,5 +1,7 @@
 import { writable } from 'svelte/store';
+
 const { subscribe, set, update } = writable({});
+
 export const entries = {
     set: (value) => set(value),
 		subscribe,

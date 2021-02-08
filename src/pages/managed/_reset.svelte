@@ -6,7 +6,7 @@
 	import Login from "./_components/Login.svelte";
   import sections from "./_stores/sections.json";
   import {active_section} from "./_stores/active_section.js";
-  import active_entry from "./_stores/active_entry.js";
+  import { active_entry } from "./_stores/active_entry.js";
   import { leftover } from '@roxi/routify';
   import EntryEditor from "./_components/EntryEditor.svelte";
 
@@ -42,6 +42,8 @@
     <Col sm="10" class="h-100 border border-primary" >
       {#if $active_entry.data}
       <EntryEditor />
+      {:else}
+        <div class="alert alert-warning" role="alert"> Open entry from the sidebar </div>
       {/if}
     </Col>
   </Row>

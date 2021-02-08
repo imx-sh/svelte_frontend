@@ -9,6 +9,7 @@
 	export let tab_option;
 	export let title;
   export let status;
+
 </script>
 
 <Nav class="w-100">
@@ -35,6 +36,9 @@
 		<span class="ps-2 pe-1"> {$_("status")} </span>
 		<span class="font-monospace" ><small>{status}</small></span>
 	</ButtonGroup>
+  <ButtonGroup>
+    <Button outline color="warning" class="justify-contnet-center text-center" size="sm"><Icon name="x-circle" /></Button>
+  </ButtonGroup>
 </Nav>
 
 <style>

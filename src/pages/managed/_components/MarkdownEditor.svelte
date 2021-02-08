@@ -1,7 +1,9 @@
 <script>
   import {Container, Row, Col} from "sveltestrap";
   import marked from 'marked';
+  //import { createEventDispatcher } from "svelte";
   export let content; // = "# Example Title\n\n- this\n- is\n- a list";
+  //const dispatch = createEventDispatcher();
 </script>
 
 <Container fluid={true} class="h-100">

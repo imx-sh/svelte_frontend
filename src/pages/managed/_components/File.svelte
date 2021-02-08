@@ -6,7 +6,7 @@
 
 <script>
   import Icon from "../../_components/Icon.svelte";
-  import active_entry from "../_stores/active_entry.js";
+  import { active_entry } from "../_stores/active_entry.js";
 
   export let data;
 
