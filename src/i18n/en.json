@@ -140,5 +140,6 @@
 	"views": "Views",
 	"actions": "Actions",
 	"status": "Status",
+  "near_by": "Near by",
   "under_development": "Under development"
 }

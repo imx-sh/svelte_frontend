@@ -112,7 +112,7 @@
   {
     "name": "query",
     "path": "/managed/query", 
-    "icon": "question-circle",
+    "icon": "binoculars",
     "children": [
       {"type": "apiquery"}
     ]
