@@ -16,6 +16,19 @@
     ]
   },
   {
+    "name": "subscriptions",
+    "path": "/managed/subscriptions", 
+    "icon": "rss", 
+    "children": [
+      { 
+        "type": "folder", 
+        "expanded": false, 
+        "children_loaded": false, 
+        "imx_path": "posts" 
+      }
+    ]
+  },
+  {
     "name": "content",
     "path": "/managed/content", 
     "icon": "journals", 

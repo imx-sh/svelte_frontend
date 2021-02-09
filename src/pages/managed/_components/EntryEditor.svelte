@@ -45,7 +45,7 @@
   }
 
   let tab_option = "edit";
-  let status = "";
+  $: status = $has_changed ? "Modified" : "Uptodate";
 
 </script>
 <div bind:clientHeight="{header_height}">
@@ -64,8 +64,7 @@
 	</ButtonGroup>
 	<ButtonGroup size="sm" class="align-items-center">
 		<span class="ps-2 pe-1"> {$_("actions")} </span>
-		<Button outline color="success" class="justify-content-center text-center" size="sm"><Icon name="arrow-bar-up" /></Button>
-		<Button outline color="success" class="justify-content-center text-center" size="sm"><Icon name="arrow-bar-up" /></Button>
+    <Button outline color="{$has_changed ? 'danger':'success'}" class="justify-content-center text-center" size="sm"><Icon name="upload" /></Button>
 		<Button outline color="success" class="justify-content-center text-center" size="sm"><Icon name="file-check" /></Button>
 		<Button outline color="success" class="justify-content-center text-center" size="sm"><Icon name="trash" /></Button>
 	</ButtonGroup>
@@ -74,7 +73,7 @@
 		<span class="font-monospace" ><small>{status}</small></span>
 	</ButtonGroup>
   <ButtonGroup>
-    <Button outline color="warning" class="justify-contnet-center text-center" size="sm" on:click="{() => {active_entry.reset() }}"><Icon name="x-circle" /></Button>
+    <Button outline color="success" class="justify-contnet-center text-center" size="sm" on:click="{() => {active_entry.reset() }}"><Icon name="x-circle" /></Button>
   </ButtonGroup>
 </Nav>
 <hr class="my-0" />
