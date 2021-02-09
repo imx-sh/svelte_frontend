@@ -47,7 +47,19 @@
   let tab_option = "edit";
   $: status = $has_changed ? "Modified" : "Uptodate";
 
+  function beforeUnload() {
+    // Cancel the event as stated by the standard.
+    if($has_changed) {
+      event.preventDefault();
+      let message = 'There are unsaved modifications. Are you sure you want to leave page?';
+      event.returnValue = message; // Chrome requires returnValue to be set.
+      return message; // more compatibility
+    }
+  }
+
 </script>
+
+<svelte:window on:beforeunload={beforeUnload}/>
 <div bind:clientHeight="{header_height}">
 <Nav class="w-100">
 	<ButtonGroup size="sm" class="align-items-center">
