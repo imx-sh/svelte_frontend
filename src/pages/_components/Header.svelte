@@ -27,6 +27,7 @@
   </Nav>
 	<Form inline="true" class="ms-auto d-flex my-2 my-lg-0">
     <Input
+      bsSize="sm"
       type="search"
       readonly={false}
       placeholder={$_('searching_for_what')}
@@ -34,6 +35,7 @@
       bind:value={search}
       tag="input" />
     <Button
+      size="sm"
       outline="true"
       color="secondary"
       class=" my-2 my-sm-0 "
