@@ -42,8 +42,8 @@
 		<slot />
 		</Input>
   <!--FormFeedback tooltip={true} {valid}> required </FormFeedback-->
-  <!--div class="col-md-1 invalid-feedback text-right">required</div-->
-  <!--div class="col-md-1 valid-feedback text-right">something</div-->
+  <!--div class="col-md-1 invalid-feedback text-start">required</div-->
+  <!--div class="col-md-1 valid-feedback text-start">something</div-->
 </FormGroup>
 <!--/Col>
 </Row-->

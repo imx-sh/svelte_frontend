@@ -34,16 +34,17 @@
 </div>
 {:else}
   <div bind:clientHeight={header_height} class="fixed-top" ><Header /></div>
-  <Container fluid={true} id="mymain" class="border border-secondary position-relative p-0" style="top: {header_height}px; height: {calced_body_height}px;">
+    <!--border border-secondary-->
+  <Container fluid={true} id="mymain" class="position-relative p-0" style="top: {header_height}px; height: {calced_body_height}px;">
   <Row class="h-100" noGutters> 
-    <Col sm="2" class="h-100 border border-success">
+    <Col sm="2" class="h-100 border border-light px-1">
       <Sidebar />
     </Col>
-    <Col sm="10" class="h-100 border border-primary" >
+    <Col sm="10" class="h-100 border border-light px-1" >
       {#if $active_entry.data}
       <EntryEditor />
       {:else}
-        <div class="alert alert-warning" role="alert"> Open entry from the sidebar </div>
+        <div class="alert alert-warning alert-dismissible fade show text-center" role="alert"> Select entry from the <strong>sidebar</strong> on the left. </div>
       {/if}
     </Col>
   </Row>

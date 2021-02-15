@@ -1,6 +1,8 @@
 [
   {
+    "id": "userprofile",
     "name": "userprofile",
+    "description": "",
     "path": "/managed/userprofile", 
     "icon": "person-circle",
     "children": [

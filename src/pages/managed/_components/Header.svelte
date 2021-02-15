@@ -10,19 +10,21 @@
 
 </script>
 
-<Navbar color="light" light="{true}" expand="md" class="py-0 px-2">
-	<Nav tabs class="align-items-center w-100">
+<Navbar class="py-0 px-1">
+  <Nav tabs class="align-items-center w-100" style="background-color: #f4f4f4;">
     {#each $sections as section}
+      <NavItem>
       <NavLink href="{$url(section.path)}" title="{$_(section.name)}" on:click="{() => { $active_section = section; }}" active="{$active_section.path == section.path}">
         <Icon name="{section.icon}"/>
         {#if section.notifications > 0}
           <span class="badge rounded-pill bg-danger custom-badge">{section.notifications}</span>
         {/if}
       </NavLink>
+      </NavItem>
     {/each}
-    <NavLink href="/" title={$_("published")} > <Icon name="globe" /> </NavLink>
-      <SelectLanguage />
-    <NavLink href="#" title={$_("logout")} on:click={signedin_user.logout}> <Icon name="power" /> </NavLink>
+    <NavItem><NavLink href="/" title={$_("published")} > <Icon name="globe" /> </NavLink></NavItem>
+    <NavItem><SelectLanguage /></NavItem>
+    <NavItem><NavLink href="#" title={$_("logout")} on:click={signedin_user.logout}> <Icon name="power" /> </NavLink></NavItem>
 		<Form inline="true" class="ms-auto " >
 		  <InputGroup size="sm"> 
 				<Input placeholder={$_("searching_for_what")} /> 
