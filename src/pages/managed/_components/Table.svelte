@@ -33,6 +33,7 @@
     </tr>
   </thead>
   <tbody>
+    {#if rows }
 		{#each rows as row, i}
 			<tr>
 				<th scope="row">{$number(i)}</th>
@@ -41,6 +42,7 @@
 				{/each}
 			</tr>
 		{/each}
+  {/if}
   </tbody>
 </Table>
 

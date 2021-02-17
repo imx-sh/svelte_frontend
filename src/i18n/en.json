@@ -45,7 +45,7 @@
   "extensions": "Extensions",
   "search": "Search",
   "searching_for_what": "Searching for?",
-  "userprofile": "User profile",
+  "memberprofile": "Member profile",
   "login": "Login",
   "logout": "Logout",
   "query": "Query",
@@ -58,7 +58,6 @@
   "edit": "Edit",
   "activate": "Activate",
   "preview": "Preview",
-  "attachments": "Attachments",
   "source": "Source",
   "history": "History",
   "save": "Save",
@@ -141,5 +140,6 @@
 	"actions": "Actions",
 	"status": "Status",
   "near_by": "Near by",
+  "is_active": "Is active?",
   "under_development": "Under development"
 }

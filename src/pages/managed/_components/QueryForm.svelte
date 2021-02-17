@@ -3,17 +3,15 @@
   import Input from "../../_components/Input.svelte";
   import { _ } from "../../../i18n";
   import { imx_query } from "../../../imx.js";
-  import { createEventDispatcher } from "svelte";
+  import { query_response } from "../_stores/query_response.js";
 
-  const dispatch = createEventDispatcher();
   async function handleResponse(event) {
     let query = event.detail;
 		query.resource_types = [query.resource_types];
 		query.limit = parseInt(query.limit, 10);
 		query.offset = parseInt(query.offset, 10);
 		//console.log("Query: ", query);
-		let json = await imx_query(query);
-	  dispatch("response", json);
+		$query_response = await imx_query(query);
   }
 </script>
 

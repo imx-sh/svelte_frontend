@@ -6,20 +6,21 @@
 	import Login from "./_components/Login.svelte";
   import sections from "./_stores/sections.json";
   import {active_section} from "./_stores/active_section.js";
-  import { active_entry } from "./_stores/active_entry.js";
   import { leftover } from '@roxi/routify';
-  import EntryEditor from "./_components/EntryEditor.svelte";
 
 	let window_height;
 	let header_height;
-	$: calced_body_height =  window_height - header_height - 8 ; //- footer_height;
 
+  export let scoped; scoped;
+  export let scopedSync; scopedSync;
+
+  //console.log("leftover", $leftover, "active section name", $active_section);
   if($leftover && ! $leftover.startsWith($active_section.name)) {
     for(let section of sections) { 
-      //console.log("Comparing " + $leftover + " to " + section.name); 
+      //console.log("Comparing ", $leftover, section.name); 
       if($leftover.startsWith(section.name)) {
         $active_section = section;
-        console.log(`Setting active section to ${section.name}.`); //Page title: ${page.title}`);
+        //console.log(`Setting active section to ${section.name}.`); //Page title: ${page.title}`);
         break;
       }
     }
@@ -35,17 +36,13 @@
 {:else}
   <div bind:clientHeight={header_height} class="fixed-top" ><Header /></div>
     <!--border border-secondary-->
-  <Container fluid={true} id="mymain" class="position-relative p-0" style="top: {header_height}px; height: {calced_body_height}px;">
+  <Container fluid={true} id="mymain" class="position-relative p-0" style="top: {header_height}px; height: {window_height - header_height - 8}px;">
   <Row class="h-100" noGutters> 
     <Col sm="2" class="h-100 border border-light px-1">
       <Sidebar />
     </Col>
     <Col sm="10" class="h-100 border border-light px-1" >
-      {#if $active_entry.data}
-      <EntryEditor />
-      {:else}
-        <div class="alert alert-warning alert-dismissible fade show text-center" role="alert"> Select entry from the <strong>sidebar</strong> on the left. </div>
-      {/if}
+        <slot />
     </Col>
   </Row>
 </Container>

@@ -31,7 +31,7 @@
     filetree_direction = 'left'
 
 [[custom_plugins]]
-  name = 'evanleck/vim-svelte'
+  name = "leafOfTree/vim-svelte-plugin"
 
 [[custom_plugins]]
   name = 'vim-crystal/vim-crystal'

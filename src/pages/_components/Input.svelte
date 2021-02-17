@@ -23,9 +23,9 @@
 <!--Row form={true}>
 	<Col class="md-{md}"-->
 <FormGroup row={true}>
-	<Label class="col-md-3 text-start" for={id} size="sm">{title}</Label>
+	<Label class="text-start" for={id} size="sm">{title}</Label>
   <Input
-    class="col-md-6"
+    class=""
     {type}
     {id}
     name={id}

@@ -12,6 +12,10 @@ body {
 	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
 }
 
+.scroller {
+  scrollbar-color: darkgrey aliceblue;
+  scrollbar-width: thin;
+}
 #routify-app {
 	height: 100%;
 	width: 100%;

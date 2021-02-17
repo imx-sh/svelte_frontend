@@ -45,7 +45,7 @@
   "extensions": "إضافات",
   "search": "بحث",
   "searching_for_what": "ما الذي تبحث عنه؟",
-  "userprofile": "ملف المستخدم",
+  "memberprofile": "ملف المستخدم",
   "login": "ولوج",
   "logout": "خروج",
   "query": "استعلام",
@@ -58,7 +58,6 @@
   "edit": "تحرير",
   "activate": "تفعيل",
   "preview": "استعراض",
-  "attachments": "مُلحقات",
   "source": "مصدر",
   "history": "تاريخ",
   "save": "حفظ",
@@ -141,5 +140,6 @@
 	"actions": "الإجراءات",
 	"status": "الحالة",
   "near_by": "بالقرب منك",
+  "is_active": "فعال؟",
   "under_development": "تحت التطوير"
 }

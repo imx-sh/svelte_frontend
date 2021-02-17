@@ -24,9 +24,6 @@ kitty @ send-text --match title:NpmDev "npm run dev\n"
 #Install fzf pluging
 #sudo dnf install fzf
 #Install fish fzf plugin using fisher
-#fisher install jethrokuan/fzf
-#
-#
 #fisher install PatrickF1/fzf.fish
 #
 # Use fish config server

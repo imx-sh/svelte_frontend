@@ -1,20 +1,19 @@
 <script>
-  import { Nav, Badge, NavItem, NavLink, Collapse, UncontrolledDropdown, DropdownMenu, DropdownItem, DropdownToggle, Navbar, NavbarBrand, Form, Input, InputGroup, InputGroupText, NavbarToggler } from "sveltestrap";
+  import { Nav,  NavItem, NavLink, Navbar, Form, InputGroup, Input, InputGroupText } from "sveltestrap";
   import Icon from "../../_components/Icon.svelte";
-	import { _, locale, dir } from "../../../i18n";
+	import { _ } from "../../../i18n";
 	import SelectLanguage from "./SelectLanguage.svelte";
 	import signedin_user from "../_stores/signedin_user.js";
   import { url } from '@roxi/routify'
   import { active_section } from "../_stores/active_section.js";
   import sections from "../_stores/sections.js";
-
 </script>
 
 <Navbar class="py-0 px-1">
   <Nav tabs class="align-items-center w-100" style="background-color: #f4f4f4;">
     {#each $sections as section}
       <NavItem>
-      <NavLink href="{$url(section.path)}" title="{$_(section.name)}" on:click="{() => { $active_section = section; }}" active="{$active_section.path == section.path}">
+        <NavLink href="{$url("/managed/" + section.name)}" title="{$_(section.name)}" on:click="{() => { $active_section = section; }}" active="{$active_section.name == section.name}">
         <Icon name="{section.icon}"/>
         {#if section.notifications > 0}
           <span class="badge rounded-pill bg-danger custom-badge">{section.notifications}</span>

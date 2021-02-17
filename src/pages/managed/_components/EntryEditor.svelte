@@ -4,7 +4,7 @@
   import HtmlEditor from "./HtmlEditor.svelte";
   import MediaView from "../../_components/MediaView.svelte";
   //import { JSONEditor } from 'svelte-jsoneditor';
-	import { Modal, ModalHeader, ModalBody, ModalFooter, Badge, Nav, Button, ButtonToolbar, ButtonGroup } from "sveltestrap";
+	import { Nav, Button, ButtonGroup } from "sveltestrap";
   import Icon from "../../_components/Icon.svelte";
 	import { _ } from "../../../i18n";
   import { website } from "../../../space_config";
@@ -82,13 +82,13 @@
 	</ButtonGroup>
 	<ButtonGroup size="sm" class="align-items-center">
 		<span class="ps-2 pe-1"> {$_("status")} </span>
-		<span class="font-monospace" ><small>{status}</small></span>
+		<span class="font-monospace ps-2 pe-1" ><small>{status}</small></span>
 	</ButtonGroup>
   <ButtonGroup>
     <Button outline color="success" class="justify-contnet-center text-center" size="sm" on:click="{() => {active_entry.reset() }}"><Icon name="x-circle" /></Button>
   </ButtonGroup>
 </Nav>
-<hr class="my-0" />
+<!--hr class="my-0" /-->
 </div>
 <div class="px-1 pb-1 tab-content" style="height: calc(100% - {header_height}px); overflow: hidden auto;">
   <div class="h-100 tab-pane" class:active={tab_option === 'source'}>

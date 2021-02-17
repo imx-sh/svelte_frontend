@@ -127,7 +127,7 @@
   }
   :global(.cl-content) {
     font-family: "uthmantn";
-    font-size: 1.5rem !important;
+    font-size: 1.0rem !important;
   }
 
   /*

@@ -1,25 +1,26 @@
 [
   {
-    "id": "userprofile",
-    "name": "userprofile",
-    "description": "",
-    "path": "/managed/userprofile", 
+    "name": "memberprofile",
     "icon": "person-circle",
     "children": [
-      {"type": "userprofile"}
+      {
+        "type": "link",
+        "name": "memberprofile"
+      }
     ]
   },
   {
     "name": "dashboard",
-    "path": "/managed/dashboard", 
     "icon": "house-door",
     "children": [
-      {"type": "dashbaord"}
+      {
+        "type": "link", 
+        "name": "dashbaord"
+      }
     ]
   },
   {
     "name": "subscriptions",
-    "path": "/managed/subscriptions", 
     "icon": "rss", 
     "children": [
       { 
@@ -32,7 +33,6 @@
   },
   {
     "name": "content",
-    "path": "/managed/content", 
     "icon": "journals", 
     "children": [
       { 
@@ -45,7 +45,6 @@
   },
   {
     "name": "tickets",
-    "path": "/managed/tickets", 
     "icon": "calendar2-check", 
     "children": [
       { 
@@ -58,7 +57,6 @@
   },
   {
     "name": "calendar",
-    "path": "/managed/calendar", 
     "icon": "calendar", 
     "children": [
       { 
@@ -71,7 +69,6 @@
   },
   {
     "name": "messages",
-    "path": "/managed/messages", 
     "icon": "envelope", 
     "children": [
       { 
@@ -84,15 +81,16 @@
   },
   {
     "name": "notifications",
-    "path": "/managed/notifications", 
     "icon": "bell",
     "children": [
-      {"type": "notifications"}
+      {
+        "type": "link",
+        "name": "notifications"
+      }
     ]
   },
   {
     "name": "contacts",
-    "path": "/managed/contacts", 
     "icon": "people", 
     "children": [
       { 
@@ -105,18 +103,22 @@
   },
   {
     "name": "sysadmin",
-    "path": "/managed/sysadmin", 
     "icon": "wrench",
     "children": [
-      {"type": "sysadmin"}
+      {
+        "type": "link",
+        "name": "sysadmin"
+      }
     ]
   },
   {
     "name": "query",
-    "path": "/managed/query", 
     "icon": "binoculars",
     "children": [
-      {"type": "apiquery"}
+      {
+        "type": "component",
+        "name": "queryform"
+      }
     ]
   }
 ]

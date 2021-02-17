@@ -5,48 +5,85 @@
   import { active_entry } from "../_stores/active_entry.js";
   import Folder from "./Folder.svelte";
   import { _ } from "../../../i18n";
-  import { ready } from "@roxi/routify";
+  import { onDestroy } from "svelte";
+  import { entries } from "./../_stores/entries.js";
+
+
+  // Section components
+  import QueryForm from "./QueryForm.svelte";
+
+  const components = {
+    "queryform": QueryForm
+  };
 
   let queryType = "subpath";
   let resourceTypes = ["folder", "post", "media"];
   let shortnames = [];
   let search = "";
-  let subpath = "posts";
   let max_returned_items = 100;
-  let imx_request;
-  let entries = [];
+  //let entries = {};
+  //let subpaths = [];
 
-  imx_request = imx_entries(subpath, resourceTypes, shortnames, queryType, search, max_returned_items).then( (_entries) => {
-     while (entries.length) { entries.pop(); } // Make sure we empty the array before loading from api
-    _entries.forEach((_entry) => { entries.push({data: _entry}); });
-    entries = entries; // A trick to triger update on svelte
-    //console.log(entries);
-    $ready();
+  let children = [];
+  let name = "";
+
+  const unsubscribe = active_section.subscribe(value => {
+    name = value.name;
+    children = value.children;
+    //console.log("Active section has changed to ", name, children);
+    for(let child of children) {
+      if(child.type && child.type == "folder" && child.imx_path && !(child.imx_path in $entries ))  {
+        let subpath = child.imx_path;
+        imx_entries(subpath, resourceTypes, shortnames, queryType, search, max_returned_items).then( (_entries) => {
+          $entries[subpath] = []; // Empty the list of entries for the subpath
+          //console.log("Loading entries for ", subpath);
+          _entries.forEach((_entry) => { $entries[subpath].push({data: _entry}); });
+        });
+      }
+    }
   });
+
+  onDestroy(unsubscribe);
 
 	let title_height;
   let footer_height;
-</script>
 
+</script>
 <div bind:clientHeight="{title_height}">
   <h5 class="my-0"> 
-    {#if "name" in $active_section}
-      {$_($active_section.name)} 
+    {#if name}
+      {$_(name)} 
     {/if}
   </h5>
-	<hr class="my-0" />
+	<hr class="w-100 mt-1 mb-0" />
 </div>
-<div style="height: calc(100% - {title_height + footer_height + 4}px); overflow: hidden auto;">
-	<p> Entries </p>
-    {#each entries as entry}
+<div class="scroller pe-0" style="height: calc(100% - {title_height + footer_height}px); overflow: hidden auto;">
+  {#each children as child}
+    <span> {child.name} <br/></span>
+    {#if child.type == "link"}
+      <!--p class="my-0 font-monospace"><small>{JSON.stringify(child, undefined,1)}</small></p-->
+      <p class="my-0"> {child.name} </p> 
+    {:else if child.type == "component" && child.name in components}
+      <p class="my-0"> Inside component {child.name} </p>
+      <svelte:component this={components[child.name]}/>
+    {:else if child.type == "folder" && $entries[child.imx_path] && $entries[child.imx_path].length > 0}
+      <p> {child.imx_path} <p>
+      {#each $entries[child.imx_path] as entry}
       <Folder data={entry.data} />
-    {/each}
+      {/each}
+    {/if}
+  {/each}
 </div>
 <div bind:clientHeight="{footer_height}">
-	<hr class="my-0" />
   {#if $active_entry.data}
-    Shortname: {$active_entry.data.shortname} <br/>
-    Displayname: {$active_entry.data.displayname} <br/>
-    Content type: {$active_entry.data.attributes.payload.content_type}
+	<hr class="my-0" />
+    <p class="lh-1 my-0">
+    <small >
+      <span class="text-muted">Shortname:</span> {$active_entry.data.shortname} <br/>
+      <span class="text-muted">Displayname:</span> {$active_entry.data.displayname} <br/>
+      <span class="text-muted">Content type:</span> {$active_entry.data.attributes.payload.content_type}
+    </small>
+    </p>
   {/if}
 </div>
+
