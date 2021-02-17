@@ -3,7 +3,9 @@
   import Input from "../../_components/Input.svelte";
   import { _ } from "../../../i18n";
   import { imx_query } from "../../../imx.js";
-  import { query_response } from "../_stores/query_response.js";
+  import { createEventDispatcher } from "svelte";
+
+  const dispatch = createEventDispatcher();
 
   async function handleResponse(event) {
     let query = event.detail;
@@ -11,11 +13,12 @@
 		query.limit = parseInt(query.limit, 10);
 		query.offset = parseInt(query.offset, 10);
 		//console.log("Query: ", query);
-		$query_response = await imx_query(query);
+		let json = await imx_query(query);
+	  dispatch("response", json);
   }
 </script>
 
-<Form title={$_('query_form')} on:response={handleResponse}>
+<Form title="_________" on:response={handleResponse}>
 	<Input id="query_type" type="select" title={$_('query_type')}  >
 		<option value="search">{$_('search')}</option>
 		<option value="subpath">{$_('subpath')}</option>

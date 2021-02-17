@@ -20,12 +20,10 @@
   }
 </script>
 
-<!--Row form={true}>
-	<Col class="md-{md}"-->
-<FormGroup row={true}>
-	<Label class="text-start" for={id} size="sm">{title}</Label>
+<FormGroup row={true} class="mx-1 py-0 ">
+	<Label class="text-start py-0 " for={id} size="sm">{title}</Label>
   <Input
-    class=""
+    class="py-0 form-control form-control-sm"
     {type}
     {id}
     name={id}
@@ -45,5 +43,3 @@
   <!--div class="col-md-1 invalid-feedback text-start">required</div-->
   <!--div class="col-md-1 valid-feedback text-start">something</div-->
 </FormGroup>
-<!--/Col>
-</Row-->

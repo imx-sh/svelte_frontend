@@ -141,5 +141,7 @@
 	"status": "Status",
   "near_by": "Near by",
   "is_active": "Is active?",
+  "tools": "Tools",
+  "console": "Console",
   "under_development": "Under development"
 }

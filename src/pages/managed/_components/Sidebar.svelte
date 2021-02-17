@@ -6,14 +6,17 @@
   import Folder from "./Folder.svelte";
   import { _ } from "../../../i18n";
   import { onDestroy } from "svelte";
+  import { url, isActive } from "@roxi/routify";
   import { entries } from "./../_stores/entries.js";
+  import { ListGroup, ListGroupItem, Card } from "sveltestrap";
+
 
 
   // Section components
-  import QueryForm from "./QueryForm.svelte";
+  // import QueryForm from "./QueryForm.svelte";
 
   const components = {
-    "queryform": QueryForm
+    // "queryform": QueryForm
   };
 
   let queryType = "subpath";
@@ -58,21 +61,23 @@
 	<hr class="w-100 mt-1 mb-0" />
 </div>
 <div class="scroller pe-0" style="height: calc(100% - {title_height + footer_height}px); overflow: hidden auto;">
+  <ListGroup flush>
   {#each children as child}
-    <span> {child.name} <br/></span>
     {#if child.type == "link"}
       <!--p class="my-0 font-monospace"><small>{JSON.stringify(child, undefined,1)}</small></p-->
-      <p class="my-0"> {child.name} </p> 
+    <ListGroupItem color="light" action href="{$url('/managed/'+name+'/'+child.name)}" active={$isActive('/managed/'+name+'/'+child.name)}> {$_(child.name)} </ListGroupItem>
     {:else if child.type == "component" && child.name in components}
-      <p class="my-0"> Inside component {child.name} </p>
       <svelte:component this={components[child.name]}/>
     {:else if child.type == "folder" && $entries[child.imx_path] && $entries[child.imx_path].length > 0}
-      <p> {child.imx_path} <p>
+      <ListGroupItem> 
+        <!--b> {child.name}</b> <br/--> 
       {#each $entries[child.imx_path] as entry}
       <Folder data={entry.data} />
       {/each}
+      </ListGroupItem>
     {/if}
   {/each}
+  </ListGroup>
 </div>
 <div bind:clientHeight="{footer_height}">
   {#if $active_entry.data}

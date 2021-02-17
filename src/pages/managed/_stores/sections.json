@@ -25,6 +25,7 @@
     "children": [
       { 
         "type": "folder", 
+        "name": "subscriptions",
         "expanded": false, 
         "children_loaded": false, 
         "imx_path": "posts" 
@@ -37,6 +38,7 @@
     "children": [
       { 
         "type": "folder", 
+        "name": "posts",
         "expanded": false, 
         "children_loaded": false, 
         "imx_path": "posts" 
@@ -49,6 +51,7 @@
     "children": [
       { 
         "type": "folder", 
+        "name": "tickets",
         "expanded": false, 
         "children_loaded": false, 
         "imx_path": "tickets" 
@@ -61,6 +64,7 @@
     "children": [
       { 
         "type": "folder", 
+        "name": "calendar",
         "expanded": false, 
         "children_loaded": false, 
         "imx_path": "calendar" 
@@ -73,6 +77,7 @@
     "children": [
       { 
         "type": "folder", 
+        "name": "messages",
         "expanded": false, 
         "children_loaded": false, 
         "imx_path": "messages" 
@@ -95,6 +100,7 @@
     "children": [
       { 
         "type": "folder", 
+        "name": "contacts",
         "expanded": false, 
         "children_loaded": false, 
         "imx_path": "contacts" 
@@ -112,12 +118,18 @@
     ]
   },
   {
-    "name": "query",
-    "icon": "binoculars",
+    "name": "tools",
+    "icon": "gear",
     "children": [
       {
-        "type": "component",
-        "name": "queryform"
+        "type": "link",
+        "name": "query",
+        "icon": "binoculars"
+      },
+      {
+        "type": "link",
+        "name": "console",
+        "icon": "terminal"
       }
     ]
   }

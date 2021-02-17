@@ -141,5 +141,7 @@
 	"status": "الحالة",
   "near_by": "بالقرب منك",
   "is_active": "فعال؟",
+  "tools": "أدوات",
+  "console": "محاورة",
   "under_development": "تحت التطوير"
 }
