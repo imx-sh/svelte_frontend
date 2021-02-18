@@ -70,8 +70,9 @@ export default {
 
         // resolve matching modules from current working directory
         resolve({
-            browser: true,
-            dedupe: importee => !!importee.match(/svelte(\/|$)/)
+          browser: true,
+          dedupe: importee => !!importee.match(/svelte(\/|$)/),
+          preferBuiltins: false,
         }),
         commonjs(),
 

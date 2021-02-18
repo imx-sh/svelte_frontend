@@ -81,8 +81,12 @@
     ]
   },
   "dependencies": {
+    "canvas": "^2.6.1",
     "cl-editor": "^2.2.0",
+    "highlight.js": "^10.6.0",
+    "markdown-it": "^12.0.4",
     "prettier": "^2.2.1",
-    "prettier-plugin-svelte": "^2.1.4"
+    "prettier-plugin-svelte": "^2.1.4",
+    "punycode": "^2.1.1"
   }
 }
