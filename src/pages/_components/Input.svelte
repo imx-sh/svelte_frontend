@@ -21,7 +21,7 @@
 </script>
 
 <FormGroup row={true} class="mx-1 py-0 ">
-	<Label class="text-start py-0 " for={id} size="sm">{title}</Label>
+	<Label class="text-start px-1 py-0 m-0" for={id} size="sm">{title}</Label>
   <Input
     class="py-0 form-control form-control-sm"
     {type}
