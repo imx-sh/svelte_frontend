@@ -5,13 +5,13 @@
   import { TabPane, TabContent, Nav, NavItem, NavLink } from 'sveltestrap';
   import {Container, Row, Col} from "sveltestrap";
   import QueryForm from "../_components/QueryForm.svelte"; 
-  import hljs from "highlight.js";
-  import json from "highlight.js/lib/languages/json";
+  //import hljs from "highlight.js";
+  //import json from "highlight.js/lib/languages/json";
 
   export let scoped; scoped;
   export let scopedSync; scopedSync;
 
-  hljs.registerLanguage("json", json);
+  //hljs.registerLanguage("json", json);
 
 	let results = {};
 	let rows = [];
@@ -21,7 +21,7 @@
 		//console.log("Response: ", event.detail);
 		results = event.detail;
 		rows = results.records;
-    highlighted = hljs.highlight("json", JSON.stringify(results, undefined, 1)).value;
+    highlighted = JSON.stringify(results, undefined, 1); //hljs.highlight("json", JSON.stringify(results, undefined, 1)).value;
 	}
 
 	let cols = {
@@ -84,5 +84,5 @@
 </Container>
 
 <style global>
-  @import "highlight.js/styles/a11y-light.css";
+  /*@import "highlight.js/styles/a11y-light.css";*/
 </style>

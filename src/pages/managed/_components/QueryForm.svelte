@@ -24,6 +24,9 @@
 		<option value="subpath">{$_('subpath')}</option>
 		<option value="random">{$_('random')}</option>
 		<option value="tags">{$_('tags')}</option>
+		<option value="folders">{$_('folders')}</option>
+		<option value="log">{$_('log')}</option>
+		<option value="history">{$_('history')}</option>
 	</Input>
 	<Input id="subpath" type="text" title={$_('subpath')} value="/posts"  />
 	<Input id="search" type="text" title={$_('search')} value="*"  />

@@ -72,7 +72,6 @@ export default {
         resolve({
           browser: true,
           dedupe: importee => !!importee.match(/svelte(\/|$)/),
-          preferBuiltins: false,
         }),
         commonjs(),
 

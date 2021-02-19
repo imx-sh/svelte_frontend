@@ -213,7 +213,6 @@ $('.console-input').on('keydown', function(event) {
     node.focus();
   }
 
-
 </script>
 
 <div class='console h-100' >

@@ -5,6 +5,7 @@
 
   setupI18n(); 
   $: { 
+    try {
 		document.dir = $dir; 
 		let head = document.getElementsByTagName('HEAD')[0];
 		
@@ -36,6 +37,9 @@
 
 		head.appendChild(bootstrap);
 		head.appendChild(fonts);
+    } catch (error) {
+      console.log("Error in App:", error)
+    }
 	}
 </script>
 

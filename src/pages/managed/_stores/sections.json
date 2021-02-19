@@ -15,12 +15,12 @@
     "children": [
       {
         "type": "link", 
-        "name": "dashbaord"
+        "name": "dashboard"
       }
     ]
   },
   {
-    "name": "subscriptions",
+    "name": "newsfeed",
     "icon": "rss", 
     "children": [
       { 

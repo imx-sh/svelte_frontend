@@ -67,7 +67,7 @@
 
   let tab_option = "edit";
   $: {
-    status = ($has_changed)? "Modified" : "Uptodate"
+    status = "<b>" + (($has_changed)? "Modified" : "Uptodate") + "</b>"
     if(old_change_id) status += " " + old_change_id.substring(5,13);
     if(new_change_id) status += " => " + new_change_id.substring(5,13);
   }
@@ -118,7 +118,7 @@
 
 <svelte:window on:beforeunload={beforeUnload}/>
 <div bind:clientHeight="{header_height}">
-<Nav class="w-100 pb-1">
+<Nav class="w-100">
 	<ButtonGroup size="sm" class="align-items-center">
 		<!--span class="ps-2 pe-1"> {$_("shortname")} </span-->
 		<span class="font-monospace" ><small>{displayname}</small></span>
@@ -126,35 +126,35 @@
 	<ButtonGroup size="sm" class="ms-auto align-items-center">
 		<span class="ps-2 pe-1"> {$_("views")} </span>
     <Button outline color="success" size="sm" 
-      class="justify-content-center text-center" 
+      class="justify-content-center text-center py-0 px-1" 
       active="{'edit' == tab_option}" 
       title={$_('edit')}
       on:click="{() => (tab_option = 'edit')}">
       <Icon name="pencil" />
     </Button>
     <Button outline color="success" size="sm" 
-      class="justify-content-center text-center" 
+      class="justify-content-center text-center py-0 px-1" 
       active="{'source' == tab_option}" 
       title={$_('source')}
       on:click="{() => (tab_option = 'source')}">
       <Icon name="code-slash" />
     </Button>
     <Button outline color="success" size="sm" 
-      class="justify-content-center text-center" 
+      class="justify-content-center text-center py-0 px-1" 
       active="{'details' == tab_option}" 
       title={$_('details')}
       on:click="{() => (tab_option = 'details')}">
       <Icon name="info" />
     </Button>
     <Button outline color="success" size="sm" 
-      class="justify-content-center text-center" 
+      class="justify-content-center text-center py-0 px-1" 
       active="{'attachments' == tab_option}" 
       title={$_('attachments')}
       on:click="{() => (tab_option = 'attachments')}">
       <Icon name="paperclip" />
     </Button>
     <Button outline color="success" size="sm" 
-      class="justify-content-center text-center" 
+      class="justify-content-center text-center py-0 px-1" 
       active="{'history' == tab_option}" 
       title={$_('history')}
       on:click="{() => (tab_option = 'history')}">
@@ -167,26 +167,31 @@
       outline color="{$has_changed ? 'danger':'secondary'}" 
       title={$_('save')} on:click={saveEntry}
       disabled={!$has_changed}
-      size="sm" class="justify-content-center text-center">
+      size="sm" class="justify-content-center text-center py-0 px-1">
       <Icon name="cloud-upload" />
     </Button>
     <Button outline color="success" size="sm"
       title={$_('activate')} on:click={togglePublishEntry}
-      class="justify-content-center text-center">
+      class="justify-content-center text-center py-0 px-1">
       <Icon name="file-check" />
     </Button>
     <Button outline color="success" size="sm"
       title={$_('delete')} on:click={deleteEntry}
-      class="justify-content-center text-center">
+      class="justify-content-center text-center py-0 px-1">
       <Icon name="trash" />
     </Button>
 	</ButtonGroup>
 	<ButtonGroup size="sm" class="align-items-center">
 		<span class="ps-2 pe-1"> {$_("status")} </span>
-		<span class="font-monospace ps-2 pe-1" ><small>{status}</small></span>
+    <Button outline color="{$has_changed?'danger':'success'}" size="sm" disabled={true} class="justify-content-center text-center py-0 px-1 me-1" >
+		<span class="font-monospace text-{$has_changed?'danger':'success'}" ><small>{@html status}</small></span>
+    </Button>
 	</ButtonGroup>
   <ButtonGroup>
-    <Button outline color="success" class="justify-contnet-center text-center" size="sm" on:click="{() => {active_entry.reset() }}"><Icon name="x-circle" /></Button>
+    <Button outline color="success" size="sm" 
+      title={$_('close')}
+      class="justify-contnet-center text-center py-0 px-1"
+      on:click="{() => {active_entry.reset() }}"><Icon name="x-circle" /></Button>
   </ButtonGroup>
 </Nav>
 <!--hr class="my-0" /-->
