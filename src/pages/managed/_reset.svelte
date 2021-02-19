@@ -7,6 +7,7 @@
   import sections from "./_stores/sections.json";
   import {active_section} from "./_stores/active_section.js";
   import { leftover } from '@roxi/routify';
+  import Notifications from 'svelte-notifications';
 
 	let window_height;
 	let header_height;
@@ -29,6 +30,7 @@
 
 <svelte:window bind:innerHeight={window_height} />
 
+<Notifications>
 {#if !$signedin_user}
 <div class="container-fluid d-flex align-items-start" id="login-container" style="height: {window_height-9}px; ">
   <Login />
@@ -38,16 +40,16 @@
     <!--border border-secondary-->
   <Container fluid={true} id="mymain" class="position-relative p-0" style="top: {header_height}px; height: {window_height - header_height - 8}px;">
   <Row class="h-100" noGutters> 
-    <Col sm="2" class="h-100 border border-light px-1">
+    <Col sm="2" class="h-100 border-end border-light px-1">
       <Sidebar />
     </Col>
-    <Col sm="10" class="h-100 border border-light px-1" >
+    <Col sm="10" class="h-100 border-start border-light px-1" >
         <slot />
     </Col>
   </Row>
 </Container>
 {/if}
-<!--div bind:clientHeight={footer_height} class="fixed-bottom" ><Footer /></div--> 
+</Notifications>
 
 <style>
 #login-container {

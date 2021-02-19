@@ -4,6 +4,7 @@
   import {active_section} from "../_stores/active_section.js";
   import { active_entry } from "../_stores/active_entry.js";
   import Folder from "./Folder.svelte";
+  import Icon from "../../_components/Icon.svelte";
   import { _ } from "../../../i18n";
   import { onDestroy } from "svelte";
   import { url, isActive } from "@roxi/routify";
@@ -29,9 +30,11 @@
 
   let children = [];
   let name = "";
+  let icon = "";
 
   const unsubscribe = active_section.subscribe(value => {
     name = value.name;
+    icon = value.icon;
     children = value.children;
     //console.log("Active section has changed to ", name, children);
     for(let child of children) {
@@ -54,23 +57,27 @@
 </script>
 <div bind:clientHeight="{title_height}">
   <h5 class="my-0"> 
-    {#if name}
-      {$_(name)} 
-    {/if}
+    {#if icon}<Icon name={icon} class="pe-1" />{/if}
+    {#if name}{$_(name)}{/if}
   </h5>
-	<hr class="w-100 mt-1 mb-0" />
+	<hr class="w-100 mt-1 mt-2 mb-0" />
 </div>
-<div class="scroller pe-0" style="height: calc(100% - {title_height + footer_height}px); overflow: hidden auto;">
+<div class="no-bullets scroller pe-0" style="height: calc(100% - {title_height + footer_height}px); overflow: hidden auto;">
   <ListGroup flush>
   {#each children as child}
     {#if child.type == "link"}
       <!--p class="my-0 font-monospace"><small>{JSON.stringify(child, undefined,1)}</small></p-->
-    <ListGroupItem color="light" action href="{$url('/managed/'+name+'/'+child.name)}" active={$isActive('/managed/'+name+'/'+child.name)}> {$_(child.name)} </ListGroupItem>
+    <ListGroupItem color="light" action href="{$url('/managed/'+name+'/'+child.name)}" active={$isActive('/managed/'+name+'/'+child.name)}>
+    {#if child.icon}<Icon name={child.icon} class="pe-1" />{/if}
+      {$_(child.name)} 
+    </ListGroupItem>
     {:else if child.type == "component" && child.name in components}
       <svelte:component this={components[child.name]}/>
     {:else if child.type == "folder" && $entries[child.imx_path] && $entries[child.imx_path].length > 0}
-      <ListGroupItem> 
+      <ListGroupItem class="px-0"> 
         <!--b> {child.name}</b> <br/--> 
+        <div class="mb-2"> <Icon name="diagram-3" /> <b>{$_(child.imx_path)}</b> entries</div>
+
       {#each $entries[child.imx_path] as entry}
       <Folder data={entry.data} />
       {/each}
@@ -91,4 +98,3 @@
     </p>
   {/if}
 </div>
-

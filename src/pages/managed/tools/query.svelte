@@ -61,26 +61,24 @@
     <Col sm="2" class="h-100">
 		 <QueryForm on:response={handleResponse}/>
     </Col>
-    <Col sm="10" class="h-100">
-      <div>
+    <Col sm="10" class="h-100 d-flex flex-column">
         <Nav tabs>
           <NavItem><NavLink href="#" on:click={function () {myactive = "original"; }} active={myactive == "original"}>{$_("raw")}</NavLink></NavItem>
           <NavItem><NavLink href="#" on:click={function () {myactive = "tabular";}} active={myactive == "tabular"}>{$_("tabular")}</NavLink></NavItem>
         </Nav>
-        <div class="h-100" style="height: 100%;">
+        <div class="flex-grow-0 overflow-y-auto" style="min-height: 0;">
           <TabContent class="h-100" activeTab={myactive} >
             <TabPane class="h-100" tabId="tabular" >
               <Table {cols} {rows}/>
             </TabPane>
             <TabPane class="h-100" tabId="original" >
-              <pre class="h-100 mx-2 hljs" style="direction: ltr; text-align: left; white-space: pre-wrap; overflow-y: scroll; overflow-x: hidden;">
+              <pre class="h-100 mx-2 hljs mb-0" style="direction: ltr; text-align: left; white-space: pre-wrap; overflow-y: scroll; overflow-x: hidden;">
                 <code>{@html highlighted}</code> 
               </pre>
               <!--Code language="json" code={JSON.stringify(results, null, 1)} /-->
             </TabPane>
           </TabContent>
         </div>
-      </div>
     </Col>
   </Row>
 </Container>

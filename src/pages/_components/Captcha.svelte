@@ -1,13 +1,9 @@
 <script>
   import { onMount } from "svelte";
   import {
-    FormFeedback,
     FormGroup,
     Label,
     Input,
-    Button,
-    Row,
-    Col,
   } from "sveltestrap";
   import { _, dir } from "../../i18n";
 
@@ -38,12 +34,14 @@
     image.src = ctx.canvas.toDataURL();
   });
 
-  export let valid;
-  let invalid;
+  export let valid = false;
+  let invalid = true;
   function handleInput(event) {
     //console.log("Random: ", random, "Input: ", event.target.value);
     if (event.target.value.length < 4) {
-      invalid = valid = undefined;
+      // invalid = valid = undefined;
+      invalid = true;
+      valid = false;
       return;
     }
     if (event.target.value == random) {
@@ -56,18 +54,17 @@
   }
 </script>
 
-<FormGroup row={true}>
+<FormGroup row={true} class="mx-1 py-0">
   <canvas bind:this={canvas} width="150" height="60" />
-	<Label class="col-md-3 text-start" for="captcha" size="sm">
+	<Label class="col-md-3 text-start px-1 py-0 m-0" for="captcha" size="sm">
     {$_('verfication')}
   </Label>
   <img class="col-md-2" bind:this={image} alt="check me out" />
   <Input
-    class="col-md-3"
+    class="py-0 form-control form-control-sm"
     id="captcha"
     type="text"
     placeholder={$_('enter_code_here')}
-    readonly={false}
     bsSize="md"
     {invalid}
     {valid}

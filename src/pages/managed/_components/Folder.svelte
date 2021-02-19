@@ -32,14 +32,50 @@
       children_loaded = true;
     }
   }
+
+  function newEntry() {
+  }
+
+  let info_modal;
+  function infoModal() {
+    info_modal = true;
+  }
+
+  function deleteFolder() {
+  }
 </script>
 
-<span class:expanded class="folder ps-2" on:click="{toggle}">
-  <Icon class="text-start" name="folder{expanded ? '2-open' : ''}" /> {displayname}
+<span class:expanded class="folder position-relative mt-1 ps-2" on:click="{toggle}">
+  <span style="overflow: hidden;">
+    <Icon class="text-start" name="folder{expanded ? '2-open' : ''}" /> {displayname}
+  </span>
+  <span class="toolbar top-0 end-0 position-absolute px-0">
+      <span
+        class="px-0"
+        title="Create Entry"
+        on:click|stopPropagation={newEntry}>
+        <Icon name="plus-square" />
+      </span>
+      <span
+        class="px-0"
+        title="details"
+				on:click|stopPropagation={infoModal}>
+        <Icon name="info-square" />
+      </span>
+      <span
+        class="px-0"
+        title="Delete Folder"
+        on:click|stopPropagation={deleteFolder}>
+        <Icon name="dash-square" />
+      </span>
+			<!--componentspan class="px-0" title="Expand/collapse" on:click|stopPropagation={toggle}>
+				<Icon name="arrow-{expanded ? 'down' : 'left'}-square" />
+			</span-->
+  </span>
 </span>
 
 {#if expanded}
-	<ul class="pt-1 px-1 ms-2 border-start">
+	<ul class="py-1 ps-1 ms-2 border-start">
     {#each children as child (child.data.shortname)}
       <li>
         {#if child.data.resource_type === 'folder'}
@@ -54,9 +90,10 @@
 
 <style>
   .folder {
-    font-weight: bold;
+    /*font-weight: bold;*/
     cursor: pointer;
     display: list-item;
+    list-style: none;
     border-top: thin dotted grey;
   }
 
@@ -78,6 +115,19 @@
 
   li {
     padding: 0;
+  }
+
+  .toolbar {
+    display: none;
+    color: brown;
+  }
+
+  .toolbar span:hover {
+    color: green;
+  }
+
+  .folder:hover .toolbar {
+    display: flex;
   }
 </style>
 

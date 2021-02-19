@@ -30,6 +30,7 @@
   .file {
     cursor: pointer;
     display: list-item;
+    list-style: none;
   }
 
   .file:hover {

@@ -109,7 +109,7 @@
   },
   {
     "name": "sysadmin",
-    "icon": "wrench",
+    "icon": "gear",
     "children": [
       {
         "type": "link",
@@ -119,7 +119,7 @@
   },
   {
     "name": "tools",
-    "icon": "gear",
+    "icon": "tools",
     "children": [
       {
         "type": "link",
@@ -130,6 +130,11 @@
         "type": "link",
         "name": "console",
         "icon": "terminal"
+      },
+      {
+        "type": "link",
+        "name": "logs",
+        "icon": "receipt-cutoff"
       }
     ]
   }

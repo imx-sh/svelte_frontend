@@ -3,27 +3,48 @@
   import MarkdownEditor from "./MarkdownEditor.svelte";
   import HtmlEditor from "./HtmlEditor.svelte";
   import MediaView from "../../_components/MediaView.svelte";
+  import InfoEditor from "./InfoEditor.svelte";
   //import { JSONEditor } from 'svelte-jsoneditor';
 	import { Nav, Button, ButtonGroup } from "sveltestrap";
   import Icon from "../../_components/Icon.svelte";
 	import { _ } from "../../../i18n";
   import { website } from "../../../space_config";
   import { onDestroy } from "svelte";
+  import { getNotificationsContext } from 'svelte-notifications';
+  import { imx_delete_content, imx_update_embedded } from "../../../imx";
+
+  const { addNotification } = getNotificationsContext();
 
 	let header_height;
   let content;
   let url;
   let uid;
   let content_type;
+  let resource_type;
+  let shortname;
   let displayname;
+  let subpath;
+  let old_change_id;
+  let new_change_id;
+  let status;
+  let data;
 
   const unsubscribe = active_entry.subscribe(value => {
+    // console.log("New subscription update", value);
     if(value.data) {
+      data = value.data;
       uid = value.data.subpath + '/' + value.data.shortname;
+      subpath = value.data.subpath;
+      resource_type = value.data.resource_type;
+      shortname = value.data.shortname;
       content = value.data.attributes.payload.embedded;
       content_type = value.data.attributes.payload.content_type;
       displayname = value.data.attributes.displayname;
       url = (value.data.attributes.payload.filepath) ? `${website.backend}/media/${website.space_name}/entry/${value.data.attributes.payload.filepath}` : null;
+			if (value.data.attributes && value.data.attributes.previous_change_id )
+				old_change_id = value.data.attributes.previous_change_id;
+      else
+        old_change_id = ""
     } else {
       uid = content = content_type = displayname = url = "";
     }
@@ -34,7 +55,7 @@
   onDestroy(unsubscribe);
 
   function hasChanged() {
-    let _has_changed = !(content === $active_entry.data.attributes.payload.embedded);
+    let _has_changed = !(content === data.attributes.payload.embedded);
     //console.log("Entry", $active_entry);
     //console.log("hasChanged called: ", _has_changed, $has_changed);
     //console.log("content vs embedded", content, "|", $active_entry.data.attributes.payload.embedded);
@@ -45,7 +66,11 @@
   }
 
   let tab_option = "edit";
-  $: status = $has_changed ? "Modified" : "Uptodate";
+  $: {
+    status = ($has_changed)? "Modified" : "Uptodate"
+    if(old_change_id) status += " " + old_change_id.substring(5,13);
+    if(new_change_id) status += " => " + new_change_id.substring(5,13);
+  }
 
   function beforeUnload() {
     // Cancel the event as stated by the standard.
@@ -57,28 +82,104 @@
     }
   }
 
+
+  async function saveEntry() {
+		if($has_changed) {
+      //console.log("Saving", content_type, content, subpath, shortname, resource_type);
+			let result = await imx_update_embedded(content_type, content, subpath, shortname, resource_type);
+      //console.log("Update result: ", result);
+			if (result && result.attributes && result.attributes.previous_change_id )
+				old_change_id = result.attributes.previous_change_id;
+      else
+        old_change_id = ""
+
+			if (result && result.attributes && result.attributes.new_change_id )
+				new_change_id = result.attributes.new_change_id;
+      else 
+        new_change_id = ""
+
+      $has_changed = false;
+      active_entry.updatePayload(content, old_change_id);
+      //console.log("Result status ", result);
+      //console.log("Old to new: ", old_change_id, " ==> ", new_change_id);
+
+			addNotification({
+        text: `Entry update (${result.status}) ${old_change_id.substring(5,13)} => ${new_change_id.substring(5,13)}`,
+				position: 'bottom-center',
+				type: (result.status == "success" )?'success':'warning',
+				removeAfter: 5000,
+			});
+		}
+  }
+  async function togglePublishEntry() {}
+  async function deleteEntry() {}
+
 </script>
 
 <svelte:window on:beforeunload={beforeUnload}/>
 <div bind:clientHeight="{header_height}">
-<Nav class="w-100">
+<Nav class="w-100 pb-1">
 	<ButtonGroup size="sm" class="align-items-center">
 		<!--span class="ps-2 pe-1"> {$_("shortname")} </span-->
 		<span class="font-monospace" ><small>{displayname}</small></span>
 	</ButtonGroup>
 	<ButtonGroup size="sm" class="ms-auto align-items-center">
 		<span class="ps-2 pe-1"> {$_("views")} </span>
-		<Button outline color="success" class="justify-content-center text-center" size="sm" active="{'edit' == tab_option}" on:click="{() => (tab_option = 'edit')}"><Icon name="pencil" /></Button>
-		<Button outline color="success" class="justify-content-center text-center" size="sm" active="{'source' == tab_option}" on:click="{() => (tab_option = 'source')}"><Icon name="code-slash" /></Button>
-		<Button outline color="success" class="justify-content-center text-center" size="sm" active="{'details' == tab_option}" on:click="{() => (tab_option = 'details')}"><Icon name="info" /></Button>
-		<Button outline color="success" class="justify-content-center text-center" size="sm" active="{'attachments' == tab_option}" on:click="{() => (tab_option = 'attachments')}"><Icon name="paperclip" /></Button>
-		<Button outline color="success" class="justify-content-center text-center" size="sm" active="{'history' == tab_option}" on:click="{() => (tab_option = 'history')}"><Icon name="clock-history" /></Button>
+    <Button outline color="success" size="sm" 
+      class="justify-content-center text-center" 
+      active="{'edit' == tab_option}" 
+      title={$_('edit')}
+      on:click="{() => (tab_option = 'edit')}">
+      <Icon name="pencil" />
+    </Button>
+    <Button outline color="success" size="sm" 
+      class="justify-content-center text-center" 
+      active="{'source' == tab_option}" 
+      title={$_('source')}
+      on:click="{() => (tab_option = 'source')}">
+      <Icon name="code-slash" />
+    </Button>
+    <Button outline color="success" size="sm" 
+      class="justify-content-center text-center" 
+      active="{'details' == tab_option}" 
+      title={$_('details')}
+      on:click="{() => (tab_option = 'details')}">
+      <Icon name="info" />
+    </Button>
+    <Button outline color="success" size="sm" 
+      class="justify-content-center text-center" 
+      active="{'attachments' == tab_option}" 
+      title={$_('attachments')}
+      on:click="{() => (tab_option = 'attachments')}">
+      <Icon name="paperclip" />
+    </Button>
+    <Button outline color="success" size="sm" 
+      class="justify-content-center text-center" 
+      active="{'history' == tab_option}" 
+      title={$_('history')}
+      on:click="{() => (tab_option = 'history')}">
+      <Icon name="clock-history" />
+    </Button>
 	</ButtonGroup>
 	<ButtonGroup size="sm" class="align-items-center">
 		<span class="ps-2 pe-1"> {$_("actions")} </span>
-    <Button outline color="{$has_changed ? 'danger':'success'}" class="justify-content-center text-center" size="sm"><Icon name="upload" /></Button>
-		<Button outline color="success" class="justify-content-center text-center" size="sm"><Icon name="file-check" /></Button>
-		<Button outline color="success" class="justify-content-center text-center" size="sm"><Icon name="trash" /></Button>
+    <Button 
+      outline color="{$has_changed ? 'danger':'secondary'}" 
+      title={$_('save')} on:click={saveEntry}
+      disabled={!$has_changed}
+      size="sm" class="justify-content-center text-center">
+      <Icon name="cloud-upload" />
+    </Button>
+    <Button outline color="success" size="sm"
+      title={$_('activate')} on:click={togglePublishEntry}
+      class="justify-content-center text-center">
+      <Icon name="file-check" />
+    </Button>
+    <Button outline color="success" size="sm"
+      title={$_('delete')} on:click={deleteEntry}
+      class="justify-content-center text-center">
+      <Icon name="trash" />
+    </Button>
 	</ButtonGroup>
 	<ButtonGroup size="sm" class="align-items-center">
 		<span class="ps-2 pe-1"> {$_("status")} </span>
@@ -95,7 +196,7 @@
     <!--JSONEditor json={data} /-->
     <div class="px-1 pb-1 h-100" style="text-align: left; direction: ltr; overflow: hidden auto;">
       <pre>
-        {JSON.stringify($active_entry.data, undefined, 1)}
+        {JSON.stringify(data, undefined, 1)}
       </pre>
     </div>
   </div>
@@ -103,9 +204,9 @@
   {#if url}
     <h5> You can only preview this content type {content_type} </h5> 
     <MediaView {url} {displayname} {content_type} />
-  {:else if content_type.startsWith("text/html;")}
+  {:else if content_type && content_type.startsWith("text/html;")}
     <HtmlEditor bind:content on:changed={hasChanged} />
-  {:else if content_type.startsWith("text/markdown;")}
+  {:else if content_type && content_type.startsWith("text/markdown;")}
     <MarkdownEditor bind:content on:changed={hasChanged} />
   {:else}
     <h4> Unrecognized conent type {content_type} </h4>
@@ -113,6 +214,9 @@
       <pre> {content} </pre>
     </div>
   {/if}
+  </div>
+  <div class="h-100 tab-pane" class:active={tab_option === 'details'}>
+    <InfoEditor data={data} />
   </div>
 </div>
 

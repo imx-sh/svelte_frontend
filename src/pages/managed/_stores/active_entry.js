@@ -12,15 +12,23 @@ function customSet(new_value) {
   }
 }
 
-function customUpdate(new_value) {
+function customUpdate(new_entry) {
   let old = get(active_entry);
-  console.log("Updating store from ... to", old, new_value);
-  return new_value;
+  console.log("Updating store from ... to", old, new_entry);
+  return new_entry;
+}
+
+function updatePayload(new_entry, embedded_payload, previous_change_id) {
+  //console.log("Updating payload to", embedded_payload, "new entry: ", new_entry);
+  new_entry.data.attributes.payload.embedded = embedded_payload;
+  new_entry.data.attributes.previous_change_id = previous_change_id;
+  return new_entry;
 }
 
 export const active_entry = {
   set: (value) => customSet(value),
-  update: () => update(active_entry => customUpdate(active_entry)),
+  updatePayload: (embedded_payload, previous_change_id) => update(entry => updatePayload(entry, embedded_payload, previous_change_id)),
+  update: () => update(entry => customUpdate(entry)),
   subscribe,
   reset: () => customSet(init),
 };
