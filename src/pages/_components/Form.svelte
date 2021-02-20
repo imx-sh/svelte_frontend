@@ -10,10 +10,10 @@
   export let title = "";
   function onSubmit(event) {
     event.preventDefault();
-		if(captcha && !valid_captcha) {
-			alert("Kindly fill captcha properly");
-			return;
-		}
+    if (captcha && !valid_captcha) {
+      alert("Kindly fill captcha properly");
+      return;
+    }
 
     const fd = new FormData(event.target);
     //console.log("Event: ", event.target[1]);
@@ -32,9 +32,9 @@
   // needs-validation
 </script>
 
-<Form on:submit={onSubmit} class="needs-validation">
+<Form on:submit="{onSubmit}" class="needs-validation">
   {#if title && title.length != 0}
-    <Row form={true}>
+    <Row form="{true}">
       <Col class="text-center">
         <h4>{title}</h4>
       </Col>
@@ -42,11 +42,11 @@
   {/if}
   <slot />
   {#if captcha}
-    <Captcha bind:valid={valid_captcha} />
+    <Captcha bind:valid="{valid_captcha}" />
   {/if}
-  <Row form={true}>
+  <Row form="{true}">
     <Col class="text-center">
-      <Button outline type="submit">{$_('submit')}</Button>
+      <Button outline type="submit">{$_("submit")}</Button>
     </Col>
   </Row>
 </Form>

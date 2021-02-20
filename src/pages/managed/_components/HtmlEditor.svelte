@@ -1,20 +1,20 @@
 <script>
-	import { onMount } from "svelte";
-	import Editor from "cl-editor/dist";
-	import { imx_content } from "../../../imx";
-	import sha1 from "../../../sha1";
-	import { Button, Toast, ToastBody, ToastHeader } from "sveltestrap";
+  import { onMount } from "svelte";
+  import Editor from "cl-editor/dist";
+  import { imx_content } from "../../../imx";
+  import sha1 from "../../../sha1";
+  import { Button, Toast, ToastBody, ToastHeader } from "sveltestrap";
   import { createEventDispatcher } from "svelte";
 
   const dispatch = createEventDispatcher();
 
   export let uid = "x";
-	export let content;
+  export let content;
 
-	let maindiv;
-	let editor = null;
+  let maindiv;
+  let editor = null;
 
-	/*
+  /*
 	let changed = false;
   let result;
 	let isOpen = false;
@@ -40,38 +40,38 @@
 		console.log("Resp: ", resp.results);
 	}*/
 
-	onMount(async () => {
+  onMount(async () => {
     editor = new Editor({
       target: maindiv,
       props: {
         height: "calc(90%)",
         actions: [
-						'viewHtml',
-						'undo', 
-						'redo', 
-						'b', 
-						'i', 
-						//'u', 
-						//'strike', 
-						//'sup', 
-						'sub', 
-						'h1', 
-						'h2', 
-						'p', 
-						'blockquote', 
-						'ol', 
-						'ul', 
-						'hr', 
-						'left', 
-						'right', 
-						'center', 
-						'justify', 
-						'a', 
-						'image', 
-						//'forecolor', 
-						//'backcolor', 
-						'removeFormat',
-						/*{
+          "viewHtml",
+          "undo",
+          "redo",
+          "b",
+          "i",
+          //'u',
+          //'strike',
+          //'sup',
+          "sub",
+          "h1",
+          "h2",
+          "p",
+          "blockquote",
+          "ol",
+          "ul",
+          "hr",
+          "left",
+          "right",
+          "center",
+          "justify",
+          "a",
+          "image",
+          //'forecolor',
+          //'backcolor',
+          "removeFormat",
+          /*{
 							name: 'save', // required
 							icon: '<svg class="icon blink"><use xlink:href="/symbol-defs.svg#floppy-disk" /></svg>', // string or html string (ex. <svg>...</svg>)
 							title: 'Save',
@@ -85,32 +85,31 @@
 								}
 							}
             }*/
-				],
+        ],
       },
     });
     editor.setHtml(content, true);
-		editor.$on('change', () => {
-			content = editor.getHtml(true);
-      dispatch('changed');
-      
-			// changed = true;
- 		});
-		/*editor.$on('bulr', () => {
+    editor.$on("change", () => {
+      content = editor.getHtml(true);
+      dispatch("changed");
+
+      // changed = true;
+    });
+    /*editor.$on('bulr', () => {
 			if(changed) {
 				content = editor.getHtml(true);
 				// data.attributes.payload.embedded = html;
 			}
 		});*/
-		
+
     //console.log("H-ID/SN: ", data.shortname, " is created");
-	});
+  });
 
   $: {
-    if(editor && content != editor.getHtml(true)) {
+    if (editor && content != editor.getHtml(true)) {
       editor.setHtml(content, true);
     }
   }
-
 </script>
 
 <!--Toast {isOpen} class="mr-1 align-text-bottom align-bottom" color="warning"-->
@@ -119,15 +118,19 @@
 	<ToastBody> {result.status} </ToastBody>
 </Toast-->
 
-<div class="h-100 pt-1" bind:this={maindiv} id="htmleditor-{uid}" />
+<div class="h-100 pt-1" bind:this="{maindiv}" id="htmleditor-{uid}"></div>
 
+<!--Toast {isOpen} class="fixed-bottom" color="warning">
+	<ToastHeader>Action status</ToastHeader>
+	<ToastBody> {result.status} </ToastBody>
+</Toast-->
 <style>
   :global(.cl) {
     height: 100%;
   }
   :global(.cl-content) {
     font-family: "uthmantn";
-    font-size: 1.0rem !important;
+    font-size: 1rem !important;
   }
 
   /*
@@ -141,7 +144,7 @@
     font-size: 32px;
   }*/
 
-	/*
+  /*
 	:global(.blink) {       
     display: inline;
     color: inherit;

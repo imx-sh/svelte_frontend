@@ -21,23 +21,23 @@
 </script>
 
 <div class="mb-2">
-<span class:expanded on:click={toggle} class="pe-2 py-1">
-  <Icon name={icon} class="me-1" />
-  <b>{displayname}</b>
-</span>
-{#if expanded}
-	<ul class="border-start pt-1 px-1 me-2 ">
-    {#each children as child}
-      <li>
-        {#if child.type === 'section'}
-          <svelte:self {path} {...child} />
-        {:else}
-          <SidebarItem {path} {...child} />
-        {/if}
-      </li>
-    {/each}
-  </ul>
-{/if}
+  <span class:expanded on:click="{toggle}" class="pe-2 py-1">
+    <Icon name="{icon}" class="me-1" />
+    <b>{displayname}</b>
+  </span>
+  {#if expanded}
+    <ul class="border-start pt-1 px-1 me-2 ">
+      {#each children as child}
+        <li>
+          {#if child.type === "section"}
+            <svelte:self path="{path}" {...child} />
+          {:else}
+            <SidebarItem path="{path}" {...child} />
+          {/if}
+        </li>
+      {/each}
+    </ul>
+  {/if}
 </div>
 
 <style>

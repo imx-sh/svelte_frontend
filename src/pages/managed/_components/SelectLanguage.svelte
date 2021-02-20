@@ -11,13 +11,13 @@
 </script>
 
 <ButtonGroup class="py-0">
-	{#each locales as key}
-		<Button
-			outline
-			color="info"
-			active="{key == $locale}"
-			size="sm"
-			on:click="{() => selectLocale(key)}">{key}</Button
-		>
-	{/each}
+  {#each locales as key}
+    <Button
+      outline
+      color="info"
+      active="{key == $locale}"
+      size="sm"
+      on:click="{() => selectLocale(key)}">{key}</Button
+    >
+  {/each}
 </ButtonGroup>

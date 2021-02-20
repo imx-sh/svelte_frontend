@@ -1,117 +1,119 @@
 <script>
-  import marked from 'marked';
-  import {afterUpdate} from 'svelte';
-  import {getTokens} from "./_utils/get_tokens.js";
+  import marked from "marked";
+  import { afterUpdate } from "svelte";
+  import { getTokens } from "./_utils/get_tokens.js";
 
-
-  export let scoped; scoped;
-  export let scopedSync; scopedSync;
+  export let scoped;
+  scoped;
+  export let scopedSync;
+  scopedSync;
 
   let console_div;
   let outputs_text = "";
   let input_text;
-  let cmdHistory = []
-  let cursor = -1
+  let cmdHistory = [];
+  let cursor = -1;
 
   // Output Welcome message
-  output('IMX Console')
-  output('Welcome to example console program.')
+  output("IMX Console");
+  output("Welcome to example console program.");
 
   // User Commands
 
   let cmds = {
     echo,
     clear,
-    help
-  }
+    help,
+  };
 
-  function echo (...a) {
-    return a.join(' ')
+  function echo(...a) {
+    return a.join(" ");
   }
-  echo.usage = "echo arg [arg ...]"
-  echo.doc = "Echos to output whatever arguments are input"
+  echo.usage = "echo arg [arg ...]";
+  echo.doc = "Echos to output whatever arguments are input";
 
-  function clear () {
+  function clear() {
     outputs_text = "";
   }
-  clear.usage = "clear"
-  clear.doc = "Clears the terminal screen"
+  clear.usage = "clear";
+  clear.doc = "Clears the terminal screen";
 
-  function help (cmd) {
+  function help(cmd) {
     if (cmd) {
-      let result = ""
-      let usage = cmds[cmd].usage
-      let doc = cmds[cmd].doc
-      result += (typeof usage === 'function') ? usage() : usage
-      result += "\n"
-      result += (typeof doc === 'function') ? doc() : doc
-      return result
+      let result = "";
+      let usage = cmds[cmd].usage;
+      let doc = cmds[cmd].doc;
+      result += typeof usage === "function" ? usage() : usage;
+      result += "\n";
+      result += typeof doc === "function" ? doc() : doc;
+      return result;
     } else {
-      let result = "**Commands:**\n\n"
-      print = Object.keys(cmds)
+      let result = "**Commands:**\n\n";
+      print = Object.keys(cmds);
       for (let p of print) {
-        result += "- " + p + "\n"
+        result += "- " + p + "\n";
       }
-      return result
+      return result;
     }
   }
-    
-  help.usage = () => "help [command]"
-  help.doc = () => "Without an argument, lists available commands. If used with an argument displays the usage & docs for the command."
 
+  help.usage = () => "help [command]";
+  help.doc = () =>
+    "Without an argument, lists available commands. If used with an argument displays the usage & docs for the command.";
 
   function handleKeydown(event) {
     //let key = event.key;
-		let keyCode = event.keyCode;
-    if(keyCode == 38) {  // UpArrow
-      if(cmdHistory.length > 0) {
-        cursor = Math.min(++cursor, cmdHistory.length - 1)
+    let keyCode = event.keyCode;
+    if (keyCode == 38) {
+      // UpArrow
+      if (cmdHistory.length > 0) {
+        cursor = Math.min(++cursor, cmdHistory.length - 1);
         input_text = cmdHistory[cursor];
       }
-    } else if (keyCode == 40 ) { // DownArrow
-      cursor = Math.max(--cursor, -1)
+    } else if (keyCode == 40) {
+      // DownArrow
+      cursor = Math.max(--cursor, -1);
       if (cursor === -1) {
         // input_text = '';
       } else {
         input_text = cmdHistory[cursor];
       }
-    } else if (keyCode == 13 ) { // New-line
+    } else if (keyCode == 13) {
+      // New-line
       event.preventDefault();
       let line = input_text;
-      input_text = '';
-      cmdHistory.unshift(line)
-      cursor = -1
-      let args = getTokens(line)[0]
+      input_text = "";
+      cmdHistory.unshift(line);
+      cursor = -1;
+      let args = getTokens(line)[0];
       //console.log("args", args);
-      output('&gt; ' + line);
-
+      output("&gt; " + line);
 
       let cmd;
-      if (args && args.length > 0) cmd = args.shift().value
+      if (args && args.length > 0) cmd = args.shift().value;
 
-      args = args.filter(x => x.type !== 'whitespace').map(x => x.value)
+      args = args.filter((x) => x.type !== "whitespace").map((x) => x.value);
       //cmdHistory.unshift(text)
-      if (typeof cmds[cmd] === 'function') {
-        let result = cmds[cmd](...args)
-        if (result === void(0)) {
+      if (typeof cmds[cmd] === "function") {
+        let result = cmds[cmd](...args);
+        if (result === void 0) {
           // output nothing
         } else if (result instanceof Promise) {
-          result.then(output)
+          result.then(output);
         } else {
           //console.log(result)
-          output(result)
+          output(result);
         }
-      } else if (cmd.trim() === '') {
-        output('')
+      } else if (cmd.trim() === "") {
+        output("");
       } else {
-        output("Command not found: `" + cmd + "`")
-        output("Use 'help' for list of commands.")
+        output("Command not found: `" + cmd + "`");
+        output("Use 'help' for list of commands.");
       }
-
     }
     //console.log(key, keyCode);
-	}
-// USER INTERFACE 
+  }
+  // USER INTERFACE
   /*
 // Set Focus to Input
 $('.console').click(function() {
@@ -137,27 +139,27 @@ function input() {
   }, 300);
   return cmd
   }*/
-   
-// Output to Console
-function output(print) {
-  /*if (!window.md) {
+
+  // Output to Console
+  function output(print) {
+    /*if (!window.md) {
     window.md = window.markdownit({
       linkify: true,
       breaks: true
     })
   }*/
-  outputs_text += marked("\n\n" + print);
-  //if (console_div && (console_div.scrollHeight > console_div.clientHeight)) {
-  //    console.log("Scrolling console_div", console_div.scrollHeight, console_div.clientHeight);
+    outputs_text += marked("\n\n" + print);
+    //if (console_div && (console_div.scrollHeight > console_div.clientHeight)) {
+    //    console.log("Scrolling console_div", console_div.scrollHeight, console_div.clientHeight);
     //console_div.scrollTo(0, console_div.scrollHeight - console_div.clientHeight);
-  //}
-  //$("#outputs").append(window.md.render(print))  
-  //$(".console").scrollTop($('.console-inner').height());
-}
+    //}
+    //$("#outputs").append(window.md.render(print))
+    //$(".console").scrollTop($('.console-inner').height());
+  }
 
   afterUpdate(() => {
-    if(console_div) {
-      console_div.scrollIntoView({behavior: "smooth", block: "end"});
+    if (console_div) {
+      console_div.scrollIntoView({ behavior: "smooth", block: "end" });
     }
   });
   /*
@@ -212,20 +214,26 @@ $('.console-input').on('keydown', function(event) {
   function autofocus(node) {
     node.focus();
   }
-
 </script>
 
-<div class='console h-100' >
-  <div id="console-inner" class='console-inner' bind:this={console_div}>
+<div class="console h-100">
+  <div id="console-inner" class="console-inner" bind:this="{console_div}">
     <div id="outputs">{@html outputs_text}</div>
-    <div class='output-cmd'><textarea on:keydown="{handleKeydown}" use:autofocus class='console-input' placeholder="Type command..."  bind:value={input_text} ></textarea></div>
+    <div class="output-cmd">
+      <textarea
+        on:keydown="{handleKeydown}"
+        use:autofocus
+        class="console-input"
+        placeholder="Type command..."
+        bind:value="{input_text}"></textarea>
+    </div>
   </div>
 </div>
 
 <style>
   .console {
     /*position: fixed;*/
-    font-family: monospace,monospace;
+    font-family: monospace, monospace;
     font-size: 0.85rem;
     color: #fff;
     /*width: calc(100% - 3em);*/
@@ -243,7 +251,7 @@ $('.console-input').on('keydown', function(event) {
   }
 
   .console-input {
-    font-family: monospace,monospace;
+    font-family: monospace, monospace;
     background-color: transparent;
     border: none;
     outline: none;
@@ -259,26 +267,26 @@ $('.console-input').on('keydown', function(event) {
   }
 
   .console-input:before {
-    content: '> ';
-    color: #FC3565;
+    content: "> ";
+    color: #fc3565;
     vertical-align: top;
   }
 
   .output-cmd:before {
-    content: '> ';
-    color: #FC3565;
+    content: "> ";
+    color: #fc3565;
     vertical-align: top;
   }
 
-.console-inner {
-  padding: 0.3em 1.1em;
-}
+  .console-inner {
+    padding: 0.3em 1.1em;
+  }
 
-#outputs div div {
-  color: #46f01d;
-  opacity: 0.8;
-  text-decoration: none;
-}
+  #outputs div div {
+    color: #46f01d;
+    opacity: 0.8;
+    text-decoration: none;
+  }
 
   /*
 .output-text:before {

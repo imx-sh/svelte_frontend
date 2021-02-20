@@ -1,7 +1,7 @@
 <script>
-  import {Container, Row, Col} from "sveltestrap";
+  import { Container, Row, Col } from "sveltestrap";
   import { createEventDispatcher } from "svelte";
-  import marked from 'marked';
+  import marked from "marked";
   /*
   import MarkdownIt from 'markdown-it';
   import hljs from 'highlight.js';
@@ -38,13 +38,19 @@
   */
 </script>
 
-<Container fluid={true} class="h-100 pt-1">
+<Container fluid="{true}" class="h-100 pt-1">
   <Row class="h-100">
     <Col sm="6" class="h-100">
-      <textarea maxlength="4096" class="h-100 w-100 m-0 font-monospace form-control form-control-sm" bind:value={content} on:input="{() => dispatch('changed')}" />
+      <textarea
+        maxlength="4096"
+        class="h-100 w-100 m-0 font-monospace form-control form-control-sm"
+        bind:value="{content}"
+        on:input="{() => dispatch('changed')}"></textarea>
     </Col>
     <Col sm="6" class="h-100">
-      <div class="h-100 w-100" style="overflow: hidden auto">{@html marked(content)}</div>
+      <div class="h-100 w-100" style="overflow: hidden auto">
+        {@html marked(content)}
+      </div>
     </Col>
   </Row>
 </Container>

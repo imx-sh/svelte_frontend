@@ -1,5 +1,5 @@
 <script>
-  import ContactForm from './_components/ContactForm.svelte';
+  import ContactForm from "./_components/ContactForm.svelte";
 </script>
 
 <ContactForm />

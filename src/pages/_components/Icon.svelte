@@ -1,22 +1,22 @@
 <script>
   //import classnames from './utils';
 
-  let className = '';
+  let className = "";
   export { className as class };
   export let name;
 
   function toClassName(value) {
-    let result = '';
+    let result = "";
 
-    if (typeof value === 'string' || typeof value === 'number') {
+    if (typeof value === "string" || typeof value === "number") {
       result += value;
-    } else if (typeof value === 'object') {
+    } else if (typeof value === "object") {
       if (Array.isArray(value)) {
-        result = value.map(toClassName).filter(Boolean).join(' ');
+        result = value.map(toClassName).filter(Boolean).join(" ");
       } else {
         for (let key in value) {
           if (value[key]) {
-            result && (result += ' ');
+            result && (result += " ");
             result += key;
           }
         }
@@ -27,13 +27,13 @@
   }
 
   function classnames(...args) {
-    return args.map(toClassName).filter(Boolean).join(' ');
+    return args.map(toClassName).filter(Boolean).join(" ");
   }
 
-  $: classes = classnames( className, `bi-${name} icon` );
+  $: classes = classnames(className, `bi-${name} icon`);
 </script>
 
-<i {...$$restProps} class={classes} />
+<i {...$$restProps} class="{classes}"></i>
 
 <style>
   .icon {

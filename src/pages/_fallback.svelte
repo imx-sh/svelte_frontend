@@ -1,213 +1,275 @@
-
-
 <script>
-  import { metatags, ready, url, leftover, params, afterPageLoad, isChangingPage } from "@roxi/routify";
+  import {
+    metatags,
+    ready,
+    url,
+    leftover,
+    params,
+    afterPageLoad,
+    isChangingPage,
+  } from "@roxi/routify";
   import { imx_pub_query, imx_entry_displayname } from "../imx.js";
   import EntryCard from "./_components/EntryCard.svelte";
   import { _, number } from "../i18n";
   import { onMount } from "svelte";
   import { Button, Row, Col } from "sveltestrap";
-	import About from "./about.svelte";
-	import Browse from "./_components/Browse.svelte";
-	import { website }  from '../space_config';
- 
-  export let scoped={};
+  import About from "./about.svelte";
+  import Browse from "./_components/Browse.svelte";
+  import { website } from "../space_config";
+
+  export let scoped = {};
   scoped;
-  export let scopedSync={};
+  export let scopedSync = {};
   scopedSync;
 
   let items = [];
-	let available = 0;
+  let available = 0;
   let loading = true;
 
-	let viewType;
-	let subpath;
-	let shortnames;
-	let parents = [];
-	let search = '*';
-	let queryType = 'search';
-	let resourceTypes = ["post", "biography", "reply", "share", "media", "reaction"];
-	let pageTitle;
-	let tags = [];
+  let viewType;
+  let subpath;
+  let shortnames;
+  let parents = [];
+  let search = "*";
+  let queryType = "search";
+  let resourceTypes = [
+    "post",
+    "biography",
+    "reply",
+    "share",
+    "media",
+    "reaction",
+  ];
+  let pageTitle;
+  let tags = [];
 
-	function load_page() {
-		shortnames = [];
-	  search = '*';
-	  queryType = 'search';
-		
-		// Trim "/" from beggning and end
-		let lo = decodeURI($leftover);
-		if (lo.startsWith('/')) lo = lo.slice(1);
-		if (lo.endsWith('/')) lo = lo.slice(0, -1);
-		let path = lo.split("/");
+  function load_page() {
+    shortnames = [];
+    search = "*";
+    queryType = "search";
 
-		//console.log("Path: ", path);
-		viewType = path[0]; // folder, tag, entry, search, random, recent
-		if(!viewType)
-			viewType = "folder";
+    // Trim "/" from beggning and end
+    let lo = decodeURI($leftover);
+    if (lo.startsWith("/")) lo = lo.slice(1);
+    if (lo.endsWith("/")) lo = lo.slice(0, -1);
+    let path = lo.split("/");
 
-		subpath = path.slice(1, -1).join("/"); // All entries except first and last
-		let shortname = path.slice(-1)[0]; // Last entry
+    //console.log("Path: ", path);
+    viewType = path[0]; // folder, tag, entry, search, random, recent
+    if (!viewType) viewType = "folder";
 
-		if(!subpath || !shortname) {
-			shortname = "";
-			subpath = (path.length < 2) ? "posts" : path[1];
-		}
+    subpath = path.slice(1, -1).join("/"); // All entries except first and last
+    let shortname = path.slice(-1)[0]; // Last entry
 
+    if (!subpath || !shortname) {
+      shortname = "";
+      subpath = path.length < 2 ? "posts" : path[1];
+    }
 
-		if (viewType == "search" && "q" in $params) {
-			search = decodeURI($params.q);
-			subpath += "/" + shortname;
-			shortname = `"${search}"`;
-		}
+    if (viewType == "search" && "q" in $params) {
+      search = decodeURI($params.q);
+      subpath += "/" + shortname;
+      shortname = `"${search}"`;
+    }
 
-		pageTitle = shortname;
+    pageTitle = shortname;
 
-		//metatags.title = pageTitle;
-		//metatags.description = 'Routes for Svelte'
+    //metatags.title = pageTitle;
+    //metatags.description = 'Routes for Svelte'
 
-		//console.log("Viewtype: ", viewType, " Shortname: ", shortname); 
-		switch (viewType) {
-			case "entry":
-				queryType = "subpath";
-				shortnames.push(shortname);
-				break;
-			case "tag":
-				//queryType = "tags";
-				if(shortname && shortname.trim() != "") {
-					search = `@tags:{${shortname}}`;
-					//console.log("Search: ", search);
-				}
-				break;
-			case "folder":
-				if(shortname)
-					subpath = `${subpath}/${shortname}`;
-				break;
-			case "random":
-				queryType = "random";
-				break;
-			case "search":
-				queryType = "search";
-				if(shortname)
-				//subpath = "/posts";
-				break;
-			case "recent":
-				queryType = "recent";
-				break;
-			default: 
-		}
+    //console.log("Viewtype: ", viewType, " Shortname: ", shortname);
+    switch (viewType) {
+      case "entry":
+        queryType = "subpath";
+        shortnames.push(shortname);
+        break;
+      case "tag":
+        //queryType = "tags";
+        if (shortname && shortname.trim() != "") {
+          search = `@tags:{${shortname}}`;
+          //console.log("Search: ", search);
+        }
+        break;
+      case "folder":
+        if (shortname) subpath = `${subpath}/${shortname}`;
+        break;
+      case "random":
+        queryType = "random";
+        break;
+      case "search":
+        queryType = "search";
+        if (shortname)
+          //subpath = "/posts";
+          break;
+      case "recent":
+        queryType = "recent";
+        break;
+      default:
+    }
 
-		parents = subpath.split("/");
-		//if( (viewType == "entry") && shortname)
-		//	parents.push(shortname);
+    parents = subpath.split("/");
+    //if( (viewType == "entry") && shortname)
+    //	parents.push(shortname);
 
-		parents = parents;
-		if(viewType == "entry")
-			parents.push(" ");
-	}
+    parents = parents;
+    if (viewType == "entry") parents.push(" ");
+  }
 
-	load_page();
-	load_tags();
-	load_next();
+  load_page();
+  load_tags();
+  load_next();
 
-	$afterPageLoad((event) => {
-	  let oldsubpath = subpath;
-		let oldshortnames = shortnames.join();
-		let oldpagetitle = pageTitle;
-		
-		load_page();
-		//console.log("old subpath: ", oldsubpath, "old shortnames: ", oldshortnames);
-		//console.log("subpath: ", subpath, "shortnames: ", shortnames);
-		if(oldsubpath != subpath || oldshortnames != shortnames.join() || oldpagetitle != pageTitle) {
-		  items = [];
-			load_tags();
-			load_next();
-		}
-	});
+  $afterPageLoad((event) => {
+    let oldsubpath = subpath;
+    let oldshortnames = shortnames.join();
+    let oldpagetitle = pageTitle;
 
+    load_page();
+    //console.log("old subpath: ", oldsubpath, "old shortnames: ", oldshortnames);
+    //console.log("subpath: ", subpath, "shortnames: ", shortnames);
+    if (
+      oldsubpath != subpath ||
+      oldshortnames != shortnames.join() ||
+      oldpagetitle != pageTitle
+    ) {
+      items = [];
+      load_tags();
+      load_next();
+    }
+  });
 
-	async function load_tags() {
-	    
-			let resp = await imx_pub_query(subpath, resourceTypes, [], (viewType=="tag")?"tags":"folders");
-			tags = resp.records[0].attributes.tags;
-			//console.log("Tags: ", tags, "parents: ", parents.join("/"), "qt: ", queryType);
-	}
+  async function load_tags() {
+    let resp = await imx_pub_query(
+      subpath,
+      resourceTypes,
+      [],
+      viewType == "tag" ? "tags" : "folders"
+    );
+    tags = resp.records[0].attributes.tags;
+    //console.log("Tags: ", tags, "parents: ", parents.join("/"), "qt: ", queryType);
+  }
 
-	async function load_next() {
-		let resp = await imx_pub_query( subpath, resourceTypes, shortnames, queryType, search, 10, items.length);
-		// console.log("Resp result: ", resp.results);
-		if(resp && resp.records) {
-			items = [...items, ...resp.records];
-			available = resp.results[0].attributes.total;
-		}
-		//if(viewType == "entry" && items.length > 0)
-		//	pageTitle = items[0].attributes.displayname;
+  async function load_next() {
+    let resp = await imx_pub_query(
+      subpath,
+      resourceTypes,
+      shortnames,
+      queryType,
+      search,
+      10,
+      items.length
+    );
+    // console.log("Resp result: ", resp.results);
+    if (resp && resp.records) {
+      items = [...items, ...resp.records];
+      available = resp.results[0].attributes.total;
+    }
+    //if(viewType == "entry" && items.length > 0)
+    //	pageTitle = items[0].attributes.displayname;
 
-		items = items;
-		$ready();
-		loading = false; 
-		//console.log("Subpath: ", subpath, "shortnames: ", shortnames, "querytype: ", queryType, "search: ", search, "Entries retrieved: ", items.length, " Total available: ", available);
-		//debugger
-	}
+    items = items;
+    $ready();
+    loading = false;
+    //console.log("Subpath: ", subpath, "shortnames: ", shortnames, "querytype: ", queryType, "search: ", search, "Entries retrieved: ", items.length, " Total available: ", available);
+    //debugger
+  }
 
-	async function load_more(event) {
-		event.preventDefault();
-		if( available > items.length ) {
-			loading = true;
-			await load_next();
-		}
-	}
-
+  async function load_more(event) {
+    event.preventDefault();
+    if (available > items.length) {
+      loading = true;
+      await load_next();
+    }
+  }
 </script>
 
 <svelte:head>
-	<meta name="Description" content={website.description} />
-	<title> {pageTitle} </title>
+  <meta name="Description" content="{website.description}" />
+  <title>{pageTitle}</title>
 </svelte:head>
 
-
 <!-- routify:options param-is-page=true -->
-{#if !$isChangingPage }
-<Row> 
-	<Col> 
-	  {#if location.pathname == "/"}
-			<About />
-		{/if}
-		{#each parents as parent, i}
-		{#if parent }
-			{#if i == 0 }
-				<b> ::<Button color="link" outline href={$url(`/${(viewType == "tag")?"tag":"folder"}/${parent}`)} > {$_(parent)} </Button> </b>
-			{:else if i == parents.length -1 }
-				<b> ::<Button disabled color="link" outline > {parent} </Button> </b>
-			{:else}
-				<b> ::<Button color="link" outline href={$url(`/${(viewType == "tag")?"tag":"folder"}/${parents.slice(0,i+1).join("/")}`)} > {parent} </Button> </b>
-			{/if}
-		{/if}
-		{/each}
-		{#if viewType == "search" || viewType == "tag" || viewType == "entry" }
-				<b> ::<Button disabled color="link" outline > {pageTitle} </Button> </b>
-		{/if}
-		 ( {$number(items.length)} / {$number(available)} )
-		<br/> 
-		<Browse {parents} {tags} {viewType} /> 
-		<hr/>
-	</Col> 
-</Row>
-<Row> 
-	<Col> 
-			{#each items as item, i }
-				<EntryCard data={item} extended={items.length==1} />
-			{/each}
-			{#if available > items.length}
-				<Button on:click={load_more} title="More" size="md" color="success" class="float-start" >
-				{$_("x_items_left_click_for_more", {values:{count: $number(available - items.length)}})}
-				</Button>
-			{:else if items.length > 1}
-				<Button on:click={load_more} title="More" size="md" color="success" disabled class="float-start" outline>
-				{$_("all_x_items_are_loaded", {values:{count: $number(items.length)}})}
-				</Button>
-			{/if}
-	</Col>
-</Row>
+{#if !$isChangingPage}
+  <Row>
+    <Col>
+      {#if location.pathname == "/"}
+        <About />
+      {/if}
+      {#each parents as parent, i}
+        {#if parent}
+          {#if i == 0}
+            <b>
+              ::<Button
+                color="link"
+                outline
+                href="{$url(
+                  `/${viewType == 'tag' ? 'tag' : 'folder'}/${parent}`
+                )}"
+              >
+                {$_(parent)}
+              </Button>
+            </b>
+          {:else if i == parents.length - 1}
+            <b> ::<Button disabled color="link" outline>{parent}</Button> </b>
+          {:else}
+            <b>
+              ::<Button
+                color="link"
+                outline
+                href="{$url(
+                  `/${viewType == 'tag' ? 'tag' : 'folder'}/${parents
+                    .slice(0, i + 1)
+                    .join('/')}`
+                )}"
+              >
+                {parent}
+              </Button>
+            </b>
+          {/if}
+        {/if}
+      {/each}
+      {#if viewType == "search" || viewType == "tag" || viewType == "entry"}
+        <b> ::<Button disabled color="link" outline>{pageTitle}</Button> </b>
+      {/if}
+      ( {$number(items.length)} / {$number(available)} )
+      <br />
+      <Browse parents="{parents}" tags="{tags}" viewType="{viewType}" />
+      <hr />
+    </Col>
+  </Row>
+  <Row>
+    <Col>
+      {#each items as item, i}
+        <EntryCard data="{item}" extended="{items.length == 1}" />
+      {/each}
+      {#if available > items.length}
+        <Button
+          on:click="{load_more}"
+          title="More"
+          size="md"
+          color="success"
+          class="float-start"
+        >
+          {$_("x_items_left_click_for_more", {
+            values: { count: $number(available - items.length) },
+          })}
+        </Button>
+      {:else if items.length > 1}
+        <Button
+          on:click="{load_more}"
+          title="More"
+          size="md"
+          color="success"
+          disabled
+          class="float-start"
+          outline
+        >
+          {$_("all_x_items_are_loaded", {
+            values: { count: $number(items.length) },
+          })}
+        </Button>
+      {/if}
+    </Col>
+  </Row>
 {/if}
-<h2> Here! </h2>
+<h2>Here!</h2>

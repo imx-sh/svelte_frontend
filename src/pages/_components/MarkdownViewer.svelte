@@ -2,5 +2,4 @@
   export let value;
 </script>
 
-
 {value}

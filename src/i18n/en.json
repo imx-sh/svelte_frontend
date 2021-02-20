@@ -145,5 +145,7 @@
   "console": "Console",
   "newsfeed": "News feed",
   "close": "Close",
+  "folders": "Folders",
+  "shortnames": "Shortnames",
   "under_development": "Under development"
 }

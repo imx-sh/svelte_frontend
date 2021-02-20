@@ -1,6 +1,4 @@
 <script>
 </script>
 
-<p> Console </p>
-
-
+<p>Console</p>

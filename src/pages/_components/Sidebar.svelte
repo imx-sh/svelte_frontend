@@ -1,6 +1,6 @@
 <script>
   import { Collapse, Navbar, NavbarToggler } from "sveltestrap";
-import { sections } from "../_stores/sections.js";
+  import { sections } from "../_stores/sections.js";
   import SidebarSection from "./SidebarSection.svelte";
   import SidebarItem from "./SidebarItem.svelte";
 
@@ -13,22 +13,23 @@ import { sections } from "../_stores/sections.js";
 
 <!-- TODO add search to the top -->
 <Navbar color="light" light expand="md">
-  <NavbarToggler on:click={() => (isOpen = !isOpen)} />
-  <Collapse {isOpen} navbar expand="md" on:update={handleUpdate}>
-  <ul class="w-100">
-    {#each $sections as child}
-      <li>
-        {#if child.type === 'section'}
-          <SidebarSection path={[]} {...child} />
-        {:else}
-          <SidebarItem path={[]} {...child} />
-        {/if}
-      </li>
-    {/each}
-  </ul>
+  <NavbarToggler on:click="{() => (isOpen = !isOpen)}" />
+  <Collapse isOpen="{isOpen}" navbar expand="md" on:update="{handleUpdate}">
+    <ul class="w-100">
+      {#each $sections as child}
+        <li>
+          {#if child.type === "section"}
+            <SidebarSection path="{[]}" {...child} />
+          {:else}
+            <SidebarItem path="{[]}" {...child} />
+          {/if}
+        </li>
+      {/each}
+    </ul>
   </Collapse>
 </Navbar>
 
+<!-- TODO add search to the top -->
 <style>
   ul {
     padding: 0.2em 0.2em 0 0; /*0.2em 0.5em 0 0;*/

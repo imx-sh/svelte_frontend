@@ -1,5 +1,5 @@
 <script>
-	import { redirect } from "@roxi/routify";
+  import { redirect } from "@roxi/routify";
   import { _ } from "../../i18n";
   import { active_subsection } from "../_stores/active_subsection.js";
   import Icon from "./Icon.svelte";
@@ -9,28 +9,26 @@
   export let type;
   export let icon;
   export let description = undefined;
-	export let link;
+  export let link;
 
   const displayname = $_(id);
   async function show_item() {
     //console.log("Requested to show item: ", path.join("|"), id, displayname);
     $active_subsection = { path: path, id: id, displayname: displayname };
-		if(!link.startsWith("http") && !link.startsWith("/")) {
-			link = "/" + link;
-		}
-			
-		if(link.startsWith("http"))
-			window.location.href = link;
-		else 
-			$redirect(link);
+    if (!link.startsWith("http") && !link.startsWith("/")) {
+      link = "/" + link;
+    }
 
-		//window.location.href = `/${link}`;
+    if (link.startsWith("http")) window.location.href = link;
+    else $redirect(link);
+
+    //window.location.href = `/${link}`;
   }
   type = type; // Silence the warning
 </script>
 
-<span on:click={show_item} class="pe-2 " title={description} >
-  <Icon name={icon} class="ms-1" />
+<span on:click="{show_item}" class="pe-2 " title="{description}">
+  <Icon name="{icon}" class="ms-1" />
   {displayname}
 </span>
 
