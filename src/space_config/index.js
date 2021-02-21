@@ -1,1 +1,1 @@
-wwwimx.js
+wwwimx.local.js

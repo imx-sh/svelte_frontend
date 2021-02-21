@@ -5,6 +5,16 @@
   import { TabPane, TabContent, Nav, NavItem, NavLink } from "sveltestrap";
   import { Container, Row, Col } from "sveltestrap";
   import QueryForm from "../_components/QueryForm.svelte";
+  import { onMount } from "svelte";
+
+  let Prism;
+  onMount(async () => {
+    const prismModule = await import("svelte-prismjs");
+    await import('prism-json-fold');
+    await import("prismjs/components/prism-json.js");
+    Prism = prismModule.default;
+  });
+
   //import hljs from "highlight.js";
   //import json from "highlight.js/lib/languages/json";
 
@@ -89,12 +99,14 @@
             <Table cols="{cols}" rows="{rows}" />
           </TabPane>
           <TabPane class="h-100" tabId="original">
-            <pre
+            <!--pre
               class="h-100 mx-2 hljs mb-0"
               style="direction: ltr; text-align: left; white-space: pre-wrap; overflow-y: scroll; overflow-x: hidden;">
                 <code>{@html highlighted}</code> 
-              </pre>
-
+              </pre-->
+              <svelte:component this={Prism} classes="h-100 mx-2 m-0 overflow-auto" style="direction: ltr; font-size: 0.8rem;">
+                {highlighted}
+              </svelte:component>
           </TabPane>
         </TabContent>
       </div>
@@ -103,5 +115,10 @@
 </Container>
 
 <style global>
-  /*@import "highlight.js/styles/a11y-light.css";*/
+  /*@import "prismjs/plugins/line-numbers/prism-line-numbers.css";
+  @import "prismjs/plugins/command-line/prism-command-line.css";
+  @import "prismjs/plugins/line-highlight/prism-line-highlight.css";*/
+  @import "prismjs/themes/prism.css";
+  @import "prismjs/themes/prism-coy.css";
+  @import "../../../../assets/prism-json-fold.css";
 </style>
