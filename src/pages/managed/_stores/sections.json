@@ -28,6 +28,7 @@
         "name": "subscriptions",
         "expanded": false, 
         "children_loaded": false, 
+        "resource_types": [],
         "imx_path": "posts" 
       }
     ]
@@ -41,6 +42,7 @@
         "name": "posts",
         "expanded": false, 
         "children_loaded": false, 
+        "resource_types": [],
         "imx_path": "posts" 
       }
     ]
@@ -54,6 +56,7 @@
         "name": "tickets",
         "expanded": false, 
         "children_loaded": false, 
+        "resource_types": [],
         "imx_path": "tickets" 
       }
     ]
@@ -67,6 +70,7 @@
         "name": "calendar",
         "expanded": false, 
         "children_loaded": false, 
+        "resource_types": [],
         "imx_path": "calendar" 
       }
     ]
@@ -80,7 +84,22 @@
         "name": "messages",
         "expanded": false, 
         "children_loaded": false, 
+        "resource_types": [],
         "imx_path": "messages" 
+      }
+    ]
+  },
+  {
+    "name": "submissions",
+    "icon": "truck", 
+    "children": [
+      { 
+        "type": "folder", 
+        "name": "submissions",
+        "expanded": false, 
+        "children_loaded": false, 
+        "resource_types": [],
+        "imx_path": "submissions" 
       }
     ]
   },
@@ -103,6 +122,7 @@
         "name": "contacts",
         "expanded": false, 
         "children_loaded": false, 
+        "resource_types": [],
         "imx_path": "contacts" 
       }
     ]

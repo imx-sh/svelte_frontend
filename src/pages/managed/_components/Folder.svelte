@@ -19,12 +19,13 @@
     if (!children_loaded) {
       const children_subpath = data.subpath + "/" + data.shortname;
       const _entries = await imx_entries(children_subpath, [
-        "folder",
+        /*"folder",
         "post",
-        /*"share",
+        "share",
         "reaction",
         "reply",
-        "media",*/
+        "media",
+  "feedback"*/ // Empty, means all.
       ]);
       while (children.length) {
         children.pop();

@@ -13,19 +13,29 @@
     CardFooter,
   } from "sveltestrap";
 
-  export let subpath;
-  export let parent_shortname;
-  export let attachments;
+  export let data;
   export let extended;
 
   let media;
   let replies;
 
-  if (attachments.reply) replies = attachments.reply;
-  if (attachments.media) media = attachments.media;
+  $: {
+    if (data.attachments.reply) {
+      replies = data.attachments.reply;
+    } else {
+      replies = [];
+    }
+    if (data.attachments.media) {
+      media = data.attachments.media;
+    } else {
+      media = [];
+    }
+  }
+
+
 
   function handle(type) {
-    console.log(subpath, parent_shortname);
+    console.log(data.subpath, data.parent_shortname);
   }
 
   let mediaModal = false;
@@ -41,14 +51,14 @@
 
 {#if extended}
   <ContentModal
-    subpath="{subpath}"
-    parent_shortname="{parent_shortname}"
+    subpath="{data.subpath}"
+    parent_shortname="{data.parent_shortname}"
     bind:open="{mediaModal}"
     fix_resource_type="media"
   />
   <ReplyModal
-    subpath="{subpath}"
-    parent_shortname="{parent_shortname}"
+    subpath="{data.subpath}"
+    parent_shortname="{data.parent_shortname}"
     bind:open="{replyModal}"
   />
 {/if}
@@ -73,11 +83,11 @@
     </CardFooter>
     {#if media}
       <ListGroup>
-        {#each media as attachment}
+        {#each media as attachment (attachment.uuid)}
           <ListGroupItem>
             <Attachment
               data="{attachment}"
-              parent_shortname="{parent_shortname}"
+              parent_shortname="{data.parent_shortname}"
             />
           </ListGroupItem>
         {/each}
@@ -98,11 +108,11 @@
     </CardFooter>
     {#if replies}
       <ListGroup>
-        {#each replies as attachment}
+        {#each replies as attachment (attachment.uuid)}
           <ListGroupItem>
             <Attachment
               data="{attachment}"
-              parent_shortname="{parent_shortname}"
+              parent_shortname="{data.parent_shortname}"
             />
           </ListGroupItem>
         {/each}

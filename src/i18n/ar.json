@@ -147,5 +147,7 @@
   "close": "إغلاق",
   "folders": "مجلدات",
   "shortnames": "اسماء قصيرة",
+  "content_type": "نوع المحتوى",
+  "path": "المسار",
   "under_development": "تحت التطوير"
 }

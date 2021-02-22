@@ -147,5 +147,7 @@
   "close": "Close",
   "folders": "Folders",
   "shortnames": "Shortnames",
+  "content_type": "Content type",
+  "path": "Path",
   "under_development": "Under development"
 }

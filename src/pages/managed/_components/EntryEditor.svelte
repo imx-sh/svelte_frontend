@@ -38,17 +38,25 @@
       subpath = value.data.subpath;
       resource_type = value.data.resource_type;
       shortname = value.data.shortname;
-      content = value.data.attributes.payload.embedded;
-      content_type = value.data.attributes.payload.content_type;
       displayname = value.data.attributes.displayname;
-      url = value.data.attributes.payload.filepath
-        ? `${website.backend}/media/${website.space_name}/entry/${value.data.attributes.payload.filepath}`
-        : null;
+      if(value.data.attributes.payload) {
+        content = value.data.attributes.payload.embedded;
+        content_type = value.data.attributes.payload.content_type;
+        url = value.data.attributes.payload.filepath
+          ? `${website.backend}/media/${website.space_name}/entry/${value.data.attributes.payload.filepath}`
+          : null;
+      } else {
+        content = value.data;
+        content_type = "unknown";
+        url = "";
+      }
+
       if (value.data.attributes && value.data.attributes.previous_change_id)
         old_change_id = value.data.attributes.previous_change_id;
       else old_change_id = "";
     } else {
       uid = content = content_type = displayname = url = "";
+      data = {};
     }
 
     //console.log("updated from subscription");
@@ -57,7 +65,7 @@
   onDestroy(unsubscribe);
 
   function hasChanged() {
-    let _has_changed = !(content === data.attributes.payload.embedded);
+    let _has_changed = data && data.attributes && data.attributes.payload && !(content === data.attributes.payload.embedded);
     //console.log("Entry", $active_entry);
     //console.log("hasChanged called: ", _has_changed, $has_changed);
     //console.log("content vs embedded", content, "|", $active_entry.data.attributes.payload.embedded);
@@ -285,7 +293,7 @@
         class="px-1 pb-1 h-100"
         style="text-align: left; direction: ltr; overflow: hidden auto;"
       >
-        <pre> {content} </pre>
+        <pre> {JSON.stringify(content,null,1)} </pre>
       </div>
     {/if}
   </div>
@@ -293,7 +301,7 @@
     <InfoEditor data="{data}" />
   </div>
   <div class="h-100 tab-pane" class:active="{tab_option === 'attachments'}">
-        <Attachments subpath={data.subpath} parent_shortname={data.shortname} attachments={data.attachments} extended={true} />
+    <Attachments data={data} extended={true} />
   </div>
 </div>
 

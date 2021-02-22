@@ -1,1 +1,1 @@
-wwwimx.local.js
+maqola.local.js
