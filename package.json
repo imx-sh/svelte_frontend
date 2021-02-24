@@ -83,7 +83,6 @@
     "cl-editor": "^2.2.0",
     "prettier": "^2.2.1",
     "prettier-plugin-svelte": "^2.1.4",
-    "prism-json-fold": "^1.0.1",
     "svelte-notifications": "^0.9.9",
     "svelte-prismjs": "^1.0.1"
   }

@@ -38,14 +38,22 @@
     }
   }
 
-  function newEntry() {}
+  async function newSubfolder() {
+		name = prompt("Enter the new folder shortname", "");
+		if(name) {
+      let resp = await imx_folder("create", data.subpath + "/" + data.shortname, name);
+			console.log("Result: ", resp);
+    }
+  }
 
   let info_modal;
   function infoModal() {
     info_modal = true;
   }
 
-  function deleteFolder() {}
+  function deleteFolder() {
+
+  }
 </script>
 
 <span
@@ -60,20 +68,20 @@
   <span class="toolbar top-0 end-0 position-absolute px-0">
     <span
       class="px-0"
-      title="Create Entry"
-      on:click|stopPropagation="{newEntry}"
+      title="Create Subfolder"
+      on:click|stopPropagation="{newSubfolder}"
     >
-      <Icon name="plus-square" />
+      <Icon name="folder-plus" />
     </span>
     <span class="px-0" title="details" on:click|stopPropagation="{infoModal}">
-      <Icon name="info-square" />
+      <Icon name="pencil" />
     </span>
     <span
       class="px-0"
       title="Delete Folder"
       on:click|stopPropagation="{deleteFolder}"
     >
-      <Icon name="dash-square" />
+      <Icon name="trash" />
     </span>
 
   </span>

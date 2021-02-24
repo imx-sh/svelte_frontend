@@ -65,11 +65,11 @@
       size="sm"
       outline
     >
-      <Icon name="bin" />
+      <Icon name="trash" />
     </Button>
   </div>
 {/if}
-<Icon name="user" />
+<Icon name="person" />
 {author}
 <Icon name="clock" />
 {datetime} <br />

@@ -21,20 +21,23 @@
 
   resource_type = fix_resource_type ? fix_resource_type : "post";
 
-  if (data) {
-    subpath = data.subpath;
-    shortname = data.shortname;
-    displayname = data.displayname;
-    description = data.attributes.description;
-    resource_type = data.resource_type;
-    if (
-      "attributes" in data &&
-      "embedded" in data.attributes &&
-      data.attributes.payload.embedded
-    )
-      payload = data.attributes.payload.embedded;
-    if ("attributes" in data && "tags" in data.attributes);
-    tags = data.attributes.tags.join(",");
+  $: {
+    if (data) {
+      subpath = data.subpath;
+      shortname = data.shortname;
+      displayname = data.displayname;
+      description = data.attributes.description;
+      resource_type = data.resource_type;
+      if (
+        "attributes" in data &&
+        "embedded" in data.attributes &&
+        data.attributes.payload.embedded
+      )
+        payload = data.attributes.payload.embedded;
+      if ("attributes" in data && "tags" in data.attributes);
+      tags = data.attributes.tags.join(",");
+    } else {
+    }
   }
 
   async function create() {

@@ -14,7 +14,7 @@
   {#each locales as key}
     <Button
       outline
-      color="info"
+      color="primary"
       active="{key == $locale}"
       size="sm"
       on:click="{() => selectLocale(key)}">{key}</Button

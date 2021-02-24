@@ -1,0 +1,6 @@
+
+# Export LOG_LEVEL environment var
+set -x LOG_LEVEL debug
+
+# Extract ip address into $IP
+set IP (ip ro ls | grep src | cut -d ' ' -f 9)

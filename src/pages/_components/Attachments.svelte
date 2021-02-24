@@ -68,7 +68,7 @@
     <CardFooter class="py-2">
       {$_("attachments")} ({$number(media ? media.length : 0)})
       {#if $signedin_user}
-        <div class="float-start mb-0 mt-n1">
+        <div class="float-end mb-0 mt-n1">
           <Button
             href="#"
             title="Add"
@@ -76,7 +76,7 @@
             size="sm"
             outline
           >
-            <Icon name="plus" />
+            <Icon name="plus-square-dotted" class="fs-6"/>
           </Button>
         </div>
       {/if}
@@ -100,9 +100,9 @@
     <CardFooter class="py-2">
       {$_("replies")} ({$number(replies ? replies.length : 0)})
 
-      <div class="float-start mb-0 mt-n1">
+      <div class="float-end mb-0 mt-n1">
         <Button href="#" title="Add" on:click="{reply}" size="sm" outline>
-          <Icon name="plus" />
+          <Icon name="plus-square-dotted" class="fs-6"/>
         </Button>
       </div>
     </CardFooter>
@@ -120,3 +120,4 @@
     {/if}
   </CardBody>
 {/if}
+

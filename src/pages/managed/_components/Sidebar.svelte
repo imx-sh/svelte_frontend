@@ -101,7 +101,7 @@
         <ListGroupItem class="px-0">
           <!--b> {child.name}</b> <br/-->
           <div class="mb-2">
-            <Icon name="diagram-3" /> <b>{$_(child.imx_path)}</b> entries
+            <Icon name="diagram-3" class="me-1" /> {$_("entries_of")} <b>{$_(child.imx_path)}</b> 
           </div>
 
           {#each $entries[child.imx_path] as entry (child.imx_path + entry.data.shortname)}
