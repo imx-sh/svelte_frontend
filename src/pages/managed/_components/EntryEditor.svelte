@@ -39,7 +39,7 @@
       resource_type = value.data.resource_type;
       shortname = value.data.shortname;
       displayname = value.data.attributes.displayname;
-      if(value.data.attributes.payload) {
+      if (value.data.attributes.payload) {
         content = value.data.attributes.payload.embedded;
         content_type = value.data.attributes.payload.content_type;
         url = value.data.attributes.payload.filepath
@@ -65,7 +65,11 @@
   onDestroy(unsubscribe);
 
   function hasChanged() {
-    let _has_changed = data && data.attributes && data.attributes.payload && !(content === data.attributes.payload.embedded);
+    let _has_changed =
+      data &&
+      data.attributes &&
+      data.attributes.payload &&
+      !(content === data.attributes.payload.embedded);
     //console.log("Entry", $active_entry);
     //console.log("hasChanged called: ", _has_changed, $has_changed);
     //console.log("content vs embedded", content, "|", $active_entry.data.attributes.payload.embedded);
@@ -258,7 +262,6 @@
       >
     </ButtonGroup>
   </Nav>
-
 </div>
 <div
   class="px-1 pb-1 tab-content"
@@ -301,7 +304,7 @@
     <InfoEditor data="{data}" />
   </div>
   <div class="h-100 tab-pane" class:active="{tab_option === 'attachments'}">
-    <Attachments data={data} extended={true} />
+    <Attachments data="{data}" extended="{true}" />
   </div>
 </div>
 

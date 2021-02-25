@@ -3,22 +3,19 @@
   import { entries } from "../_stores/entries.js";
   import Icon from "../../_components/Icon.svelte";
   import File from "./File.svelte";
+  import { getNotificationsContext } from "svelte-notifications";
+
+  const { addNotification } = getNotificationsContext();
 
   let expanded = false;
   //let children_loaded = false;
   export let data;
 
-  let children_subpath;
-
-  let displayname;
-
-  $: {
-    children_subpath = data.subpath + "/" + data.shortname;
-    displayname =
+  let children_subpath = data.subpath + "/" + data.shortname;
+  let displayname =
     data.displayname.length < 20
       ? data.displayname
       : data.displayname.substring(0, 20) + " ...";
-  }
 
   async function toggle() {
     expanded = !expanded;
@@ -31,11 +28,27 @@
     }
   }
 
-  async function newSubfolder() {
-		name = prompt("Enter the new folder shortname", "");
-		if(name) {
-      let resp = await imx_folder("create", data.subpath + "/" + data.shortname, name);
-			console.log("Result: ", resp);
+  async function newFolder() {
+    let _name = prompt("Enter the new folder shortname", "");
+    if (_name && _name.length > 0) {
+      let result = await imx_folder("create", children_subpath, _name);
+      addNotification({
+        text: `Created new folder ${_name} under ${children_subpath} (${result.status})`,
+        position: "bottom-center",
+        type: result.status == "success" ? "success" : "warning",
+        removeAfter: 5000,
+      });
+      if (result.status == "success") {
+        let entry = {
+          data: {
+            subpath: children_subpath,
+            shortname: _name,
+            displayname: _name,
+            resource_type: "folder",
+          },
+        };
+        entries.add(children_subpath, entry);
+      }
     }
   }
 
@@ -44,8 +57,23 @@
     info_modal = true;
   }
 
-  function deleteFolder() {
-
+  async function deleteFolder() {
+    if (
+      confirm(
+        `Are you sure you want to delete the folder "${data.displayname}" under ${data.subpath}?`
+      )
+    ) {
+      let result = await imx_folder("delete", data.subpath, data.shortname);
+      addNotification({
+        text: `Deleted folder ${data.shortname} under ${data.subpath}  (${result.status})`,
+        position: "bottom-center",
+        type: result.status == "success" ? "success" : "warning",
+        removeAfter: 5000,
+      });
+      if (result.status == "success") {
+        entries.del(data.subpath, data.shortname);
+      }
+    }
   }
 </script>
 
@@ -61,8 +89,8 @@
   <span class="toolbar top-0 end-0 position-absolute px-0">
     <span
       class="px-0"
-      title="Create Subfolder"
-      on:click|stopPropagation="{newSubfolder}"
+      title="Create folder"
+      on:click|stopPropagation="{newFolder}"
     >
       <Icon name="folder-plus" />
     </span>
@@ -76,7 +104,6 @@
     >
       <Icon name="trash" />
     </span>
-
   </span>
 </span>
 

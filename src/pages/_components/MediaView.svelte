@@ -13,6 +13,7 @@
 	{description}
 {/if}*/
 </script>
+
 <pre> Content type : {content_type} </pre>
 {#if content_type.startsWith("image")}
   <img src="{url}" alt="{displayname}" class="mw-100" />

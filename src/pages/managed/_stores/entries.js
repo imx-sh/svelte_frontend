@@ -14,5 +14,10 @@ export const entries = {
     entries[subpath].push(entry);
     return entries;
   }),
-  del: (subpath) => update(entries => { return entries.delete(subpath); }),
+  del: (subpath, shortname) => update(entries => { 
+    if(subpath in entries) {
+      entries[subpath] = entries[subpath].filter(entry => shortname != entry.data.shortname);
+    }
+    return entries;
+  }),
 };

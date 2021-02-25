@@ -218,7 +218,6 @@
         >
           <Icon name="eye" />
         </Button>
-
       {/if}
     </CardTitle>
   </CardHeader>
@@ -238,9 +237,7 @@
           displayname="{displayname}"
           content_type="{content_type}"
         />
-
       {/if}
-
     </CardText>
     <CardSubtitle class="">
       <small>
@@ -259,8 +256,6 @@
       </small>
     </CardSubtitle>
   </CardBody>
-
-
 </Card>
 
 <!--CardFooter>

@@ -251,7 +251,8 @@ export async function imx_folder(action, subpath, shortname) {
       }
     ]
   };
-  return imx_request(request);
+  let resp = await imx_request(request);
+  return resp.results[0];
 }
 
 export async function imx_update_embedded(content_type, embedded, subpath, shortname, resource_type) {

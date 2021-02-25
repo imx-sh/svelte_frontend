@@ -103,9 +103,13 @@
               style="direction: ltr; text-align: left; white-space: pre-wrap; overflow-y: scroll; overflow-x: hidden;">
                 <code>{@html highlighted}</code> 
               </pre-->
-              <svelte:component this={Prism} classes="h-100 mx-2 m-0 overflow-auto" style="direction: ltr; font-size: 0.8rem;">
-                {highlighted}
-              </svelte:component>
+            <svelte:component
+              this="{Prism}"
+              classes="h-100 mx-2 m-0 overflow-auto"
+              style="direction: ltr; font-size: 0.8rem;"
+            >
+              {highlighted}
+            </svelte:component>
           </TabPane>
         </TabContent>
       </div>

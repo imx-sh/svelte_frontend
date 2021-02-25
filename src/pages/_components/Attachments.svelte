@@ -32,8 +32,6 @@
     }
   }
 
-
-
   function handle(type) {
     console.log(data.subpath, data.parent_shortname);
   }
@@ -76,7 +74,7 @@
             size="sm"
             outline
           >
-            <Icon name="plus-square-dotted" class="fs-6"/>
+            <Icon name="plus-square-dotted" class="fs-6" />
           </Button>
         </div>
       {/if}
@@ -102,7 +100,7 @@
 
       <div class="float-end mb-0 mt-n1">
         <Button href="#" title="Add" on:click="{reply}" size="sm" outline>
-          <Icon name="plus-square-dotted" class="fs-6"/>
+          <Icon name="plus-square-dotted" class="fs-6" />
         </Button>
       </div>
     </CardFooter>
@@ -120,4 +118,3 @@
     {/if}
   </CardBody>
 {/if}
-

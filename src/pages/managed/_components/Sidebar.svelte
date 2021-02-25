@@ -61,7 +61,7 @@
       }
     }
   }
-    //});
+  //});
 
   //onDestroy(unsubscribe);
 
@@ -71,7 +71,10 @@
 
 <div bind:clientHeight="{title_height}">
   <h5 class="my-0">
-    {#if $active_section.icon}<Icon name="{$active_section.icon}" class="pe-1" />{/if}
+    {#if $active_section.icon}<Icon
+        name="{$active_section.icon}"
+        class="pe-1"
+      />{/if}
     {#if $active_section.name}{$_($active_section.name)}{/if}
   </h5>
   <hr class="w-100 mt-1 mt-2 mb-0" />
@@ -89,7 +92,9 @@
           color="light"
           action
           href="{$url('/managed/' + $active_section.name + '/' + child.name)}"
-          active="{$isActive('/managed/' + $active_section.name + '/' + child.name)}"
+          active="{$isActive(
+            '/managed/' + $active_section.name + '/' + child.name
+          )}"
         >
           {#if child.icon}<Icon name="{child.icon}" class="pe-1" />{/if}
           {$_(child.name)}
@@ -100,7 +105,8 @@
         <ListGroupItem class="px-0">
           <!--b> {child.name}</b> <br/-->
           <div class="mb-2">
-            <Icon name="diagram-3" class="me-1" /> {$_("entries_of")} <b>{$_(child.imx_path)}</b> 
+            <Icon name="diagram-3" class="me-1" />
+            {$_("entries_of")} <b>{$_(child.imx_path)}</b>
           </div>
 
           {#each $entries[child.imx_path] as entry (child.imx_path + entry.data.shortname)}
@@ -121,7 +127,9 @@
         <span class="text-muted">{$_("displayname")}:</span>
         {$active_entry.data.displayname} <br />
         <span class="text-muted">{$_("content_type")}:</span>
-        {($active_entry.data.attributes.payload)? $active_entry.data.attributes.payload.content_type : "uknown"}
+        {$active_entry.data.attributes.payload
+          ? $active_entry.data.attributes.payload.content_type
+          : "uknown"}
       </small>
     </p>
   {/if}

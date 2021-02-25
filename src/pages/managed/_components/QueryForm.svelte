@@ -10,8 +10,8 @@
   async function handleResponse(event) {
     let query = event.detail;
     query.resource_types = [query.resource_types, "reply", "share", "reaction"];
-    if(query.resource_types != "media") query.resource_types.push("media");
-    query.resource_shortnames = query.resource_shortnames.split(',');
+    if (query.resource_types != "media") query.resource_types.push("media");
+    query.resource_shortnames = query.resource_shortnames.split(",");
     query.limit = parseInt(query.limit, 10);
     query.offset = parseInt(query.offset, 10);
     let json = await imx_query(query);

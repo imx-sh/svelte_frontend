@@ -1,4 +1,3 @@
-
 <script>
   import { metatags } from "@roxi/routify";
   metatags.title = "Routify Prismjs Example";
@@ -28,13 +27,13 @@
 
 <p>This shows some simple examples of how to use sveltejs-prism plugin.</p>
 
-<svelte:component this={Prism}>
-  {JSON.stringify({hello: "World"}, undefined, 1)}
+<svelte:component this="{Prism}">
+  {JSON.stringify({ hello: "World" }, undefined, 1)}
 </svelte:component>
 
 <h2>Javascript Language Simple</h2>
 
-<svelte:component this={Prism}>
+<svelte:component this="{Prism}">
   {`let b = 3;
 function helloworld() {
 	console.log("Hello World");
@@ -44,7 +43,7 @@ function helloworld() {
 
 <h2>Javascript With Line Numbers</h2>
 
-<svelte:component this={Prism} showLineNumbers={true} >
+<svelte:component this="{Prism}" showLineNumbers="{true}">
   {`
 	let b = 3;
 function helloworld() {
@@ -56,29 +55,31 @@ function helloworld() {
 <h2>C language with line numbers no white space cleanup</h2>
 
 <svelte:component
-  this={Prism}
+  this="{Prism}"
   language="c"
-  normalizeWhiteSpace={false}
-  code={`
+  normalizeWhiteSpace="{false}"
+  code="{`
 	
 	int b =3;
 int c = 32;
-`} />
+`}"
+/>
 
 <h2>C language with line numbers with white space cleanup</h2>
 
 <svelte:component
-  this={Prism}
-  showLineNumbers={true}
+  this="{Prism}"
+  showLineNumbers="{true}"
   language="c"
-  code={`
+  code="{`
 	
 	int b =3;
 int c = 32;
-`} />
+`}"
+/>
 
 <h2>Example showing code can change every 3 seconds</h2>
-<svelte:component this={Prism} showLineNumbers={true} {code} />
+<svelte:component this="{Prism}" showLineNumbers="{true}" code="{code}" />
 
 <h2>Example using prism plugin not supported out of the box.</h2>
 
@@ -87,10 +88,10 @@ int c = 32;
   <a href="https://prismjs.com/plugins/line-highlight/">
     line highlight plugin
   </a>
-  plugin which requires the data-line attribute to be passed in. Other plugins
-  just require you to include the js after the component is imported
+  plugin which requires the data-line attribute to be passed in. Other plugins just
+  require you to include the js after the component is imported
 </p>
-<svelte:component this={Prism} data-line="3,5-8">
+<svelte:component this="{Prism}" data-line="3,5-8">
   {`
 onMount(() => {
 	if (normalizeWhiteSpace) {
@@ -111,8 +112,6 @@ afterUpdate(async () => {
 });
 `}
 </svelte:component>
-
-
 
 <style global>
   /*@import "highlight.js/styles/a11y-light.css";*/
