@@ -4,7 +4,7 @@
   import Icon from "./Icon.svelte";
   import ReplyModal from "./ReplyModal.svelte";
   import signedin_user from "../managed/_stores/signedin_user.js";
-  import ContentModal from "./ContentModal.svelte";
+  import ContentModal from "../managed/_components/ContentModal.svelte";
   import {
     Button,
     ListGroup,
@@ -32,9 +32,9 @@
     }
   }
 
-  function handle(type) {
+  /*function handle(type) {
     console.log(data.subpath, data.parent_shortname);
-  }
+  }*/
 
   let mediaModal = false;
   function createMedia() {

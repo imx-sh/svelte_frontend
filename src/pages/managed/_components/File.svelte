@@ -52,6 +52,13 @@
   }
 
   let details_modal;
+
+  async function toggleActive() {
+    if(confirm(`Entry "${data.displayname}" is currently ${data.attributes.is_active?"active":"inactive"} are you sure you want to set it to ${data.attributes.is_acitve?"inactive":"active"}?`)) {
+      data.attributes.is_active = !data.attributes.is_active;
+    }
+
+  }
 </script>
 
 <ContentModal
@@ -64,14 +71,21 @@
   {displayname}
   <span class="toolbar top-0 end-0 position-absolute px-0">
     <span
-      title="details"
+      title="Toggle active state"
+      class="px-0"
+      on:click|stopPropagation="{toggleActive}"
+    >
+      <Icon name={data.attributes.is_active?'eye':'eye-slash'} />
+    </span>
+    <span
+      title="Details"
       class="px-0"
       on:click|stopPropagation="{() => (details_modal = true)}"
     >
       <Icon name="pencil" />
     </span>
     <span
-      title="delete entry"
+      title="Delete entry"
       class="px=0"
       on:click|stopPropagation="{deleteEntry}"
     >

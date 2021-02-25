@@ -167,7 +167,7 @@
       >
         <Icon name="code-slash" />
       </Button>
-      <Button
+      <!--Button
         outline
         color="success"
         size="sm"
@@ -177,7 +177,7 @@
         on:click="{() => (tab_option = 'details')}"
       >
         <Icon name="info" />
-      </Button>
+      </Button-->
       <Button
         outline
         color="success"
@@ -201,19 +201,8 @@
         <Icon name="clock-history" />
       </Button>
     </ButtonGroup>
-    <ButtonGroup size="sm" class="align-items-center">
+    <!--ButtonGroup size="sm" class="align-items-center">
       <span class="ps-2 pe-1"> {$_("actions")} </span>
-      <Button
-        outline
-        color="{$has_changed ? 'danger' : 'secondary'}"
-        title="{$_('save')}"
-        on:click="{saveEntry}"
-        disabled="{!$has_changed}"
-        size="sm"
-        class="justify-content-center text-center py-0 px-1"
-      >
-        <Icon name="cloud-upload" />
-      </Button>
       <Button
         outline
         color="success"
@@ -234,12 +223,13 @@
       >
         <Icon name="trash" />
       </Button>
-    </ButtonGroup>
+    </ButtonGroup-->
     <ButtonGroup size="sm" class="align-items-center">
       <span class="ps-2 pe-1"> {$_("status")} </span>
       <Button
         outline
-        color="{$has_changed ? 'danger' : 'success'}"
+        color="{$has_changed ? 'danger' : 'secondary'}"
+        title="{$_('save')}"
         size="sm"
         disabled="{true}"
         class="justify-content-center text-center py-0 px-1 me-1"
@@ -247,6 +237,17 @@
         <span class="font-monospace text-{$has_changed ? 'danger' : 'success'}"
           ><small>{@html status}</small></span
         >
+      </Button>
+      <Button
+        outline
+        color="{$has_changed ? 'danger' : 'secondary'}"
+        title="{$_('save')}"
+        on:click="{saveEntry}"
+        disabled="{!$has_changed}"
+        size="sm"
+        class="justify-content-center text-center py-0 px-1"
+      >
+        <Icon name="cloud-upload" />
       </Button>
     </ButtonGroup>
     <ButtonGroup>
