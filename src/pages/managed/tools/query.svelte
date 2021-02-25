@@ -10,7 +10,6 @@
   let Prism;
   onMount(async () => {
     const prismModule = await import("svelte-prismjs");
-    await import('prism-json-fold');
     await import("prismjs/components/prism-json.js");
     Prism = prismModule.default;
   });
@@ -120,5 +119,4 @@
   @import "prismjs/plugins/line-highlight/prism-line-highlight.css";*/
   @import "prismjs/themes/prism.css";
   @import "prismjs/themes/prism-coy.css";
-  @import "../../../../assets/prism-json-fold.css";
 </style>

@@ -1,5 +1,4 @@
 <script>
-  //import { entries } from '../../_stores/entries.js';
   import { imx_entries } from "../../../imx.js";
   import { active_section } from "../_stores/active_section.js";
   import { active_entry } from "../_stores/active_entry.js";
@@ -8,7 +7,7 @@
   import { _ } from "../../../i18n";
   //import { onDestroy } from "svelte";
   import { url, isActive } from "@roxi/routify";
-  import { entries } from "./../_stores/entries.js";
+  import { entries } from "../_stores/entries.js";
   import { ListGroup, ListGroupItem } from "sveltestrap";
 
   // Section components
