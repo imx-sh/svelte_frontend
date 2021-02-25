@@ -4,6 +4,7 @@
   import Icon from "../../_components/Icon.svelte";
   import File from "./File.svelte";
   import { getNotificationsContext } from "svelte-notifications";
+  import ContentModal from "./ContentModal.svelte";
 
   const { addNotification } = getNotificationsContext();
 
@@ -11,12 +12,16 @@
   //let children_loaded = false;
   export let data;
 
-  let children_subpath = data.subpath + "/" + data.shortname;
-  let displayname =
-    data.displayname.length < 20
-      ? data.displayname
-      : data.displayname.substring(0, 20) + " ...";
+  let children_subpath;
+  let displayname;
 
+  $: {
+    children_subpath = data.subpath + "/" + data.shortname;
+    displayname =
+      data.displayname.length < 20
+        ? data.displayname
+        : data.displayname.substring(0, 20) + " ...";
+  }
   async function toggle() {
     expanded = !expanded;
     if (!$entries[children_subpath]) {
@@ -28,34 +33,30 @@
     }
   }
 
-  async function newFolder() {
-    let _name = prompt("Enter the new folder shortname", "");
-    if (_name && _name.length > 0) {
-      let result = await imx_folder("create", children_subpath, _name);
-      addNotification({
-        text: `Created new folder ${_name} under ${children_subpath} (${result.status})`,
-        position: "bottom-center",
-        type: result.status == "success" ? "success" : "warning",
-        removeAfter: 5000,
-      });
-      if (result.status == "success") {
-        let entry = {
-          data: {
-            subpath: children_subpath,
-            shortname: _name,
-            displayname: _name,
-            resource_type: "folder",
-          },
-        };
-        entries.add(children_subpath, entry);
-      }
-    }
+  let entry_create_modal;
+  async function handleEntryCreated(event) {
+    //let _name = prompt("Enter the new folder shortname", "");
+    let entry = { data: event.detail };
+    entry.data.displayname = entry.data.attributes.displayname;
+    entry.data.subpath = children_subpath;
+    entries.add(children_subpath, entry);
+    console.log("Created folder", entry);
+    /* 
+    let result = await imx_folder("create", children_subpath, entry.data.shortname);
+    addNotification({
+      text: `Created new folder "${entry.data.shortname}" under ${children_subpath}`,
+      position: "bottom-center",
+      type: result.status == "success" ? "success" : "warning",
+      removeAfter: 5000,
+    });
+    if (result.status == "success") {
+      entries.add(children_subpath, entry);
+  }*/
   }
 
-  let info_modal;
-  function infoModal() {
-    info_modal = true;
-  }
+  let folder_details_modal;
+  //function folderDetailsModal() {
+  //}
 
   async function deleteFolder() {
     if (
@@ -65,7 +66,7 @@
     ) {
       let result = await imx_folder("delete", data.subpath, data.shortname);
       addNotification({
-        text: `Deleted folder ${data.shortname} under ${data.subpath}  (${result.status})`,
+        text: `Deleted folder "${data.shortname}" under ${data.subpath}`,
         position: "bottom-center",
         type: result.status == "success" ? "success" : "warning",
         removeAfter: 5000,
@@ -76,6 +77,17 @@
     }
   }
 </script>
+
+<ContentModal
+  subpath="{children_subpath}"
+  bind:open="{entry_create_modal}"
+  on:created="{handleEntryCreated}"
+/>
+<ContentModal
+  bind:open="{folder_details_modal}"
+  fix_resource_type="folder"
+  data="{data}"
+/>
 
 <span
   class:expanded
@@ -89,12 +101,16 @@
   <span class="toolbar top-0 end-0 position-absolute px-0">
     <span
       class="px-0"
-      title="Create folder"
-      on:click|stopPropagation="{newFolder}"
+      title="Create sub entry"
+      on:click|stopPropagation="{() => (entry_create_modal = true)}"
     >
-      <Icon name="folder-plus" />
+      <Icon name="file-plus" />
     </span>
-    <span class="px-0" title="details" on:click|stopPropagation="{infoModal}">
+    <span
+      class="px-0"
+      title="details"
+      on:click|stopPropagation="{() => (folder_details_modal = true)}"
+    >
       <Icon name="pencil" />
     </span>
     <span

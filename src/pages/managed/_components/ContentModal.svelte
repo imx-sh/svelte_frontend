@@ -6,18 +6,23 @@
     ModalFooter,
     ModalHeader,
   } from "sveltestrap";
-  import Input from "./Input.svelte";
-  import { _ } from "../../i18n";
-  import { imx_content, imx_postmedia } from "../../imx";
-  import sha1 from "../../sha1";
+  import Input from "../../_components/Input.svelte";
+  import { _ } from "../../../i18n";
+  import { imx_content, imx_postmedia } from "../../../imx";
+  import sha1 from "../../../sha1";
+  import { entries } from "../_stores/entries.js";
+  import { getNotificationsContext } from "svelte-notifications";
+  //import { createEventDispatcher } from "svelte";
+  //const dispatch = createEventDispatcher();
+
+  const { addNotification } = getNotificationsContext();
+
   export let open = false;
   export let size = undefined;
   export let subpath = null;
   export let data = null;
   export let parent_shortname = undefined;
   export let fix_resource_type = undefined;
-  import { createEventDispatcher } from "svelte";
-  const dispatch = createEventDispatcher();
 
   let shortname;
   let displayname;
@@ -82,9 +87,10 @@
         bytesize: new Blob([payload]).size,
       };
     }
-    console.info("Record: ", record);
+    //console.info("Record: ", record);
     let resp;
-    if (resource_type != "media")
+    let op;
+    if (resource_type != "media") {
       if (data) {
         // Fix subpath if the type is folder.
         if (resource_type == "folder" && subpath.endsWith(shortname)) {
@@ -92,14 +98,39 @@
           console.log(`Fixing subpath: from ${subpath} to ${record.subpath}`);
         }
         resp = await imx_content("update", record);
-        dispatch("updated", record);
+        op = "Updated";
+        //dispatch("updated", record);
       } else {
         resp = await imx_content("create", record);
-        dispatch("created", record);
+        //dispatch("created", record);
+        op = "Created";
       }
-    else resp = await imx_postmedia(record, mediafile);
 
-    console.log("Resp: ", resp.results[0]);
+      //console.log("Content modal ...", resp, record);
+      if (resp.results[0].status == "success") {
+        //console.log("Trying to update entries ...", $entries[subpath]);
+        let entry = { data: record };
+        entry.data.subpath = subpath;
+        if (!entry.data.attachments)
+          entry.data.attachments = { media: [], reply: [], reaction: [] };
+        entry.data.displayname = record.attributes.displayname;
+        entries.add(subpath, entry);
+        //console.log($entries[subpath]);
+      }
+    } else {
+      resp = await imx_postmedia(record, mediafile);
+      op = "Media uploaded";
+    }
+
+    addNotification({
+      text: `${op} "${shortname}" under ${subpath}`,
+      position: "bottom-center",
+      type: resp.results[0].status == "success" ? "success" : "warning",
+      removeAfter: 5000,
+    });
+
+    //console.log("Content modal result: ", resp.results[0]);
+
     open = !open;
   }
 
@@ -127,11 +158,14 @@
 </script>
 
 <Modal isOpen="{open}" toggle="{toggle}" size="{size}">
-  {#if data}
-    <ModalHeader>{$_("edit_entry")}</ModalHeader>
-  {:else}
-    <ModalHeader>{$_("create_entry")}</ModalHeader>
-  {/if}
+  <ModalHeader>
+    {#if data}
+      {$_("edit")}
+    {:else}
+      {$_("create")}
+    {/if}
+    {$_(resource_type)}
+  </ModalHeader>
   <ModalBody>
     <Input
       id="subpath"

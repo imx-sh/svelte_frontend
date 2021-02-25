@@ -235,7 +235,8 @@ export async function imx_delete_content(resource_type, subpath, shortname, pare
     request.records[0].parent_shortname = parent_shortname;
 
   console.log("Delete request: ", request);
-  return imx_request(request);
+  let resp = await imx_request(request);
+  return resp.results[0];
 }
 
 export async function imx_folder(action, subpath, shortname) {

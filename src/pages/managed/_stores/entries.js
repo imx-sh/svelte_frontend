@@ -11,6 +11,8 @@ export const entries = {
   add: (subpath, entry) => update(entries => {
     if(!(subpath in entries))
       entries[subpath] = [];
+    // Remove if previously existed
+    entries[subpath] = entries[subpath].filter(one => one.data.shortname != entry.data.shortname);
     entries[subpath].push(entry);
     return entries;
   }),

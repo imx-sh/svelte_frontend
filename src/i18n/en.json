@@ -134,6 +134,7 @@
 	"accept": "Accept",
 	"edit_entry": "Edit Entry",
 	"create_entry": "Create Entry",
+  "create": "Create",
 	"page_of_total": "Page {page} of {total}",
 	"open_tabs": "Open tabs",
 	"views": "Views",
