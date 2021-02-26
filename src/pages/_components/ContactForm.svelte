@@ -22,13 +22,7 @@
 </script>
 
 {#if response}
-  <Alert
-    color="success"
-    isOpen="{response}"
-    toggle="{() => (response = false)}"
-  >
-    Your feedback was sumitted.
-  </Alert>
+  <Alert color="success" isOpen="{response}" toggle="{() => (response = false)}">Your feedback was sumitted.</Alert>
 {:else}
   <Form title="{$_('contact_form')}" on:response="{handleResponse}" captcha>
     <Input id="name" type="text" title="{$_('name')}" required />

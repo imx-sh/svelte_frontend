@@ -28,11 +28,7 @@
       displayname = data.displayname;
       description = data.attributes.description;
       resource_type = data.resource_type;
-      if (
-        "attributes" in data &&
-        "embedded" in data.attributes &&
-        data.attributes.payload.embedded
-      )
+      if ("attributes" in data && "embedded" in data.attributes && data.attributes.payload.embedded)
         payload = data.attributes.payload.embedded;
       if ("attributes" in data && "tags" in data.attributes);
       tags = data.attributes.tags.join(",");
@@ -116,49 +112,21 @@
 </h4>
 
 <Form>
-  <Input
-    id="subpath"
-    title="{$_('subpath')}"
-    value="{subpath}"
-    readonly="{true}"
-    type="text"
-  />
-  <Input
-    id="shortname"
-    title="{$_('shortname')}"
-    bind:value="{shortname}"
-    type="text"
-  />
-  <Input
-    id="displayname"
-    title="{$_('displayname')}"
-    bind:value="{displayname}"
-    type="text"
-  />
+  <Input id="subpath" title="{$_('subpath')}" value="{subpath}" readonly="{true}" type="text" />
+  <Input id="shortname" title="{$_('shortname')}" bind:value="{shortname}" type="text" />
+  <Input id="displayname" title="{$_('displayname')}" bind:value="{displayname}" type="text" />
   <Input id="tags" title="{$_('tags')}" bind:value="{tags}" type="text" />
-  <Input
-    id="description"
-    type="textarea"
-    title="{$_('description')}"
-    bind:value="{description}"
-  />
+  <Input id="description" type="textarea" title="{$_('description')}" bind:value="{description}" />
 
   {#if fix_resource_type || data}
-    <Input
-      id="resource_type"
-      title="{$_('resource_type')}"
-      value="{resource_type}"
-      readonly="{true}"
-      type="text"
-    />
+    <Input id="resource_type" title="{$_('resource_type')}" value="{resource_type}" readonly="{true}" type="text" />
   {:else}
     <Input
       id="resource_type"
       type="select"
       title="{$_('resource_type')}"
       bind:value="{resource_type}"
-      on:change="{resourceTypeChanged}"
-    >
+      on:change="{resourceTypeChanged}">
       <option value="folder">{$_("folder")}</option>
       <option value="post">{$_("post")}</option>
       <option value="contact">{$_("contact")}</option>
@@ -170,25 +138,10 @@
 
   {#if !data && resource_type != "folder"}
     {#if enableUpload}
-      <Input
-        id="upload"
-        title="{$_('upload')}"
-        type="file"
-        on:change="{uploadMedia}"
-      />
+      <Input id="upload" title="{$_('upload')}" type="file" on:change="{uploadMedia}" />
     {:else}
-      <Input
-        id="payload"
-        type="textarea"
-        title="{$_('payload')}"
-        bind:value="{payload}"
-      />
-      <Input
-        id="payload_type"
-        title="{$_('payload_type')}"
-        bind:value="{payload_type}"
-        type="select"
-      >
+      <Input id="payload" type="textarea" title="{$_('payload')}" bind:value="{payload}" />
+      <Input id="payload_type" title="{$_('payload_type')}" bind:value="{payload_type}" type="select">
         <option value="text/html">{$_("text_html")}</option>
         <option value="text/markdown">{$_("text_markdown")}</option>
         <option value="text/json">{$_("text_json")}</option>

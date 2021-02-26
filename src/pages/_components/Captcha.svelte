@@ -69,8 +69,7 @@
     bsSize="md"
     invalid="{invalid}"
     valid="{valid}"
-    on:input="{handleInput}"
-  />
+    on:input="{handleInput}" />
 </FormGroup>
 
 <style>

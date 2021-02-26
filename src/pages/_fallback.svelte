@@ -1,11 +1,5 @@
 <script>
-  import {
-    url,
-    leftover,
-    params,
-    afterPageLoad,
-    isChangingPage,
-  } from "@roxi/routify";
+  import { url, leftover, params, afterPageLoad, isChangingPage } from "@roxi/routify";
   import { imx_pub_query } from "../imx.js";
   import EntryCard from "./_components/EntryCard.svelte";
   import { _, number } from "../i18n";
@@ -28,14 +22,7 @@
   let parents = [];
   let search = "*";
   let queryType = "search";
-  let resourceTypes = [
-    "post",
-    "biography",
-    "reply",
-    "share",
-    "media",
-    "reaction",
-  ];
+  let resourceTypes = ["post", "biography", "reply", "share", "media", "reaction"];
   let pageTitle;
   let tags = [];
 
@@ -123,11 +110,7 @@
     load_page();
     //console.log("old subpath: ", oldsubpath, "old shortnames: ", oldshortnames);
     //console.log("subpath: ", subpath, "shortnames: ", shortnames);
-    if (
-      oldsubpath != subpath ||
-      oldshortnames != shortnames.join() ||
-      oldpagetitle != pageTitle
-    ) {
+    if (oldsubpath != subpath || oldshortnames != shortnames.join() || oldpagetitle != pageTitle) {
       items = [];
       load_tags();
       load_next();
@@ -135,26 +118,13 @@
   });
 
   async function load_tags() {
-    let resp = await imx_pub_query(
-      subpath,
-      resourceTypes,
-      [],
-      viewType == "tag" ? "tags" : "folders"
-    );
+    let resp = await imx_pub_query(subpath, resourceTypes, [], viewType == "tag" ? "tags" : "folders");
     tags = resp.records[0].attributes.tags;
     //console.log("Tags: ", tags, "parents: ", parents.join("/"), "qt: ", queryType);
   }
 
   async function load_next() {
-    let resp = await imx_pub_query(
-      subpath,
-      resourceTypes,
-      shortnames,
-      queryType,
-      search,
-      10,
-      items.length
-    );
+    let resp = await imx_pub_query(subpath, resourceTypes, shortnames, queryType, search, 10, items.length);
     // console.log("Resp result: ", resp.results);
     if (resp && resp.records) {
       items = [...items, ...resp.records];
@@ -192,13 +162,7 @@
         {#if parent}
           {#if i == 0}
             <b>
-              ::<Button
-                color="link"
-                outline
-                href="{$url(
-                  `/${viewType == 'tag' ? 'tag' : 'folder'}/${parent}`
-                )}"
-              >
+              ::<Button color="link" outline href="{$url(`/${viewType == 'tag' ? 'tag' : 'folder'}/${parent}`)}">
                 {$_(parent)}
               </Button>
             </b>
@@ -209,12 +173,7 @@
               ::<Button
                 color="link"
                 outline
-                href="{$url(
-                  `/${viewType == 'tag' ? 'tag' : 'folder'}/${parents
-                    .slice(0, i + 1)
-                    .join('/')}`
-                )}"
-              >
+                href="{$url(`/${viewType == 'tag' ? 'tag' : 'folder'}/${parents.slice(0, i + 1).join('/')}`)}">
                 {parent}
               </Button>
             </b>
@@ -236,27 +195,13 @@
         <EntryCard data="{item}" extended="{items.length == 1}" />
       {/each}
       {#if available > items.length}
-        <Button
-          on:click="{load_more}"
-          title="More"
-          size="md"
-          color="success"
-          class="float-start"
-        >
+        <Button on:click="{load_more}" title="More" size="md" color="success" class="float-start">
           {$_("x_items_left_click_for_more", {
             values: { count: $number(available - items.length) },
           })}
         </Button>
       {:else if items.length > 1}
-        <Button
-          on:click="{load_more}"
-          title="More"
-          size="md"
-          color="success"
-          disabled
-          class="float-start"
-          outline
-        >
+        <Button on:click="{load_more}" title="More" size="md" color="success" disabled class="float-start" outline>
           {$_("all_x_items_are_loaded", {
             values: { count: $number(items.length) },
           })}

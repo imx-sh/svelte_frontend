@@ -1,14 +1,5 @@
 <script>
-  import {
-    Nav,
-    NavItem,
-    NavLink,
-    Navbar,
-    Form,
-    InputGroup,
-    Input,
-    InputGroupText,
-  } from "sveltestrap";
+  import { Nav, NavItem, NavLink, Navbar, Form, InputGroup, Input, InputGroupText } from "sveltestrap";
   import Icon from "../../_components/Icon.svelte";
   import { _ } from "../../../i18n";
   import SelectLanguage from "./SelectLanguage.svelte";
@@ -28,13 +19,10 @@
           on:click="{() => {
             $active_section = section;
           }}"
-          active="{$active_section.name == section.name}"
-        >
+          active="{$active_section.name == section.name}">
           <Icon name="{section.icon}" />
           {#if section.notifications > 0}
-            <span class="badge rounded-pill bg-danger custom-badge"
-              >{section.notifications}</span
-            >
+            <span class="badge rounded-pill bg-danger custom-badge">{section.notifications}</span>
           {/if}
         </NavLink>
       </NavItem>
@@ -42,18 +30,12 @@
     <NavItem
       ><NavLink href="/" title="{$_('published')}">
         <Icon name="globe" />
-      </NavLink></NavItem
-    >
+      </NavLink></NavItem>
     <NavItem><SelectLanguage /></NavItem>
     <NavItem
-      ><NavLink
-        href="#"
-        title="{$_('logout')}"
-        on:click="{signedin_user.logout}"
-      >
+      ><NavLink href="#" title="{$_('logout')}" on:click="{signedin_user.logout}">
         <Icon name="power" />
-      </NavLink></NavItem
-    >
+      </NavLink></NavItem>
     <Form inline="true" class="ms-auto ">
       <InputGroup size="sm">
         <Input placeholder="{$_('searching_for_what')}" />

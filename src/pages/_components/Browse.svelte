@@ -37,8 +37,7 @@
       href="{$url(url_path + item.tag + url_params)}"
       color="primary"
       outline
-      size="sm"
-    >
+      size="sm">
       {item.tag}
       {#if item.frequency}
         <Badge color="secondary">{$number(item.frequency)}</Badge>

@@ -17,10 +17,7 @@
 
   $: {
     children_subpath = data.subpath + "/" + data.shortname;
-    displayname =
-      data.displayname.length < 20
-        ? data.displayname
-        : data.displayname.substring(0, 20) + " ...";
+    displayname = data.displayname.length < 20 ? data.displayname : data.displayname.substring(0, 20) + " ...";
   }
   async function toggle() {
     expanded = !expanded;
@@ -59,11 +56,7 @@
   //}
 
   async function deleteFolder() {
-    if (
-      confirm(
-        `Are you sure you want to delete the folder "${data.displayname}" under ${data.subpath}?`
-      )
-    ) {
+    if (confirm(`Are you sure you want to delete the folder "${data.displayname}" under ${data.subpath}?`)) {
       let result = await imx_folder("delete", data.subpath, data.shortname);
       addNotification({
         text: `Deleted folder "${data.shortname}" under ${data.subpath}`,
@@ -78,46 +71,22 @@
   }
 </script>
 
-<ContentModal
-  subpath="{children_subpath}"
-  bind:open="{entry_create_modal}"
-  on:created="{handleEntryCreated}"
-/>
-<ContentModal
-  bind:open="{folder_details_modal}"
-  fix_resource_type="folder"
-  data="{data}"
-/>
+<ContentModal subpath="{children_subpath}" bind:open="{entry_create_modal}" on:created="{handleEntryCreated}" />
+<ContentModal bind:open="{folder_details_modal}" fix_resource_type="folder" data="{data}" />
 
-<span
-  class:expanded
-  class="folder position-relative mt-1 ps-2"
-  on:click="{toggle}"
->
+<span class:expanded class="folder position-relative mt-1 ps-2" on:click="{toggle}">
   <span style="overflow: hidden;">
     <Icon class="text-start" name="folder{expanded ? '2-open' : ''}" />
     {displayname}
   </span>
   <span class="toolbar top-0 end-0 position-absolute px-0">
-    <span
-      class="px-0"
-      title="Create sub entry"
-      on:click|stopPropagation="{() => (entry_create_modal = true)}"
-    >
+    <span class="px-0" title="Create sub entry" on:click|stopPropagation="{() => (entry_create_modal = true)}">
       <Icon name="file-plus" />
     </span>
-    <span
-      class="px-0"
-      title="details"
-      on:click|stopPropagation="{() => (folder_details_modal = true)}"
-    >
+    <span class="px-0" title="details" on:click|stopPropagation="{() => (folder_details_modal = true)}">
       <Icon name="pencil" />
     </span>
-    <span
-      class="px-0"
-      title="Delete Folder"
-      on:click|stopPropagation="{deleteFolder}"
-    >
+    <span class="px-0" title="Delete Folder" on:click|stopPropagation="{deleteFolder}">
       <Icon name="trash" />
     </span>
   </span>

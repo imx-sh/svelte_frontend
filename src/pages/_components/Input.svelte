@@ -35,8 +35,7 @@
     bind:value
     valid="{valid}"
     on:input="{handleInput}"
-    multiple="{multiple}"
-  >
+    multiple="{multiple}">
     <slot />
   </Input>
   <!--FormFeedback tooltip={true} {valid}> required </FormFeedback-->

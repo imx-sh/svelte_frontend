@@ -80,8 +80,7 @@
               myactive = 'original';
             }}"
             active="{myactive == 'original'}">{$_("raw")}</NavLink
-          ></NavItem
-        >
+          ></NavItem>
         <NavItem
           ><NavLink
             href="#"
@@ -89,8 +88,7 @@
               myactive = 'tabular';
             }}"
             active="{myactive == 'tabular'}">{$_("tabular")}</NavLink
-          ></NavItem
-        >
+          ></NavItem>
       </Nav>
       <div class="flex-grow-0 overflow-y-auto" style="min-height: 0;">
         <TabContent class="h-100" activeTab="{myactive}">
@@ -106,8 +104,7 @@
             <svelte:component
               this="{Prism}"
               classes="h-100 mx-2 m-0 overflow-auto"
-              style="direction: ltr; font-size: 0.8rem;"
-            >
+              style="direction: ltr; font-size: 0.8rem;">
               {highlighted}
             </svelte:component>
           </TabPane>

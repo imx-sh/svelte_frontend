@@ -34,11 +34,7 @@
 
 <Notifications>
   {#if !$signedin_user}
-    <div
-      class="container-fluid d-flex align-items-start"
-      id="login-container"
-      style="height: {window_height - 9}px; "
-    >
+    <div class="container-fluid d-flex align-items-start" id="login-container" style="height: {window_height - 9}px; ">
       <Login />
     </div>
   {:else}
@@ -48,10 +44,7 @@
       fluid="{true}"
       id="mymain"
       class="position-relative p-0"
-      style="top: {header_height}px; height: {window_height -
-        header_height -
-        8}px;"
-    >
+      style="top: {header_height}px; height: {window_height - header_height - 8}px;">
       <Row class="h-100" noGutters>
         <Col sm="2" class="h-100 border-end border-light px-1">
           <Sidebar />

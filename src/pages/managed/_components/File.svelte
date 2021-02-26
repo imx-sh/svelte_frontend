@@ -15,12 +15,8 @@
   let icon = "file-text";
   let displayname;
   $: {
-    if (data.resource_type in type_icon_map)
-      icon = type_icon_map[data.resource_type];
-    displayname =
-      data.displayname.length < 15
-        ? data.displayname
-        : data.displayname.substring(0, 14) + " ...";
+    if (data.resource_type in type_icon_map) icon = type_icon_map[data.resource_type];
+    displayname = data.displayname.length < 15 ? data.displayname : data.displayname.substring(0, 14) + " ...";
   }
 
   function showEntry() {
@@ -29,16 +25,8 @@
   }
 
   async function deleteEntry() {
-    if (
-      confirm(
-        `Are you sure you want to delete "${data.displayname}" under ${data.subpath}?`
-      )
-    ) {
-      let result = await imx_delete_content(
-        data.resource_type,
-        data.subpath,
-        data.shortname
-      );
+    if (confirm(`Are you sure you want to delete "${data.displayname}" under ${data.subpath}?`)) {
+      let result = await imx_delete_content(data.resource_type, data.subpath, data.shortname);
       addNotification({
         text: `Deleted "${data.shortname}" under ${data.subpath}`,
         position: "bottom-center",
@@ -54,41 +42,30 @@
   let details_modal;
 
   async function toggleActive() {
-    if(confirm(`Entry "${data.displayname}" is currently ${data.attributes.is_active?"active":"inactive"} are you sure you want to set it to ${data.attributes.is_acitve?"inactive":"active"}?`)) {
+    if (
+      confirm(
+        `Entry "${data.displayname}" is currently ${
+          data.attributes.is_active ? "active" : "inactive"
+        } are you sure you want to set it to ${data.attributes.is_acitve ? "inactive" : "active"}?`
+      )
+    ) {
       data.attributes.is_active = !data.attributes.is_active;
     }
-
   }
 </script>
 
-<ContentModal
-  bind:open="{details_modal}"
-  fix_resource_type="{data.resource_type}"
-  data="{data}"
-/>
+<ContentModal bind:open="{details_modal}" fix_resource_type="{data.resource_type}" data="{data}" />
 <span on:click="{showEntry}" class="file position-relative  ps-2">
   <Icon name="{icon}" />
   {displayname}
   <span class="toolbar top-0 end-0 position-absolute px-0">
-    <span
-      title="Toggle active state"
-      class="px-0"
-      on:click|stopPropagation="{toggleActive}"
-    >
-      <Icon name={data.attributes.is_active?'eye':'eye-slash'} />
+    <span title="Toggle active state" class="px-0" on:click|stopPropagation="{toggleActive}">
+      <Icon name="{data.attributes.is_active ? 'eye' : 'eye-slash'}" />
     </span>
-    <span
-      title="Details"
-      class="px-0"
-      on:click|stopPropagation="{() => (details_modal = true)}"
-    >
+    <span title="Details" class="px-0" on:click|stopPropagation="{() => (details_modal = true)}">
       <Icon name="pencil" />
     </span>
-    <span
-      title="Delete entry"
-      class="px=0"
-      on:click|stopPropagation="{deleteEntry}"
-    >
+    <span title="Delete entry" class="px=0" on:click|stopPropagation="{deleteEntry}">
       <Icon name="trash" />
     </span>
   </span>

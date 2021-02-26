@@ -62,8 +62,7 @@ function helloworld() {
 	
 	int b =3;
 int c = 32;
-`}"
-/>
+`}" />
 
 <h2>C language with line numbers with white space cleanup</h2>
 
@@ -75,8 +74,7 @@ int c = 32;
 	
 	int b =3;
 int c = 32;
-`}"
-/>
+`}" />
 
 <h2>Example showing code can change every 3 seconds</h2>
 <svelte:component this="{Prism}" showLineNumbers="{true}" code="{code}" />
@@ -85,11 +83,9 @@ int c = 32;
 
 <p>
   We are using the
-  <a href="https://prismjs.com/plugins/line-highlight/">
-    line highlight plugin
-  </a>
-  plugin which requires the data-line attribute to be passed in. Other plugins just
-  require you to include the js after the component is imported
+  <a href="https://prismjs.com/plugins/line-highlight/"> line highlight plugin </a>
+  plugin which requires the data-line attribute to be passed in. Other plugins just require you to include the js after the
+  component is imported
 </p>
 <svelte:component this="{Prism}" data-line="3,5-8">
   {`

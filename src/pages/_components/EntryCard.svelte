@@ -44,8 +44,7 @@
     tags = data.attributes.tags;
     if (data.attributes.description) description = data.attributes.description;
     if (data.attributes.displayname) displayname = data.attributes.displayname;
-    if (data.attributes.payload && data.attributes.payload.embedded)
-      embedded = data.attributes.payload.embedded;
+    if (data.attributes.payload && data.attributes.payload.embedded) embedded = data.attributes.payload.embedded;
     if (data.attributes.payload && data.attributes.payload.content_type)
       content_type = data.attributes.payload.content_type;
     if (data.attributes.payload && data.attributes.payload.filepath)
@@ -141,8 +140,7 @@
             subpath: data.subpath,
             shortname: data.shortname,
           })}"
-          title="{$_('more')}"
-        >
+          title="{$_('more')}">
           {displayname}
         </CardLink>
       {/if}
@@ -150,72 +148,25 @@
     <CardTitle class="float-end mb-0 pt-1">
       <Button href="#" title="Media" size="sm" outline>
         <Icon name="paperclip" />
-        <Badge color="secondary"
-          >{$number(
-            data.attachments.media ? data.attachments.media.length : 0
-          )}</Badge
-        >
+        <Badge color="secondary">{$number(data.attachments.media ? data.attachments.media.length : 0)}</Badge>
       </Button>
-      <Button
-        href="#"
-        title="Like"
-        on:click="{handle('like')}"
-        size="sm"
-        color="success"
-        outline
-      >
+      <Button href="#" title="Like" on:click="{handle('like')}" size="sm" color="success" outline>
         <Icon name="heart" />
-        <Badge color="secondary"
-          >{$number(
-            data.attachments.reaction ? data.attachments.reaction.length : 0
-          )}</Badge
-        >
+        <Badge color="secondary">{$number(data.attachments.reaction ? data.attachments.reaction.length : 0)}</Badge>
       </Button>
-      <Button
-        href="#"
-        title="Comment"
-        on:click="{handle('comment')}"
-        size="sm"
-        outline
-      >
+      <Button href="#" title="Comment" on:click="{handle('comment')}" size="sm" outline>
         <Icon name="reply-all" />
-        <Badge color="secondary"
-          >{$number(
-            data.attachments.reply ? data.attachments.reply.length : 0
-          )}</Badge
-        >
+        <Badge color="secondary">{$number(data.attachments.reply ? data.attachments.reply.length : 0)}</Badge>
       </Button>
-      <Button
-        href="#"
-        title="Share"
-        on:click="{handle('share')}"
-        size="sm"
-        outline
-      >
+      <Button href="#" title="Share" on:click="{handle('share')}" size="sm" outline>
         <Icon name="share" />
-        <Badge color="secondary"
-          >{$number(
-            data.attachments.share ? data.attachments.share.length : 0
-          )}</Badge
-        >
+        <Badge color="secondary">{$number(data.attachments.share ? data.attachments.share.length : 0)}</Badge>
       </Button>
-      <Button
-        href="#"
-        title="Report"
-        on:click="{handle('report')}"
-        size="sm"
-        outline
-      >
+      <Button href="#" title="Report" on:click="{handle('report')}" size="sm" outline>
         <Icon name="exclamation-triangle" />
       </Button>
       {#if $signedin_user && extended}
-        <Button
-          href="#"
-          title="Unpublish"
-          on:click="{handle('report')}"
-          size="sm"
-          outline
-        >
+        <Button href="#" title="Unpublish" on:click="{handle('report')}" size="sm" outline>
           <Icon name="eye" />
         </Button>
       {/if}
@@ -232,11 +183,7 @@
       {:else if embedded && content_type.startsWith("text/markdown")}
         <MarkdownViewer value="{embedded}" />
       {:else if entryurl}
-        <MediaView
-          url="{entryurl}"
-          displayname="{displayname}"
-          content_type="{content_type}"
-        />
+        <MediaView url="{entryurl}" displayname="{displayname}" content_type="{content_type}" />
       {/if}
     </CardText>
     <CardSubtitle class="">

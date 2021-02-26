@@ -37,21 +37,9 @@
     //children = $active_section.children;
     //console.log("Active section has changed to ", name, children);
     for (let child of $active_section.children) {
-      if (
-        child.type &&
-        child.type == "folder" &&
-        child.imx_path &&
-        !(child.imx_path in $entries)
-      ) {
+      if (child.type && child.type == "folder" && child.imx_path && !(child.imx_path in $entries)) {
         let subpath = child.imx_path;
-        imx_entries(
-          subpath,
-          resource_types,
-          shortnames,
-          query_type,
-          search,
-          max_returned_items
-        ).then((_entries) => {
+        imx_entries(subpath, resource_types, shortnames, query_type, search, max_returned_items).then((_entries) => {
           $entries[subpath] = []; // Empty the list of entries for the subpath
           //console.log("Loading entries for ", subpath);
           _entries.forEach((_entry) => {
@@ -71,19 +59,14 @@
 
 <div bind:clientHeight="{title_height}">
   <h5 class="my-0">
-    {#if $active_section.icon}<Icon
-        name="{$active_section.icon}"
-        class="pe-1"
-      />{/if}
+    {#if $active_section.icon}<Icon name="{$active_section.icon}" class="pe-1" />{/if}
     {#if $active_section.name}{$_($active_section.name)}{/if}
   </h5>
   <hr class="w-100 mt-1 mt-2 mb-0" />
 </div>
 <div
   class="no-bullets scroller pe-0"
-  style="height: calc(100% - {title_height +
-    footer_height}px); overflow: hidden auto;"
->
+  style="height: calc(100% - {title_height + footer_height}px); overflow: hidden auto;">
   <ListGroup flush>
     {#each $active_section.children as child ($active_section.name + child.name)}
       {#if child.type == "link"}
@@ -92,10 +75,7 @@
           color="light"
           action
           href="{$url('/managed/' + $active_section.name + '/' + child.name)}"
-          active="{$isActive(
-            '/managed/' + $active_section.name + '/' + child.name
-          )}"
-        >
+          active="{$isActive('/managed/' + $active_section.name + '/' + child.name)}">
           {#if child.icon}<Icon name="{child.icon}" class="pe-1" />{/if}
           {$_(child.name)}
         </ListGroupItem>
@@ -127,9 +107,7 @@
         <span class="text-muted">{$_("displayname")}:</span>
         {$active_entry.data.displayname} <br />
         <span class="text-muted">{$_("content_type")}:</span>
-        {$active_entry.data.attributes.payload
-          ? $active_entry.data.attributes.payload.content_type
-          : "uknown"}
+        {$active_entry.data.attributes.payload ? $active_entry.data.attributes.payload.content_type : "uknown"}
       </small>
     </p>
   {/if}

@@ -7,14 +7,7 @@
   export let frequency = false;
 </script>
 
-<Button
-  alt="{name}"
-  class="m-1"
-  href="{$url(`/tag/posts/${name}`)}"
-  color="primary"
-  outline
-  size="sm"
->
+<Button alt="{name}" class="m-1" href="{$url(`/tag/posts/${name}`)}" color="primary" outline size="sm">
   {name}
   {#if frequency}
     <Badge color="secondary">{$number(frequency)}</Badge>

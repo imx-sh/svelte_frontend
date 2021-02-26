@@ -5,13 +5,7 @@
   import ReplyModal from "./ReplyModal.svelte";
   import signedin_user from "../managed/_stores/signedin_user.js";
   import ContentModal from "../managed/_components/ContentModal.svelte";
-  import {
-    Button,
-    ListGroup,
-    ListGroupItem,
-    CardBody,
-    CardFooter,
-  } from "sveltestrap";
+  import { Button, ListGroup, ListGroupItem, CardBody, CardFooter } from "sveltestrap";
 
   export let data;
   export let extended;
@@ -52,13 +46,8 @@
     subpath="{data.subpath}"
     parent_shortname="{data.parent_shortname}"
     bind:open="{mediaModal}"
-    fix_resource_type="media"
-  />
-  <ReplyModal
-    subpath="{data.subpath}"
-    parent_shortname="{data.parent_shortname}"
-    bind:open="{replyModal}"
-  />
+    fix_resource_type="media" />
+  <ReplyModal subpath="{data.subpath}" parent_shortname="{data.parent_shortname}" bind:open="{replyModal}" />
 {/if}
 
 {#if extended}
@@ -67,13 +56,7 @@
       {$_("attachments")} ({$number(media ? media.length : 0)})
       {#if $signedin_user}
         <div class="float-end mb-0 mt-n1">
-          <Button
-            href="#"
-            title="Add"
-            on:click="{createMedia}"
-            size="sm"
-            outline
-          >
+          <Button href="#" title="Add" on:click="{createMedia}" size="sm" outline>
             <Icon name="plus-square-dotted" class="fs-6" />
           </Button>
         </div>
@@ -83,10 +66,7 @@
       <ListGroup>
         {#each media as attachment (attachment.uuid)}
           <ListGroupItem>
-            <Attachment
-              data="{attachment}"
-              parent_shortname="{data.parent_shortname}"
-            />
+            <Attachment data="{attachment}" parent_shortname="{data.parent_shortname}" />
           </ListGroupItem>
         {/each}
       </ListGroup>
@@ -108,10 +88,7 @@
       <ListGroup>
         {#each replies as attachment (attachment.uuid)}
           <ListGroupItem>
-            <Attachment
-              data="{attachment}"
-              parent_shortname="{data.parent_shortname}"
-            />
+            <Attachment data="{attachment}" parent_shortname="{data.parent_shortname}" />
           </ListGroupItem>
         {/each}
       </ListGroup>

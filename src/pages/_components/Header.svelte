@@ -1,13 +1,5 @@
 <script>
-  import {
-    Form,
-    Input,
-    Button,
-    Navbar,
-    NavbarBrand,
-    Nav,
-    NavLink,
-  } from "sveltestrap";
+  import { Form, Input, Button, Navbar, NavbarBrand, Nav, NavLink } from "sveltestrap";
   import { _, locale } from "../../i18n";
   import { website } from "../../space_config";
   import signedin_user from "../managed/_stores/signedin_user.js";
@@ -23,9 +15,9 @@
   $: {
     console.log("Signed in user", $signedin_user);
     if ($signedin_user) {
-      if($signedin_user.attributes && $signedin_user.attributes.localized_displaynames) {
+      if ($signedin_user.attributes && $signedin_user.attributes.localized_displaynames) {
         localized_displayname = $signedin_user.attributes.localized_displaynames[$locale];
-      } else if($signedin_user.displayname) {
+      } else if ($signedin_user.displayname) {
         localized_displayname = $signedin_user.displayname;
       } else {
         localized_displayname = $signedin_user.short_name;
@@ -33,7 +25,6 @@
     } else {
       localized_displayname = "";
     }
-
   }
 </script>
 
@@ -57,15 +48,8 @@
       placeholder="{$_('searching_for_what')}"
       class=" ms-sm-2 "
       bind:value="{search}"
-      tag="input"
-    />
-    <Button
-      size="sm"
-      outline="true"
-      color="secondary"
-      class=" my-2 my-sm-0 "
-      on:click="{handleClick}"
-    >
+      tag="input" />
+    <Button size="sm" outline="true" color="secondary" class=" my-2 my-sm-0 " on:click="{handleClick}">
       {$_("search")}
     </Button>
   </Form>

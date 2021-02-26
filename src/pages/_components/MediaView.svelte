@@ -27,12 +27,7 @@
   </video>
 {:else if content_type.startsWith("application/pdf")}
   <div class="embed-responsive embed-responsive-16by9">
-    <object
-      title="{displayname}"
-      class="embed-responsive-item"
-      type="application/pdf"
-      data="{url}"
-    >
+    <object title="{displayname}" class="embed-responsive-item" type="application/pdf" data="{url}">
       <p>Insert your error message here, if the PDF cannot be displayed.</p>
     </object>
     <!--iframe src={url} title={displayname} class="embed-responsive-item" allowfullscreen ></iframe-->

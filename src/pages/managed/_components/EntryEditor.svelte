@@ -66,10 +66,7 @@
 
   function hasChanged() {
     let _has_changed =
-      data &&
-      data.attributes &&
-      data.attributes.payload &&
-      !(content === data.attributes.payload.embedded);
+      data && data.attributes && data.attributes.payload && !(content === data.attributes.payload.embedded);
     //console.log("Entry", $active_entry);
     //console.log("hasChanged called: ", _has_changed, $has_changed);
     //console.log("content vs embedded", content, "|", $active_entry.data.attributes.payload.embedded);
@@ -90,8 +87,7 @@
     // Cancel the event as stated by the standard.
     if ($has_changed) {
       event.preventDefault();
-      let message =
-        "There are unsaved modifications. Are you sure you want to leave page?";
+      let message = "There are unsaved modifications. Are you sure you want to leave page?";
       event.returnValue = message; // Chrome requires returnValue to be set.
       return message; // more compatibility
     }
@@ -100,13 +96,7 @@
   async function saveEntry() {
     if ($has_changed) {
       //console.log("Saving", content_type, content, subpath, shortname, resource_type);
-      let result = await imx_update_embedded(
-        content_type,
-        content,
-        subpath,
-        shortname,
-        resource_type
-      );
+      let result = await imx_update_embedded(content_type, content, subpath, shortname, resource_type);
       //console.log("Update result: ", result);
       if (result && result.attributes && result.attributes.previous_change_id)
         old_change_id = result.attributes.previous_change_id;
@@ -122,10 +112,7 @@
       //console.log("Old to new: ", old_change_id, " ==> ", new_change_id);
 
       addNotification({
-        text: `Entry update (${result.status}) ${old_change_id.substring(
-          5,
-          13
-        )} >> ${new_change_id.substring(5, 13)}`,
+        text: `Entry update (${result.status}) ${old_change_id.substring(5, 13)} >> ${new_change_id.substring(5, 13)}`,
         position: "bottom-center",
         type: result.status == "success" ? "success" : "warning",
         removeAfter: 5000,
@@ -152,8 +139,7 @@
         class="justify-content-center text-center py-0 px-1"
         active="{'edit' == tab_option}"
         title="{$_('edit')}"
-        on:click="{() => (tab_option = 'edit')}"
-      >
+        on:click="{() => (tab_option = 'edit')}">
         <Icon name="pencil" />
       </Button>
       <Button
@@ -163,8 +149,7 @@
         class="justify-content-center text-center py-0 px-1"
         active="{'source' == tab_option}"
         title="{$_('source')}"
-        on:click="{() => (tab_option = 'source')}"
-      >
+        on:click="{() => (tab_option = 'source')}">
         <Icon name="code-slash" />
       </Button>
       <!--Button
@@ -185,8 +170,7 @@
         class="justify-content-center text-center py-0 px-1"
         active="{'attachments' == tab_option}"
         title="{$_('attachments')}"
-        on:click="{() => (tab_option = 'attachments')}"
-      >
+        on:click="{() => (tab_option = 'attachments')}">
         <Icon name="paperclip" />
       </Button>
       <Button
@@ -196,8 +180,7 @@
         class="justify-content-center text-center py-0 px-1"
         active="{'history' == tab_option}"
         title="{$_('history')}"
-        on:click="{() => (tab_option = 'history')}"
-      >
+        on:click="{() => (tab_option = 'history')}">
         <Icon name="clock-history" />
       </Button>
     </ButtonGroup>
@@ -232,11 +215,8 @@
         title="{$_('save')}"
         size="sm"
         disabled="{true}"
-        class="justify-content-center text-center py-0 px-1 me-1"
-      >
-        <span class="font-monospace text-{$has_changed ? 'danger' : 'success'}"
-          ><small>{@html status}</small></span
-        >
+        class="justify-content-center text-center py-0 px-1 me-1">
+        <span class="font-monospace text-{$has_changed ? 'danger' : 'success'}"><small>{@html status}</small></span>
       </Button>
       <Button
         outline
@@ -245,8 +225,7 @@
         on:click="{saveEntry}"
         disabled="{!$has_changed}"
         size="sm"
-        class="justify-content-center text-center py-0 px-1"
-      >
+        class="justify-content-center text-center py-0 px-1">
         <Icon name="cloud-upload" />
       </Button>
     </ButtonGroup>
@@ -259,21 +238,14 @@
         class="justify-contnet-center text-center py-0 px-1"
         on:click="{() => {
           active_entry.reset();
-        }}"><Icon name="x-circle" /></Button
-      >
+        }}"><Icon name="x-circle" /></Button>
     </ButtonGroup>
   </Nav>
 </div>
-<div
-  class="px-1 pb-1 tab-content"
-  style="height: calc(100% - {header_height}px); overflow: hidden auto;"
->
+<div class="px-1 pb-1 tab-content" style="height: calc(100% - {header_height}px); overflow: hidden auto;">
   <div class="h-100 tab-pane" class:active="{tab_option === 'source'}">
     <!--JSONEditor json={data} /-->
-    <div
-      class="px-1 pb-1 h-100"
-      style="text-align: left; direction: ltr; overflow: hidden auto;"
-    >
+    <div class="px-1 pb-1 h-100" style="text-align: left; direction: ltr; overflow: hidden auto;">
       <pre>
         {JSON.stringify(data, undefined, 1)}
       </pre>
@@ -282,21 +254,14 @@
   <div class="h-100 tab-pane" class:active="{tab_option === 'edit'}">
     {#if url}
       <h5>You can only preview this content type {content_type}</h5>
-      <MediaView
-        url="{url}"
-        displayname="{displayname}"
-        content_type="{content_type}"
-      />
+      <MediaView url="{url}" displayname="{displayname}" content_type="{content_type}" />
     {:else if content_type && content_type.startsWith("text/html;")}
       <HtmlEditor bind:content on:changed="{hasChanged}" />
     {:else if content_type && content_type.startsWith("text/markdown;")}
       <MarkdownEditor bind:content on:changed="{hasChanged}" />
     {:else}
       <h4>Unrecognized conent type {content_type}</h4>
-      <div
-        class="px-1 pb-1 h-100"
-        style="text-align: left; direction: ltr; overflow: hidden auto;"
-      >
+      <div class="px-1 pb-1 h-100" style="text-align: left; direction: ltr; overflow: hidden auto;">
         <pre> {JSON.stringify(content,null,1)} </pre>
       </div>
     {/if}

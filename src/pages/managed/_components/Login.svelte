@@ -1,14 +1,5 @@
 <script>
-  import {
-    Card,
-    CardHeader,
-    CardBody,
-    Form,
-    FormGroup,
-    Label,
-    Input,
-    Button,
-  } from "sveltestrap";
+  import { Card, CardHeader, CardBody, Form, FormGroup, Label, Input, Button } from "sveltestrap";
   import signedin_user from "../_stores/signedin_user.js";
   import { imx_login } from "../../../imx.js";
   import { _ } from "../../../i18n";
@@ -36,9 +27,7 @@
         <Input type="password" name="password" bind:value="{password}" />
       </FormGroup>
       <div class="w-100 d-flex align-items-end">
-        <Button type="submit" color="primary" class="ms-auto"
-          >{$_("login")}</Button
-        >
+        <Button type="submit" color="primary" class="ms-auto">{$_("login")}</Button>
       </div>
     </Form>
   </CardBody>
