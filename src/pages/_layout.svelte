@@ -37,16 +37,15 @@
 </p-->
 <Container
   fluid="{false}"
-  class="d-flex flex-column border border-secondary position-relative p-0 h-100"
->
-  <Row class="align-items-start w-100 " noGutters>
+  class="d-flex flex-column border border-secondary position-relative p-0 ">
+  <Row class="align-items-start w-100 " >
     <Col sm="12"><Header /></Col>
   </Row>
-  <Row class="flex-grow-1 w-100 " noGutters>
+  <Row class="w-100 " >
     <Col sm="2" class="border border-success"><Sidebar /></Col>
     <Col sm="10" class="border border-primary"><slot /></Col>
   </Row>
-  <Row class="align-items-end w-100  " noGutters>
+  <Row class="align-items-end w-100  " >
     <Col sm="12" class="border border-warning"
       ><Navbar color="light" light>footer</Navbar></Col
     >

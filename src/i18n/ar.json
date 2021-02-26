@@ -134,6 +134,7 @@
 	"accept": "قبول",
 	"edit_entry": "تحرير المحتوى",
 	"create_entry": "إنشاء محتوى جديد",
+  "create_subentry": "إنشاء محتوي ",
   "create": "إنشاء",
 	"page_of_total": "الصفحة {page} من {total}",
 	"open_tabs": "المُدخلات المفتوحة",
@@ -151,5 +152,6 @@
   "content_type": "نوع المحتوى",
   "path": "المسار",
   "entries_of": "مُدخلات الـ",
+  "toggel_active_status": "تبديل حالة النشر",
   "under_development": "تحت التطوير"
 }

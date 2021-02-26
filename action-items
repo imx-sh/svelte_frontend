@@ -1,0 +1,8 @@
+- Deleted items should be removed from redis as well (anything under subpath + shortname
+- Manage attachments: Media/Replies add/delete 
+- Add media attachments button (plugin) to html editor and markdown editor
+- Add search page
+- Support entries passed in url
+- Add Dashboard page
+- Add Personal profile page
+- translate the hardcode ui text ... e.g. no view message, modal accept/cancel, tooltips ...etc

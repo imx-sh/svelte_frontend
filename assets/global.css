@@ -29,13 +29,13 @@ a {
 }
 
 a:hover {
-	text-decoration: underline;
+	text-decoration: none;
 }
 
 a:visited {
 	color: rgb(0,80,160);
 }
-
+/*
 label {
 	display: block;
 }
@@ -74,4 +74,4 @@ button:not(:disabled):active {
 
 button:focus {
 	border-color: #666;
-}
+}*/

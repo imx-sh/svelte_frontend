@@ -12,9 +12,9 @@
 {#if description}
 	{description}
 {/if}*/
+  console.log("Rendering media entry", displayname, content_type, url);
 </script>
 
-<pre> Content type : {content_type} </pre>
 {#if content_type.startsWith("image")}
   <img src="{url}" alt="{displayname}" class="mw-100" />
 {:else if content_type.startsWith("audio")}

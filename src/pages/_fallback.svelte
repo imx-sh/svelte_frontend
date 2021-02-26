@@ -1,17 +1,14 @@
 <script>
   import {
-    metatags,
-    ready,
     url,
     leftover,
     params,
     afterPageLoad,
     isChangingPage,
   } from "@roxi/routify";
-  import { imx_pub_query, imx_entry_displayname } from "../imx.js";
+  import { imx_pub_query } from "../imx.js";
   import EntryCard from "./_components/EntryCard.svelte";
   import { _, number } from "../i18n";
-  import { onMount } from "svelte";
   import { Button, Row, Col } from "sveltestrap";
   import About from "./about.svelte";
   import Browse from "./_components/Browse.svelte";
@@ -24,7 +21,6 @@
 
   let items = [];
   let available = 0;
-  let loading = true;
 
   let viewType;
   let subpath;
@@ -119,7 +115,7 @@
   load_tags();
   load_next();
 
-  $afterPageLoad((event) => {
+  $afterPageLoad(() => {
     let oldsubpath = subpath;
     let oldshortnames = shortnames.join();
     let oldpagetitle = pageTitle;
@@ -168,8 +164,6 @@
     //	pageTitle = items[0].attributes.displayname;
 
     items = items;
-    $ready();
-    loading = false;
     //console.log("Subpath: ", subpath, "shortnames: ", shortnames, "querytype: ", queryType, "search: ", search, "Entries retrieved: ", items.length, " Total available: ", available);
     //debugger
   }
@@ -177,7 +171,6 @@
   async function load_more(event) {
     event.preventDefault();
     if (available > items.length) {
-      loading = true;
       await load_next();
     }
   }
@@ -239,7 +232,7 @@
   </Row>
   <Row>
     <Col>
-      {#each items as item, i}
+      {#each items as item}
         <EntryCard data="{item}" extended="{items.length == 1}" />
       {/each}
       {#if available > items.length}
@@ -272,4 +265,3 @@
     </Col>
   </Row>
 {/if}
-<h2>Here!</h2>

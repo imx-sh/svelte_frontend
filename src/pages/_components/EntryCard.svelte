@@ -131,7 +131,7 @@
 <!-- routify:options param-is-page=true -->
 
 <Card class="mb-4">
-  <CardHeader class="py-0 ">
+  <CardHeader class="py-0 ps-0 pe-2">
     <CardTitle class="float-start ps-2 mt-1 mb-1">
       {#if extended}
         {displayname}

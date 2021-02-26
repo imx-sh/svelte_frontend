@@ -87,7 +87,7 @@
 	"query_type": "Query type",
 	"resource_types": "Resource types",
 	"post": "Post",
-	"folder": "folder",
+	"folder": "Folder",
 	"biography": "Biography",
 	"contact": "Contact",
 	"media": "Media",
@@ -134,6 +134,7 @@
 	"accept": "Accept",
 	"edit_entry": "Edit Entry",
 	"create_entry": "Create Entry",
+  "create_subentry": "Create sub-entry",
   "create": "Create",
 	"page_of_total": "Page {page} of {total}",
 	"open_tabs": "Open tabs",
@@ -151,5 +152,6 @@
   "content_type": "Content type",
   "path": "Path",
   "entries_of": "Entries of",
+  "toggel_active_status": "Toggle active status",
   "under_development": "Under development"
 }

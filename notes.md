@@ -14,6 +14,6 @@ npm install --save-dev svelte-i18n
 npm install --save-dev svelte-jsoneditor
 
 npm install prettier-plugin-svelte prettier
-npx prettier --write --svelte-strict-mode --svelte-sort-order options-scripts-markup-styles ./src/**/*.svelte
+npx prettier --write --print-width 120 --svelte-bracket-new-line false --svelte-strict-mode true --svelte-sort-order options-scripts-markup-styles ./src/**/*.svelte
 ```
 

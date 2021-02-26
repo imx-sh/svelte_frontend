@@ -49,7 +49,7 @@
 </script>
 
 {#if $signedin_user}
-  <div class="float-start mb-0">
+  <div class="float-end mb-0">
     <Button
       href="/managed/{data.subpath}/{data.shortname}"
       title="Manage"
