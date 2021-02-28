@@ -12,10 +12,10 @@
 </script>
 
 <!-- TODO add search to the top -->
-<Navbar color="light" light expand="md">
+<Navbar color="light" light expand="md" class="px-1 me-2">
   <NavbarToggler on:click="{() => (isOpen = !isOpen)}" />
   <Collapse isOpen="{isOpen}" navbar expand="md" on:update="{handleUpdate}">
-    <ul class="w-100">
+    <ul class="w-100 px-1 ">
       {#each $sections as child}
         <li>
           {#if child.type === "section"}
@@ -32,15 +32,15 @@
 <!-- TODO add search to the top -->
 <style>
   ul {
-    padding: 0.2em 0.2em 0 0; /*0.2em 0.5em 0 0;*/
+    /*padding: 0.2em 0.2em 0 0; 0.2em 0.5em 0 0;*/
     /*margin: 0 0.5em 0 0;*/
     /*border-right: 1px solid #eee;*/
     list-style: none;
   }
 
-  li {
+  /*li {
     padding: 0.2em 0;
-  }
+    }*/
 
   li:hover {
     z-index: 1;

@@ -5,6 +5,7 @@
   import File from "./File.svelte";
   import { getNotificationsContext } from "svelte-notifications";
   import ContentModal from "./ContentModal.svelte";
+  import {_} from "../../../i18n";
 
   const { addNotification } = getNotificationsContext();
 
@@ -56,10 +57,10 @@
   //}
 
   async function deleteFolder() {
-    if (confirm(`Are you sure you want to delete the folder "${data.displayname}" under ${data.subpath}?`)) {
+    if (confirm(`Are you sure you want to delete the folder "${data.shortname}|${data.displayname}" under ${data.subpath}?`)) {
       let result = await imx_folder("delete", data.subpath, data.shortname);
       addNotification({
-        text: `Deleted folder "${data.shortname}" under ${data.subpath}`,
+        text: `Deleted folder "${data.shortname}|${data.displayname}" under ${data.subpath}`,
         position: "bottom-center",
         type: result.status == "success" ? "success" : "warning",
         removeAfter: 5000,
@@ -80,13 +81,13 @@
     {displayname}
   </span>
   <span class="toolbar top-0 end-0 position-absolute px-0">
-    <span class="px-0" title="Create sub entry" on:click|stopPropagation="{() => (entry_create_modal = true)}">
+    <span class="px-0" title="{$_('create_subentry')}" on:click|stopPropagation="{() => (entry_create_modal = true)}">
       <Icon name="file-plus" />
     </span>
-    <span class="px-0" title="details" on:click|stopPropagation="{() => (folder_details_modal = true)}">
+    <span class="px-0" title="{$_('edit')}" on:click|stopPropagation="{() => (folder_details_modal = true)}">
       <Icon name="pencil" />
     </span>
-    <span class="px-0" title="Delete Folder" on:click|stopPropagation="{deleteFolder}">
+    <span class="px-0" title="{$_('delete')}" on:click|stopPropagation="{deleteFolder}">
       <Icon name="trash" />
     </span>
   </span>

@@ -43,7 +43,7 @@
         content = value.data.attributes.payload.embedded;
         content_type = value.data.attributes.payload.content_type;
         url = value.data.attributes.payload.filepath
-          ? `${website.backend}/media/${website.space_name}/entry/${value.data.attributes.payload.filepath}`
+          ? `${website.backend}/media/${website.space_name}/${data.subpath}/entry/${value.data.attributes.payload.filepath}`
           : null;
       } else {
         content = value.data;

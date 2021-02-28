@@ -27,8 +27,8 @@
   type = type; // Silence the warning
 </script>
 
-<span on:click="{show_item}" class="pe-2 " title="{description}">
-  <Icon name="{icon}" class="ms-1" />
+<span on:click="{show_item}" class=" " title="{description}">
+  <Icon name="{icon}" class="" />
   {displayname}
 </span>
 

@@ -5,6 +5,7 @@
   import { entries } from "../_stores/entries.js";
   import { imx_delete_content } from "../../../imx.js";
   import { getNotificationsContext } from "svelte-notifications";
+  import {_} from "../../../i18n";
 
   const { addNotification } = getNotificationsContext();
 
@@ -42,13 +43,7 @@
   let details_modal;
 
   async function toggleActive() {
-    if (
-      confirm(
-        `Entry "${data.displayname}" is currently ${
-          data.attributes.is_active ? "active" : "inactive"
-        } are you sure you want to set it to ${data.attributes.is_acitve ? "inactive" : "active"}?`
-      )
-    ) {
+    if (confirm(`Entry "${data.displayname}" is currently ${ data.attributes.is_active ? "active" : "inactive" } are you sure you want to set it to ${data.attributes.is_acitve ? "inactive" : "active"}?`)) {
       data.attributes.is_active = !data.attributes.is_active;
     }
   }
@@ -59,13 +54,13 @@
   <Icon name="{icon}" />
   {displayname}
   <span class="toolbar top-0 end-0 position-absolute px-0">
-    <span title="Toggle active state" class="px-0" on:click|stopPropagation="{toggleActive}">
+    <span title="{$_('toggle_active_state')}" class="px-0" on:click|stopPropagation="{toggleActive}">
       <Icon name="{data.attributes.is_active ? 'eye' : 'eye-slash'}" />
     </span>
-    <span title="Details" class="px-0" on:click|stopPropagation="{() => (details_modal = true)}">
+    <span title="{$_('edit')}" class="px-0" on:click|stopPropagation="{() => (details_modal = true)}">
       <Icon name="pencil" />
     </span>
-    <span title="Delete entry" class="px=0" on:click|stopPropagation="{deleteEntry}">
+    <span title="{$_('delete')}" class="px=0" on:click|stopPropagation="{deleteEntry}">
       <Icon name="trash" />
     </span>
   </span>

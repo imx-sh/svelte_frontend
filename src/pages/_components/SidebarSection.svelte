@@ -20,15 +20,15 @@
   type = type; // silence the warning
 </script>
 
-<div class="mb-2">
-  <span class:expanded on:click="{toggle}" class="pe-2 py-1">
+<div class="mb-3">
+  <span class:expanded on:click="{toggle}" class="py-1 ps-1">
     <Icon name="{icon}" class="me-1" />
     <b>{displayname}</b>
   </span>
   {#if expanded}
-    <ul class="border-start pt-1 px-1 me-2 ">
+    <ul class="border-start pt-1 px-1 ms-1 ">
       {#each children as child}
-        <li>
+        <li class="px-1 py-1">
           {#if child.type === "section"}
             <svelte:self path="{path}" {...child} />
           {:else}
@@ -66,8 +66,8 @@
     background-color: #e8e9ea;
   }
 
-  li {
+  /*li {
     padding: 0.2em 0;
     margin-top: 0.2em;
-  }
+    }*/
 </style>

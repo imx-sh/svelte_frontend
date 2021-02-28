@@ -1,8 +1,11 @@
-- Deleted items should be removed from redis as well (anything under subpath + shortname
-- Manage attachments: Media/Replies add/delete 
-- Add media attachments button (plugin) to html editor and markdown editor
-- Add search page
-- Support entries passed in url
-- Add Dashboard page
-- Add Personal profile page
-- translate the hardcode ui text ... e.g. no view message, modal accept/cancel, tooltips ...etc
+- [x] Deleted items should be removed from redis as well (anything under subpath + shortname
+- [ ] Manage attachments: Media/Replies add/delete 
+- [ ] Add media attachments button (plugin) to html editor and markdown editor
+- [ ] Add search page
+- [ ] Support entries passed in url
+- [ ] Add Dashboard page
+- [ ] Add Personal profile page
+- [ ] translate the hardcode ui text ... e.g. no view message, modal accept/cancel, tooltips ...etc
+- [ ] Query/Search on member experience with table view.
+- [ ] Marked or switch to markdown-it for plantuml and imx query plugins. (should consider server-side (imx) rendering of images and data). 
+- [ ] Contact us and sumbit in general (polls, forms, messages, notifications ...)

@@ -1,6 +1,7 @@
 <script>
   import EntryEditor from "./_components/EntryEditor.svelte";
   import { active_entry } from "./_stores/active_entry.js";
+  import { _ } from "../../i18n";
 
   export let scoped;
   scoped;
@@ -12,6 +13,6 @@
   <EntryEditor />
 {:else}
   <div class="alert alert-warning alert-dismissible fade show text-center m-2" role="alert">
-    Select entry from the <strong>sidebar</strong> on the left.
+    {@html $_("select_entry_from_sidebar")}
   </div>
 {/if}
