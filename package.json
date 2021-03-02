@@ -55,7 +55,7 @@
     "rollup-plugin-workbox": "^5.2.1",
     "spank": "^1.5.3",
     "spassr": "^2.2.1",
-    "svelte": "^3.34.0",
+    "svelte": "^3.35.0",
     "svelte-i18n": "^3.3.6",
     "svelte-preprocess": "^4.6.9",
     "sveltestrap": "^5.0.0-beta.1-4",
