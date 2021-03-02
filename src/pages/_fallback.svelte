@@ -204,13 +204,13 @@
         <EntryCard data="{item}" extended="{items.length == 1}" />
       {/each}
       {#if available > items.length}
-        <Button on:click="{load_more}" title="More" size="md" color="success" class="float-start">
+        <Button on:click="{load_more}" title="More" size="md" color="success" class="float-end">
           {$_("x_items_left_click_for_more", {
             values: { count: $number(available - items.length) },
           })}
         </Button>
       {:else if items.length > 1}
-        <Button on:click="{load_more}" title="More" size="md" color="success" disabled class="float-start" outline>
+        <Button on:click="{load_more}" title="More" size="md" color="success" disabled class="float-end" outline>
           {$_("all_x_items_are_loaded", {
             values: { count: $number(items.length) },
           })}
