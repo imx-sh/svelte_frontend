@@ -13,7 +13,7 @@
 
   let localized_displayname;
   $: {
-    console.log("Signed in user", $signedin_user);
+    // console.log("Signed in user", $signedin_user);
     if ($signedin_user) {
       if ($signedin_user.attributes && $signedin_user.attributes.localized_displaynames) {
         localized_displayname = $signedin_user.attributes.localized_displaynames[$locale];
@@ -49,7 +49,7 @@
       class=" ms-sm-2 "
       bind:value="{search}"
       tag="input" />
-    <Button size="sm" outline="true" color="secondary" class=" my-2 my-sm-0 " on:click="{handleClick}">
+    <Button size="sm" outline="true" color="secondary" class="ms-2 my-2 my-sm-0 " on:click="{handleClick}">
       {$_("search")}
     </Button>
   </Form>

@@ -38,6 +38,6 @@
 <style>
   .icon {
     position: relative;
-    top: -0.1rem;
+    top: -0.25rem;
   }
 </style>

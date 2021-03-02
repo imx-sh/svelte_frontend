@@ -1,18 +1,18 @@
 <script>
-  import { onMount } from "svelte";
+  //import { onMount } from "svelte";
 
   export let content_type;
   export let url;
   export let displayname = undefined;
   //export let description = undefined;
 
-  onMount(async () => {});
+  //onMount(async () => {});
 
   /*
 {#if description}
 	{description}
 {/if}*/
-  console.log("Rendering media entry", displayname, content_type, url);
+  //console.log("Rendering media entry", displayname, content_type, url);
 </script>
 
 {#if content_type.startsWith("image")}

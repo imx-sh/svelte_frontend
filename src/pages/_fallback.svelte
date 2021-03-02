@@ -31,8 +31,8 @@
     search = "*";
     queryType = "search";
 
-    console.log("params: ", $params);
-    console.log("leftover: ", $leftover);
+    //console.log("params: ", $params);
+    //console.log("leftover: ", $leftover);
     // Trim "/" from beggning and end
     let lo = decodeURI($leftover);
     lo = lo.split('?')[0];
@@ -45,7 +45,7 @@
     if (!viewType)
         viewType = "folder";
 
-    console.log("viewType: ", viewType);
+    //console.log("viewType: ", viewType);
     subpath = path.slice(1, -1).join("/"); // All entries except first and last
     let shortname = path.slice(-1)[0]; // Last entry
 
@@ -60,7 +60,7 @@
       shortname = `"${search}"`;
     }
 
-    console.log("Subpath: ", subpath);
+    //console.log("Subpath: ", subpath);
     pageTitle = shortname;
 
     //metatags.title = pageTitle;
@@ -97,7 +97,7 @@
       default:
     }
 
-    console.log("queryType: ", queryType);
+    //console.log("queryType: ", queryType);
     parents = subpath.split("/");
     //if( (viewType == "entry") && shortname)
     //	parents.push(shortname);
