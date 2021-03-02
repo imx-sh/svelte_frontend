@@ -12,7 +12,7 @@
 </script>
 
 <!-- TODO add search to the top -->
-<Navbar color="light" light expand="md" class="px-1 me-2">
+<Navbar color="light" light expand="md" class="px-1 me-2 mt-1 rounded-3">
   <NavbarToggler on:click="{() => (isOpen = !isOpen)}" />
   <Collapse isOpen="{isOpen}" navbar expand="md" on:update="{handleUpdate}">
     <ul class="w-100 px-1 ">
