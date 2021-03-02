@@ -5,6 +5,8 @@
   import { date } from "../../i18n";
   import { imx_delete_content } from "../../imx";
   import signedin_user from "../managed/_stores/signedin_user.js";
+  import ContentModal from "../managed/_components/ContentModal.svelte";
+
   export let data;
   export let parent_shortname;
   // console.log("Attachment details: ", data);
@@ -26,11 +28,14 @@
       console.log("Result: ", resp);
     }
   }
+
+  let details_modal = false;
 </script>
 
 {#if $signedin_user}
+  <ContentModal bind:open="{details_modal}" fix_resource_type="{data.resource_type}" data="{data}" />
   <div class="float-end mb-0">
-    <Button href="/managed/{data.subpath}/{data.shortname}" title="Manage" size="sm" outline>
+    <Button href="/managed/{data.subpath}/{data.shortname}" title="Manage" size="sm" outline on:click="{() => (details_modal = true)}">
       <Icon name="pencil" />
     </Button>
     <Button href="#" title="Delete" on:click="{deleteAttachment}" size="sm" outline>
@@ -51,10 +56,3 @@
   <MediaView content_type="{data.attributes.payload.content_type}" url="{data.url}" displayname="{data.displayname}" />
 {/if}
 
-<style>
-  /*
-  img {
-    max-width: 100%;
-    height: auto;
-  }*/
-</style>

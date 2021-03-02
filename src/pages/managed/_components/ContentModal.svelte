@@ -25,9 +25,12 @@
   let payload_type = "text/html";
   let tags;
   let description;
+  let displayed_subpath;
 
   if (fix_resource_type) resource_type = fix_resource_type;
   else resource_type = "post";
+
+  //console.log("Content modal data: ", data);
 
   if (data) {
     subpath = data.subpath;
@@ -39,13 +42,14 @@
       payload = data.attributes.payload.embedded;
     if ("attributes" in data && "tags" in data.attributes);
     tags = data.attributes.tags.join(",");
+  } else {
+    displayname = description = tags = "";
   }
 
-  function cancel() {
-    open = !open;
-  }
+  displayed_subpath = subpath;
+  if(parent_shortname) displayed_subpath = `${subpath}/${parent_shortname}`;
 
-  async function create() {
+  async function handle() {
     let record = {
       resource_type: resource_type,
       subpath: subpath,
@@ -118,9 +122,10 @@
       removeAfter: 5000,
     });
 
+    console.log("Content modal: ", record, resp);
     //console.log("Content modal result: ", resp.results[0]);
 
-    open = !open;
+    open = false;
   }
 
   function toggle() {
@@ -156,7 +161,7 @@
     {$_(resource_type)}
   </ModalHeader>
   <ModalBody>
-    <Input id="subpath" title="{$_('subpath')}" value="{subpath}" readonly="{true}" type="text" />
+    <Input id="subpath" title="{$_('subpath')}" value="{displayed_subpath}" readonly="{true}" type="text" />
     <Input id="shortname" title="{$_('shortname')}" bind:value="{shortname}" type="text" />
     <Input id="displayname" title="{$_('displayname')}" bind:value="{displayname}" type="text" />
     <Input id="tags" title="{$_('tags')}" bind:value="{tags}" type="text" />
@@ -194,7 +199,7 @@
     {/if}
   </ModalBody>
   <ModalFooter>
-    <Button color="secondary" on:click="{cancel}">{$_("cancel")}</Button>
-    <Button color="primary" on:click="{create}">{$_("accept")}</Button>
+    <Button color="secondary" on:click="{() => open = false }">{$_("cancel")}</Button>
+    <Button color="primary" on:click="{handle}">{$_("accept")}</Button>
   </ModalFooter>
 </Modal>

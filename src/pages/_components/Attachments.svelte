@@ -14,21 +14,9 @@
   let replies;
 
   $: {
-    if (data.attachments.reply) {
-      replies = data.attachments.reply;
-    } else {
-      replies = [];
-    }
-    if (data.attachments.media) {
-      media = data.attachments.media;
-    } else {
-      media = [];
-    }
+    replies = data?.attachments?.reply || []
+    media   = data?.attachments?.media || []
   }
-
-  /*function handle(type) {
-    console.log(data.subpath, data.parent_shortname);
-  }*/
 
   let mediaModal = false;
   function createMedia() {
@@ -42,15 +30,9 @@
 </script>
 
 {#if extended}
-  <ContentModal
-    subpath="{data.subpath}"
-    parent_shortname="{data.parent_shortname}"
-    bind:open="{mediaModal}"
-    fix_resource_type="media" />
-  <ReplyModal subpath="{data.subpath}" parent_shortname="{data.parent_shortname}" bind:open="{replyModal}" />
-{/if}
+  <ContentModal subpath="{data.subpath}" parent_shortname="{data.shortname}" bind:open="{mediaModal}" fix_resource_type="media" />
+  <ReplyModal subpath="{data.subpath}" parent_shortname="{data.shortname}" bind:open="{replyModal}" />
 
-{#if extended}
   <CardBody>
     <CardFooter class="py-2">
       {$_("attachments")} ({$number(media ? media.length : 0)})
@@ -66,14 +48,13 @@
       <ListGroup>
         {#each media as attachment (attachment.uuid)}
           <ListGroupItem>
-            <Attachment data="{attachment}" parent_shortname="{data.parent_shortname}" />
+            <Attachment data="{attachment}" parent_shortname="{data.shortname}" />
           </ListGroupItem>
         {/each}
       </ListGroup>
     {/if}
   </CardBody>
-{/if}
-{#if extended}
+
   <CardBody class="pt-2">
     <CardFooter class="py-2">
       {$_("replies")} ({$number(replies ? replies.length : 0)})
@@ -88,7 +69,7 @@
       <ListGroup>
         {#each replies as attachment (attachment.uuid)}
           <ListGroupItem>
-            <Attachment data="{attachment}" parent_shortname="{data.parent_shortname}" />
+            <Attachment data="{attachment}" parent_shortname="{data.shortname}" />
           </ListGroupItem>
         {/each}
       </ListGroup>
