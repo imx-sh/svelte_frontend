@@ -1,5 +1,5 @@
 <script>
-  import { url, leftover, params, afterPageLoad, isChangingPage } from "@roxi/routify";
+  import { url, leftover, params, afterPageLoad, isChangingPage, ready } from "@roxi/routify";
   import { imx_pub_query } from "../imx.js";
   import EntryCard from "./_components/EntryCard.svelte";
   import { _, number } from "../i18n";
@@ -124,6 +124,7 @@
       load_tags();
       load_next();
     }
+    $ready();
   });
 
   async function load_tags() {

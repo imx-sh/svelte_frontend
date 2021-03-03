@@ -6,7 +6,7 @@
   import Login from "./_components/Login.svelte";
   import sections from "./_stores/sections.json";
   import { active_section } from "./_stores/active_section.js";
-  import { leftover } from "@roxi/routify";
+  import { leftover, ready } from "@roxi/routify";
   import Notifications from "svelte-notifications";
 
   let window_height;
@@ -28,6 +28,8 @@
       }
     }
   }
+
+  $ready();
 </script>
 
 <svelte:window bind:innerHeight="{window_height}" />
