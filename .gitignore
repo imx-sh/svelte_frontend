@@ -9,3 +9,4 @@ src/tmp/
 assets/build
 .vercel
 *.swp
+/src/space_config/index.js

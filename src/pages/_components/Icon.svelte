@@ -35,9 +35,3 @@
 
 <i {...$$restProps} class="{classes}"></i>
 
-<style>
-  .icon {
-    position: relative;
-    top: -0.25rem;
-  }
-</style>
