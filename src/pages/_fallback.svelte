@@ -26,7 +26,7 @@
   let pageTitle;
   let tags = [];
 
-  function load_page() {
+  function prep_page() {
     shortnames = [];
     search = "*";
     queryType = "search";
@@ -107,16 +107,12 @@
          parents.push(" ");
   }
 
-  load_page();
-  load_tags();
-  load_next();
-
   $afterPageLoad(() => {
     let oldsubpath = subpath;
     let oldshortnames = shortnames.join();
     let oldpagetitle = pageTitle;
 
-    load_page();
+    prep_page();
     //console.log("old subpath: ", oldsubpath, "old shortnames: ", oldshortnames);
     //console.log("subpath: ", subpath, "shortnames: ", shortnames);
     if (oldsubpath != subpath || oldshortnames != shortnames.join() || oldpagetitle != pageTitle) {
@@ -124,7 +120,6 @@
       load_tags();
       load_next();
     }
-    $ready();
   });
 
   async function load_tags() {
@@ -154,6 +149,13 @@
       await load_next();
     }
   }
+
+  prep_page();
+  load_tags().then(() => {
+    load_next().then(() => {
+      $ready();
+    }).catch(console.log);
+  }).catch(console.log);
 </script>
 
 <svelte:head>
