@@ -137,7 +137,8 @@ export async function imx_entries(subpath, resource_types, resource_shortnames =
           return attachment;
         });
       }
-      record.displayname = record.attributes.displayname?record.attributes.displayname:record.shortname;
+      //record.displayname = record.attributes.displayname?record.attributes.displayname:record.shortname;
+      record.displayname = record?.attributes?.displayname || record.shortname;
       records.push(record);
     });
   }

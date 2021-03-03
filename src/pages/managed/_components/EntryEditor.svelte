@@ -4,7 +4,7 @@
   import HtmlEditor from "./HtmlEditor.svelte";
   import MediaView from "../../_components/MediaView.svelte";
   import Attachments from "../../_components/Attachments.svelte";
-  import InfoEditor from "./InfoEditor.svelte";
+  //import InfoEditor from "./InfoEditor.svelte";
   //import { JSONEditor } from 'svelte-jsoneditor';
   import { Nav, Button, ButtonGroup } from "sveltestrap";
   import Icon from "../../_components/Icon.svelte";
@@ -12,7 +12,7 @@
   import { website } from "../../../space_config";
   import { onDestroy } from "svelte";
   import { getNotificationsContext } from "svelte-notifications";
-  import { imx_delete_content, imx_update_embedded } from "../../../imx";
+  import { imx_update_embedded } from "../../../imx";
 
   const { addNotification } = getNotificationsContext();
 
@@ -253,7 +253,6 @@
   </div>
   <div class="h-100 tab-pane" class:active="{tab_option === 'edit'}">
     {#if url}
-      <h5>You can only preview this content type {content_type}</h5>
       <MediaView url="{url}" displayname="{displayname}" content_type="{content_type}" />
     {:else if content_type && content_type.startsWith("text/html;")}
       <HtmlEditor bind:content on:changed="{hasChanged}" />
@@ -265,9 +264,6 @@
         <pre> {JSON.stringify(content,null,1)} </pre>
       </div>
     {/if}
-  </div>
-  <div class="h-100 tab-pane" class:active="{tab_option === 'details'}">
-    <InfoEditor data="{data}" />
   </div>
   <div class="h-100 tab-pane" class:active="{tab_option === 'attachments'}">
     <Attachments data="{data}" extended="{true}" />

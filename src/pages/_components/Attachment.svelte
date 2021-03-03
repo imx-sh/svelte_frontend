@@ -6,6 +6,8 @@
   import { imx_delete_content } from "../../imx";
   import signedin_user from "../managed/_stores/signedin_user.js";
   import ContentModal from "../managed/_components/ContentModal.svelte";
+  import { createEventDispatcher } from "svelte";
+  const dispatch = createEventDispatcher();
 
   export let data;
   export let parent_shortname;
@@ -26,6 +28,7 @@
       console.log("User requested to delete: ", data.shortname, " childof: ", data.subpath);
       let resp = await imx_delete_content(data.resource_type, data.subpath, data.shortname, parent_shortname);
       console.log("Result: ", resp);
+      dispatch("deleted", {shortname: data.shortname, subpath: data.subpath});
     }
   }
 
@@ -33,7 +36,7 @@
 </script>
 
 {#if $signedin_user}
-  <ContentModal bind:open="{details_modal}" fix_resource_type="{data.resource_type}" data="{data}" />
+  <ContentModal bind:open="{details_modal}" fix_resource_type="{data.resource_type}" data="{data}" on:updated />
   <div class="float-end mb-0">
     <Button href="/managed/{data.subpath}/{data.shortname}" title="Manage" size="sm" outline on:click="{() => (details_modal = true)}">
       <Icon name="pencil" />

@@ -6,8 +6,8 @@
   import sha1 from "../../../sha1";
   import { entries } from "../_stores/entries.js";
   import { getNotificationsContext } from "svelte-notifications";
-  //import { createEventDispatcher } from "svelte";
-  //const dispatch = createEventDispatcher();
+  import { createEventDispatcher } from "svelte";
+  const dispatch = createEventDispatcher();
 
   const { addNotification } = getNotificationsContext();
 
@@ -92,16 +92,14 @@
           console.log(`Fixing subpath: from ${subpath} to ${record.subpath}`);
         }
         resp = await imx_content("update", record);
-        op = "Updated";
-        //dispatch("updated", record);
+        op = "updated";
       } else {
         resp = await imx_content("create", record);
-        //dispatch("created", record);
-        op = "Created";
+        op = "created";
       }
 
       //console.log("Content modal ...", resp, record);
-      if (resp.results[0].status == "success") {
+      if (resp.results[0].status == "success" && !parent_shortname) {
         //console.log("Trying to update entries ...", $entries[subpath]);
         let entry = { data: record };
         entry.data.subpath = subpath;
@@ -112,7 +110,7 @@
       }
     } else {
       resp = await imx_postmedia(record, mediafile);
-      op = "Media uploaded";
+      op = "created";
     }
 
     addNotification({
@@ -121,8 +119,8 @@
       type: resp.results[0].status == "success" ? "success" : "warning",
       removeAfter: 5000,
     });
-
-    console.log("Content modal: ", record, resp);
+    dispatch(op, record);
+    //console.log("Content modal: ", record, resp);
     //console.log("Content modal result: ", resp.results[0]);
 
     open = false;

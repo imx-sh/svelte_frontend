@@ -6,6 +6,8 @@
   import Captcha from "./Captcha.svelte";
   import { imx_content, imx_pub_submit } from "../../imx";
   import sha1 from "../../sha1";
+  import { createEventDispatcher } from "svelte";
+  const dispatch = createEventDispatcher();
 
   export let open = false;
   export let size = undefined;
@@ -27,7 +29,7 @@
   async function create() {
     let record = {
       subpath: subpath,
-      shortname: "reply",
+      shortname: "",
       parent_shortname: parent_shortname,
       resource_type: "reply",
       attributes: {
@@ -51,6 +53,7 @@
     }
     console.log("Resp: ", resp.results);
     open = false;
+    dispatch("created", record);
   }
 </script>
 

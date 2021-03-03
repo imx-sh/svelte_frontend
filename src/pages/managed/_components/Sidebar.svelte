@@ -107,7 +107,7 @@
         <span class="text-muted">{$_("displayname")}:</span>
         {$active_entry.data.displayname} <br />
         <span class="text-muted">{$_("content_type")}:</span>
-        {$active_entry.data.attributes.payload ? $active_entry.data.attributes.payload.content_type : "uknown"}
+        {$active_entry?.data?.attributes?.payload?.content_type?.split(";")[0] || "uknown"}
       </small>
     </p>
   {/if}

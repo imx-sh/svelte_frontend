@@ -73,22 +73,8 @@
     </Col>
     <Col sm="10" class="h-100 d-flex flex-column">
       <Nav tabs>
-        <NavItem
-          ><NavLink
-            href="#"
-            on:click="{function () {
-              myactive = 'original';
-            }}"
-            active="{myactive == 'original'}">{$_("raw")}</NavLink
-          ></NavItem>
-        <NavItem
-          ><NavLink
-            href="#"
-            on:click="{function () {
-              myactive = 'tabular';
-            }}"
-            active="{myactive == 'tabular'}">{$_("tabular")}</NavLink
-          ></NavItem>
+        <NavItem><NavLink href="#" on:click="{() => myactive = 'original'}" active="{myactive == 'original'}">{$_("raw")}</NavLink></NavItem>
+        <NavItem><NavLink href="#" on:click="{() => myactive = 'tabular'}" active="{myactive == 'tabular'}">{$_("tabular")}</NavLink></NavItem>
       </Nav>
       <div class="flex-grow-0 overflow-y-auto" style="min-height: 0;">
         <TabContent class="h-100" activeTab="{myactive}">
@@ -101,10 +87,7 @@
               style="direction: ltr; text-align: left; white-space: pre-wrap; overflow-y: scroll; overflow-x: hidden;">
                 <code>{@html highlighted}</code> 
               </pre-->
-            <svelte:component
-              this="{Prism}"
-              classes="h-100 mx-2 m-0 overflow-auto"
-              style="direction: ltr; font-size: 0.8rem;">
+            <svelte:component this="{Prism}" classes="h-100 mx-2 m-0 overflow-auto" style="direction: ltr; font-size: 0.8rem;">
               {highlighted}
             </svelte:component>
           </TabPane>
@@ -120,4 +103,6 @@
   @import "prismjs/plugins/line-highlight/prism-line-highlight.css";*/
   @import "prismjs/themes/prism.css";
   @import "prismjs/themes/prism-coy.css";
+  /*code { white-space: pre-wrap; }*/
+  pre[class*='language-'], code[class*='language-'] { white-space: pre-wrap; }
 </style>
