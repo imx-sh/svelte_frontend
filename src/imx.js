@@ -4,8 +4,6 @@ import { get } from 'svelte/store';
 import signedin_user from './pages/managed/_stores/signedin_user';
 import sha1 from "./sha1";
 
-let loggedinUser = get(signedin_user);
-
 export async function imx_login(username, password) {
   const browse_query = { 
     request_type:"login",
@@ -35,10 +33,11 @@ async function imx_request(browse_query) {
 
 export async function imx_query(query) {
   const browse_query = { "request_type":"query",
-    actor_shortname: loggedinUser.shortname,
+    actor_shortname: get(signedin_user).shortname,
     space_name: website.space_name,
     query: query
   };
+  //console.log("IMX query", browse_query);
   return imx_request(browse_query);
 }
 
@@ -148,7 +147,7 @@ export async function imx_entries(subpath, resource_types, resource_shortnames =
 
 export async function imx_pub_submit(interaction_type, subpath, parent_shortname=null, attributes = {}) {
   //console.log("Record: ", record, "Intraction: ", interaction_type);
-  let curruser = loggedinUser.shortname || "anon";
+  let curruser = get(signedin_user).shortname || "anon";
   const request = { 
     actor_shortname: curruser,
     space_name: website.space_name,
@@ -182,7 +181,7 @@ export async function imx_pub_submit(interaction_type, subpath, parent_shortname
 
 export async function imx_postmedia(record, upload) {
   const request = { 
-    actor_shortname: loggedinUser.shortname,
+    actor_shortname: get(signedin_user).shortname,
     space_name: website.space_name,
     request_type: "create",
     records:[ record ]
@@ -206,7 +205,7 @@ export async function imx_postmedia(record, upload) {
 
 export async function imx_content(action, record) {
   const request = { 
-    actor_shortname: loggedinUser.shortname,
+    actor_shortname: get(signedin_user).shortname,
     space_name: website.space_name,
     request_type: action,
     records:[ record ]
@@ -220,7 +219,7 @@ export async function imx_update_content(content) {
 
 export async function imx_delete_content(resource_type, subpath, shortname, parent_shortname = null) {
   const request = { 
-    actor_shortname: loggedinUser.shortname,
+    actor_shortname: get(signedin_user).shortname,
     space_name: website.space_name,
     request_type: "delete",
     records:[
@@ -242,7 +241,7 @@ export async function imx_delete_content(resource_type, subpath, shortname, pare
 
 export async function imx_folder(action, subpath, shortname) {
   const request = { 
-    actor_shortname: loggedinUser.shortname,
+    actor_shortname: get(signedin_user).shortname,
     space_name: website.space_name,
     request_type: action,
     records:[

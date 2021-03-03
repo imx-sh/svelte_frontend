@@ -9,6 +9,7 @@
 kitty @ set-window-title "Main"
 kitty @ launch --type tab --tab-title NpmDev --title NpmDev --cwd=/home/kefah/Development/imx/svelte_frontend --keep-focus --allow-remote-control
 kitty @ launch --type tab --tab-title Pod --title Pod --cwd=/home/kefah/Development/imx/backend --keep-focus --allow-remote-control
+kitty @ send-text --match title:Pod "set -x LOG_LEVEL debug\n"
 kitty @ send-text --match title:Pod "./watch.sh\n"
 kitty @ send-text --match title:NpmDev "npm run dev\n"
 
