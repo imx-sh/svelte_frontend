@@ -22,17 +22,19 @@
     if ($dir == "rtl") x += 90;
     var y = Math.floor(Math.random() * 20) + 30;
     if ($dir == "rtl") y -= 5;
-    /*
-    const ctx = canvas_div.getContext("2d");
-    try {
-      ctx.strokeRect(1, 1, 149, 59);
-      ctx.font = "36px serif";
-      //ctx.fillText(random, x, y);
-      ctx.strokeText(random, x, y);
-      image.src = ctx.canvas.toDataURL();
-    } catch (error) {
-      console.log("Caught error on captcha canvas ", error);
-  }*/
+
+    if(window.routify.inBrowser) {
+      const ctx = canvas_div.getContext("2d");
+      try {
+        ctx.strokeRect(1, 1, 149, 59);
+        ctx.font = "36px serif";
+        //ctx.fillText(random, x, y);
+        ctx.strokeText(random, x, y);
+        image.src = ctx.canvas.toDataURL();
+      } catch (error) {
+        console.log("Caught error on captcha canvas ", error);
+      }
+    }
   });
 
   export let valid = false;
