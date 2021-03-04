@@ -7,5 +7,5 @@ export const website = {
   backend: 'https://maqola.imx.sh',
 	space_name: 'maqola',
 	about: '<p> مرحبا بك في   <b>مقولة</b>،</p> <p>   موقع المقولات والمقتطفات الأدبية والشعرية العربية   </p>',
-	footer: 'نظام إدراة وتبادل المعلومات <a href="/">إِرَم</a>'
+	footer: 'نظام تبادل وإدراة المعلومات <strong>تام</strong>'
 };

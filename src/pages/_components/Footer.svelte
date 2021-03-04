@@ -6,16 +6,6 @@
 
 <Navbar class=" px-3 mt-3 " color="light" light >
 <SelectLanguage />
-{website.footer}
+{@html website.footer}
 <NavbarBrand href="/">{website.display_name}</NavbarBrand>
-<!--ButtonGroup>
-  {#each actual_locales as key}
-    <Button
-      outline
-      color="info"
-      active="{key == $locale}"
-      on:click="{() => selectLocale(key)}">{key}</Button
-    >
-  {/each}
-</ButtonGroup-->
 </Navbar>
