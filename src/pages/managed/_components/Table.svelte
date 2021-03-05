@@ -21,7 +21,7 @@
   }
 </script>
 
-<div class="h-90" style="overflow-y: auto; max-height: 80vh;">
+<div class="h-100" style="overflow-y: auto;">
   <Table class="h-100 " hover responsive>
     <thead>
       <tr>

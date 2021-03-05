@@ -1,4 +1,4 @@
-#!/bin/ash -x
+#!/bin/bash -x
 # npx prettier --write --svelte-sort-order scripts-markup-styles ./src/**/*.svelte
 
 export NODE_OPTIONS="--max_old_space_size=4096"
