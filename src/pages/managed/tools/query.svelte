@@ -51,7 +51,7 @@
       title: $_("tags"),
       type: "string",
     },
-    tags: {
+    payload: {
       path: "attributes.payload.embedded",
       title: $_("payload"),
       type: "string",

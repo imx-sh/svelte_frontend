@@ -1,0 +1,86 @@
+<script>
+  import Table from "../_components/Table.svelte";
+  import { imx_query } from "../../../imx.js";
+  import { _ } from "../../../i18n";
+  import { ready } from "@roxi/routify";
+
+  export let scoped;
+  scoped;
+  export let scopedSync;
+  scopedSync;
+
+  let events = [];
+  let count = 0;
+  let total = 0;
+  let status ="";
+
+  let query = {
+    query_type: "logs",
+    subpath: "/members/",
+    resource_types: ["event"],
+    resource_shortnames: ["kefah"],
+    limit: 100,
+    offset: 0,
+  };
+
+  let cols = {
+    shortname: {
+      path: "shortname",
+      title: $_("shortname"),
+      type: "string",
+    },
+    time: {
+      path: "timestamp",
+      title: $_("time"),
+      type: "string",
+    },
+    event: {
+      path: "attributes.event_type",
+      title: $_("event"),
+      type: "string",
+    },
+    status: {
+      path: "attributes.results-status",
+      title: $_("status"),
+      type: "string",
+    },
+    duration: {
+      path: "attributes.duration",
+      title: $_("duration"),
+      type: "number",
+    },
+    attributes: {
+      path: "attributes.results-attributes",
+      title: $_("attributes"),
+      type: "json",
+    },
+  };
+
+  imx_query(query).then((json) => {
+    events = json.records.map((one) => {
+      delete one.attributes["results-attributes"].backtrace;
+      delete one.attributes["results-attributes"].auth_token;
+      return one;
+    });
+    if(json?.results[0].status == "success") {
+      count = json.results[0].attributes.returned;
+      total = json.results[0].attributes.total;
+      status = "success";
+    } else {
+      status = json?.results[0] || "Unknown error";
+    }
+    $ready();
+  }).catch(console.log);
+
+</script>
+
+<h6> Returned {count} out of {total} with status {status} </h6>
+
+<Table cols="{cols}" rows="{events}" />
+
+<!--
+{#each events as event}
+<pre><code>{JSON.stringify(event, undefined, 1)}</code></pre>
+<hr />
+{/each}
+-->

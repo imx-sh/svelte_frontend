@@ -28,3 +28,9 @@
 - [ ] Test and check Arabic search with Redisearch (stemming, logical operators ...etc)
 - [ ] Stored Queries / Massview: Could live in a section of its own.
 - [ ] User registration / login ... support OAUTH?
+
+
+Bugs
+
+- [ ] Refresing entry link adds wwwimx improperly. 
+- [ ] slides are not showing sub entries in maqola

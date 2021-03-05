@@ -161,5 +161,9 @@
   "confirm_toggling_active": "المُدخلة \"{shortname}|{data.displayname}\" حاليا {current} هل تريد جَعلَها {new}؟",
   "active": "فعّالة",
   "inactive": "غير فعّالة",
+  "time": "الوقت",
+  "event": "الحَدَث",
+  "attributes": "التوصيفات",
+  "duration": "المُدة",
   "under_development": "تحت التطوير"
 }

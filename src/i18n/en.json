@@ -161,5 +161,9 @@
   "confirm_toggling_active": "Entry \"{shortname}|{data.displayname}\" is currently {current} are you sure you want to set it to {new}?",
   "active": "active",
   "inactive": "inactive",
+  "time": "Time",
+  "event": "Event",
+  "attributes": "Attributes",
+  "duration": "Duration",
   "under_development": "Under development"
 }

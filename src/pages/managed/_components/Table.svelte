@@ -9,6 +9,7 @@
     //console.log("path: ", path, "data: ", data, "type: ", type);
     if (path.length == 1 && path[0].length > 0 && path[0] in data) {
       if (type == "number") return $number(data[path[0]]);
+      else if (type == "json") return JSON.stringify(data[path[0]], undefined, 1);
       else return data[path[0]];
     }
 
