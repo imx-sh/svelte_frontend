@@ -10,6 +10,8 @@
     if (path.length == 1 && path[0].length > 0 && path[0] in data) {
       if (type == "number") return $number(data[path[0]]);
       else if (type == "json") return JSON.stringify(data[path[0]], undefined, 1);
+      //else if (type == "timestamp") return $date(new Date(data[path[0]]), { format: "long" });
+      //else if (type == "timestamp") return $_('datetime', { values: { ts: new Date(data[path[0]]) } });
       else return data[path[0]];
     }
 

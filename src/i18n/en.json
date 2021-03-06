@@ -165,5 +165,8 @@
   "event": "Event",
   "attributes": "Attributes",
   "duration": "Duration",
+  "previous": "Previous",
+  "current": "Current",
+  "hash": "Hash",
   "under_development": "Under development"
 }

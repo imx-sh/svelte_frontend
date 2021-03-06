@@ -3,6 +3,7 @@
   import MarkdownEditor from "./MarkdownEditor.svelte";
   import HtmlEditor from "./HtmlEditor.svelte";
   import MediaView from "../../_components/MediaView.svelte";
+  import History from "./History.svelte";
   import Attachments from "../../_components/Attachments.svelte";
   //import InfoEditor from "./InfoEditor.svelte";
   //import { JSONEditor } from 'svelte-jsoneditor';
@@ -112,7 +113,7 @@
       //console.log("Old to new: ", old_change_id, " ==> ", new_change_id);
 
       addNotification({
-        text: `Entry update (${result.status}) ${old_change_id.substring(5, 13)} >> ${new_change_id.substring(5, 13)}`,
+        text: `Update (${result.status}) ${old_change_id.substring(5, 13)} >> ${new_change_id.substring(5, 13)}`,
         position: "bottom-center",
         type: result.status == "success" ? "success" : "warning",
         removeAfter: 5000,
@@ -264,6 +265,9 @@
         <pre> {JSON.stringify(content,null,1)} </pre>
       </div>
     {/if}
+  </div>
+  <div class="h-100 tab-pane" class:active="{tab_option === 'history'}">
+    <History subpath="{data.subpath}" shortname="{data.shortname}" />
   </div>
   <div class="h-100 tab-pane" class:active="{tab_option === 'attachments'}">
     <Attachments data="{data}" extended="{true}" />

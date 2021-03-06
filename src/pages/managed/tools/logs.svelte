@@ -32,7 +32,7 @@
     time: {
       path: "timestamp",
       title: $_("time"),
-      type: "string",
+      type: "timestamp",
     },
     event: {
       path: "attributes.event_type",
@@ -61,7 +61,7 @@
       delete one.attributes["results-attributes"].backtrace;
       delete one.attributes["results-attributes"].auth_token;
       return one;
-    });
+    }).reverse();
     if(json?.results[0].status == "success") {
       count = json.results[0].attributes.returned;
       total = json.results[0].attributes.total;

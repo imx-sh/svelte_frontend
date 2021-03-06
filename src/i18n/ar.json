@@ -165,5 +165,8 @@
   "event": "الحَدَث",
   "attributes": "التوصيفات",
   "duration": "المُدة",
+  "previous": "السابق",
+  "current": "الحالي",
+  "hash": "التهشير",
   "under_development": "تحت التطوير"
 }
