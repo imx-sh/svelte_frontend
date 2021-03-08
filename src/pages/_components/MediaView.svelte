@@ -26,7 +26,7 @@
     <track kind="captions" />
   </video>
 {:else if content_type.startsWith("application/pdf")}
-  <div class="h-100 w-100 embed-responsive embed-responsive-16by9" style="overflow: hidden hidden;">
+  <div class="h-100 w-100 vh-100 embed-responsive embed-responsive-16by9" style="overflow: hidden hidden;">
     <object title="{displayname}" class="h-100 w-100 embed-responsive-item" type="application/pdf" data="{url}">
       <p>For some reason PDF is not rendered here properly.</p>
     </object>
