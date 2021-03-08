@@ -11,6 +11,7 @@ import autoPreprocess from 'svelte-preprocess';
 import postcssImport from 'postcss-import';
 import { injectManifest } from 'rollup-plugin-workbox';
 import json from '@rollup/plugin-json';
+import { mdsvex } from "mdsvex";
 //import replace from '@rollup/plugin-replace';
 
 
@@ -52,11 +53,13 @@ export default {
     plugins: [
 				json(),
         svelte({
+            extensions: [".svelte", ".svx"],
             dev: !production, // run-time checks      
             // Extract component CSS — better performance
             css: css => css.write(`bundle.css`),
             hot: isNollup,
             preprocess: [
+                mdsvex(),
                 autoPreprocess({
                     sourceMap: true,
                     postcss: { plugins: [postcssImport()] },
