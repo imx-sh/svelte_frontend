@@ -32,7 +32,7 @@
   let author;
   let editor;
   let embedded;
-  let content_type;
+  let content_type = "";
   let entryurl;
   if (data.attributes) {
     author = data.attributes.author;
@@ -46,6 +46,7 @@
     if (data.attributes.payload && data.attributes.payload.filepath)
       entryurl = `${website.backend}/media/${website.space_name}/${data.subpath}/entry/${data.attributes.payload.filepath}`;
   }
+
 
   function handle(type) {
     //let type = event.target.title;
