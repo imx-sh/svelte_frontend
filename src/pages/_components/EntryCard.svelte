@@ -7,7 +7,6 @@
   import { imx_pub_submit } from "../../imx";
   import signedin_user from "../managed/_stores/signedin_user.js";
   import { onMount } from "svelte";
-  //import Editor from 'cl-editor';
   import MarkdownViewer from "./MarkdownViewer.svelte";
 
   import { website } from "../../space_config";
@@ -15,12 +14,9 @@
     Button,
     Badge,
     CardLink,
-    ListGroup,
-    ListGroupItem,
     Card,
     CardBody,
     CardText,
-    CardFooter,
     CardTitle,
     CardHeader,
     CardSubtitle,
@@ -181,7 +177,7 @@
       {#if embedded && content_type.startsWith("text/html")}
         {@html embedded}
       {:else if embedded && content_type.startsWith("text/markdown")}
-        <MarkdownViewer value="{embedded}" />
+        <MarkdownViewer content="{embedded}" />
       {:else if entryurl}
         <MediaView url="{entryurl}" displayname="{displayname}" content_type="{content_type}" />
       {/if}

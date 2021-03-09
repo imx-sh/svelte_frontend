@@ -2,6 +2,8 @@
   import Table from "../_components/Table.svelte";
   import { imx_query } from "../../../imx.js";
   import { _ } from "../../../i18n";
+  import signedin_user from '../_stores/signedin_user';
+
   import { ready } from "@roxi/routify";
 
   export let scoped;
@@ -18,7 +20,7 @@
     query_type: "logs",
     subpath: "/members/",
     resource_types: ["event"],
-    resource_shortnames: ["kefah"],
+    resource_shortnames: [$signedin_user.shortname],
     limit: 100,
     offset: 0,
   };

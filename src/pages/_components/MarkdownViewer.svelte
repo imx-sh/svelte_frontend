@@ -1,5 +1,5 @@
 <script>
-  export let value;
+  import marked from "marked";
+  export let content;
 </script>
-
-{value}
+{@html marked(content)}

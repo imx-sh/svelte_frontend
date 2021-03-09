@@ -26,6 +26,7 @@
   let tags;
   let description;
   let displayed_subpath;
+  let mediafile;
 
   if (fix_resource_type) resource_type = fix_resource_type;
   else resource_type = "post";
@@ -57,13 +58,13 @@
       attributes: {
         displayname: displayname,
         description: description,
-        tags: tags.split(","),
+        tags: tags.split(/[,،]+/),
       },
     };
 
     if (parent_shortname) record.parent_shortname = parent_shortname;
 
-    if (enableUpload) {
+    if (enableUpload && mediafile) {
       console.log("My sha1: ", mediafile.sha1);
       record.attributes.payload = {
         checksum: `sha1:${mediafile.sha1}`,
@@ -98,7 +99,7 @@
         op = "created";
       }
 
-      //console.log("Content modal ...", resp, record);
+      console.log("Content modal ...", resp, record);
       if (resp.results[0].status == "success" && !parent_shortname) {
         //console.log("Trying to update entries ...", $entries[subpath]);
         let entry = { data: record };
@@ -136,7 +137,6 @@
     enableUpload = "media" == event.target.value;
   }
 
-  let mediafile;
   function uploadMedia(event) {
     mediafile = event.target.files[0];
     console.log("Name: ", mediafile.name, "Size: ", mediafile.size);
