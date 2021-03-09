@@ -9,7 +9,7 @@
   export let children;
   export let type;
   export let icon;
-  let displayname = $_(id);
+  $: displayname = $_(id);
 
   path.push(id);
   async function toggle() {

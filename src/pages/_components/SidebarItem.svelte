@@ -11,7 +11,7 @@
   export let description = undefined;
   export let link;
 
-  const displayname = $_(id);
+  $: displayname = $_(id);
   async function show_item() {
     //console.log("Requested to show item: ", path.join("|"), id, displayname);
     $active_subsection = { path: path, id: id, displayname: displayname };
