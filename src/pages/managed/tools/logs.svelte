@@ -2,7 +2,7 @@
   import Table from "../_components/Table.svelte";
   import { imx_query } from "../../../imx.js";
   import { _ } from "../../../i18n";
-  import signedin_user from '../_stores/signedin_user';
+  import signedin_user from "../_stores/signedin_user";
 
   import { ready } from "@roxi/routify";
 
@@ -14,7 +14,7 @@
   let events = [];
   let count = 0;
   let total = 0;
-  let status ="";
+  let status = "";
 
   let query = {
     query_type: "logs",
@@ -58,25 +58,28 @@
     },
   };
 
-  imx_query(query).then((json) => {
-    events = json.records.map((one) => {
-      delete one.attributes["results-attributes"].backtrace;
-      delete one.attributes["results-attributes"].auth_token;
-      return one;
-    }).reverse();
-    if(json?.results[0].status == "success") {
-      count = json.results[0].attributes.returned;
-      total = json.results[0].attributes.total;
-      status = "success";
-    } else {
-      status = json?.results[0] || "Unknown error";
-    }
-    $ready();
-  }).catch(console.log);
-
+  imx_query(query)
+    .then((json) => {
+      events = json.records
+        .map((one) => {
+          delete one.attributes["results-attributes"].backtrace;
+          delete one.attributes["results-attributes"].auth_token;
+          return one;
+        })
+        .reverse();
+      if (json?.results[0].status == "success") {
+        count = json.results[0].attributes.returned;
+        total = json.results[0].attributes.total;
+        status = "success";
+      } else {
+        status = json?.results[0] || "Unknown error";
+      }
+      $ready();
+    })
+    .catch(console.log);
 </script>
 
-<h6> Returned {count} out of {total} with status {status} </h6>
+<h6>Returned {count} out of {total} with status {status}</h6>
 
 <Table cols="{cols}" rows="{events}" />
 

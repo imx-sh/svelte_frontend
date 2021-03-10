@@ -5,7 +5,7 @@
   import File from "./File.svelte";
   import { getNotificationsContext } from "svelte-notifications";
   import ContentModal from "./ContentModal.svelte";
-  import {_} from "../../../i18n";
+  import { _ } from "../../../i18n";
 
   const { addNotification } = getNotificationsContext();
 
@@ -57,7 +57,11 @@
   //}
 
   async function deleteFolder() {
-    if (confirm(`Are you sure you want to delete the folder "${data.shortname}|${data.displayname}" under ${data.subpath}?`)) {
+    if (
+      confirm(
+        `Are you sure you want to delete the folder "${data.shortname}|${data.displayname}" under ${data.subpath}?`
+      )
+    ) {
       let result = await imx_folder("delete", data.subpath, data.shortname);
       addNotification({
         text: `Deleted folder "${data.shortname}|${data.displayname}" under ${data.subpath}`,

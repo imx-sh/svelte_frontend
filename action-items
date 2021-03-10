@@ -33,6 +33,12 @@ Minor  to medium
 - [ ] Managed ui: show entry in entryeditor from direct url. /entry/subpath/shortname (like public ui)
 - [ ] Add search page to managed section
 - [ ] Add media processors ffmpeg -i source.mkv -codec copy dest.mp4, qpf --linearize source.pdf dest.pdf
+- [ ] Profile sectoin : Biography, Contact details (including keys ...), Personal content (the user can choose to keep it private or make it public): General content like posts and media, .
+- [ ] Timeline (feed) section: Subscriptions (list/manage), Actual feed
+- [ ] Notifications (simple table/mass view into notifications folder).  /members/{name}/[messages,content,notifications,subscriptions,feed, activity?]
+- [ ] Messages section.
+- [ ] Command-line to create a member (and create empty directories for the member sections) and reset password. + list and delete.
+
 
 
 Major

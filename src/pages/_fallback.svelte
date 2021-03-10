@@ -35,15 +35,14 @@
     //console.log("leftover: ", $leftover);
     // Trim "/" from beggning and end
     let lo = decodeURI($leftover);
-    lo = lo.split('?')[0];
+    lo = lo.split("?")[0];
     if (lo.startsWith("/")) lo = lo.slice(1);
     if (lo.endsWith("/")) lo = lo.slice(0, -1);
     let path = lo.split("/");
 
     //console.log("Path: ", path);
     viewType = path[0]; // folder, tag, entry, search, random, recent
-    if (!viewType)
-        viewType = "folder";
+    if (!viewType) viewType = "folder";
 
     //console.log("viewType: ", viewType);
     subpath = path.slice(1, -1).join("/"); // All entries except first and last
@@ -51,7 +50,7 @@
 
     if (!subpath || !shortname) {
       shortname = "";
-      subpath = (path.length < 2) ? "posts" : path[1];
+      subpath = path.length < 2 ? "posts" : path[1];
     }
 
     if (viewType == "search" && "q" in $params) {
@@ -80,8 +79,7 @@
         }
         break;
       case "folder":
-        if (shortname)
-                subpath = `${subpath}/${shortname}`;
+        if (shortname) subpath = `${subpath}/${shortname}`;
         break;
       case "random":
         queryType = "random";
@@ -103,8 +101,7 @@
     //	parents.push(shortname);
 
     parents = parents;
-    if (viewType == "entry")
-         parents.push(" ");
+    if (viewType == "entry") parents.push(" ");
   }
 
   $afterPageLoad(() => {
@@ -123,7 +120,7 @@
   });
 
   async function load_tags() {
-    let resp = await imx_pub_query(subpath, resourceTypes, [], (viewType == "tag") ? "tags" : "folders");
+    let resp = await imx_pub_query(subpath, resourceTypes, [], viewType == "tag" ? "tags" : "folders");
     tags = resp.records[0].attributes.tags;
     //console.log("Tags: ", tags, "parents: ", parents.join("/"), "qt: ", queryType);
   }
@@ -151,11 +148,15 @@
   }
 
   prep_page();
-  load_tags().then(() => {
-    load_next().then(() => {
-      $ready();
-    }).catch(console.log);
-  }).catch(console.log);
+  load_tags()
+    .then(() => {
+      load_next()
+        .then(() => {
+          $ready();
+        })
+        .catch(console.log);
+    })
+    .catch(console.log);
 </script>
 
 <svelte:head>

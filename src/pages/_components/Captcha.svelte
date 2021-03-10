@@ -23,7 +23,7 @@
     var y = Math.floor(Math.random() * 20) + 30;
     if ($dir == "rtl") y -= 5;
 
-    if(window.routify.inBrowser) {
+    if (window.routify.inBrowser) {
       const ctx = canvas_div.getContext("2d");
       try {
         ctx.strokeRect(1, 1, 149, 59);

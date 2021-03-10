@@ -30,7 +30,7 @@
 </script>
 
 <Navbar color="light" light expand="md" class="px-2 w-100 py-0">
-  <NavbarBrand href="/"><LocalizedValue field={website.short_name} /></NavbarBrand>
+  <NavbarBrand href="/"><LocalizedValue field="{website.short_name}" /></NavbarBrand>
   <Nav class="me-auto" navbar>
     {#if $signedin_user}
       <NavLink href="/managed/folder/posts">{localized_displayname}</NavLink>

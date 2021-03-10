@@ -34,4 +34,3 @@
 </script>
 
 <i {...$$restProps} class="{classes}"></i>
-

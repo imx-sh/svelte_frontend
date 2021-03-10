@@ -15,8 +15,8 @@
   let replies;
 
   $: {
-    replies = data?.attachments?.reply || []
-    media   = data?.attachments?.media || []
+    replies = data?.attachments?.reply || [];
+    media = data?.attachments?.media || [];
   }
 
   let media_modal = false;
@@ -28,20 +28,29 @@
     const _entries = await imx_entries(data.subpath, [], [data.shortname]);
     //if(_entries.length > 0) entries.add(data.subpath, {data: _entries[0]});
     //console.log("Action retrieved ... ", _entries);
-    if(_entries.length > 0) data = _entries[0];
+    if (_entries.length > 0) data = _entries[0];
   }
 </script>
 
 {#if extended}
-  <ContentModal subpath="{data.subpath}" parent_shortname="{data.shortname}" bind:open="{media_modal}" fix_resource_type="media" on:created={handle} />
-  <ReplyModal subpath="{data.subpath}" parent_shortname="{data.shortname}" bind:open="{reply_modal}" on:created={handle} />
+  <ContentModal
+    subpath="{data.subpath}"
+    parent_shortname="{data.shortname}"
+    bind:open="{media_modal}"
+    fix_resource_type="media"
+    on:created="{handle}" />
+  <ReplyModal
+    subpath="{data.subpath}"
+    parent_shortname="{data.shortname}"
+    bind:open="{reply_modal}"
+    on:created="{handle}" />
 
   <CardBody>
     <CardFooter class="py-2">
       {$_("attachments")} ({$number(media ? media.length : 0)})
       {#if $signedin_user}
         <div class="float-end mb-0 mt-n1">
-          <Button href="#" title="Add" on:click="{() => media_modal = true}" size="sm" outline>
+          <Button href="#" title="Add" on:click="{() => (media_modal = true)}" size="sm" outline>
             <Icon name="plus-square-dotted" class="fs-6" />
           </Button>
         </div>
@@ -51,7 +60,11 @@
       <ListGroup>
         {#each media as attachment (attachment.uuid)}
           <ListGroupItem>
-            <Attachment data="{attachment}" parent_shortname="{data.shortname}" on:updated={handle} on:deleted={handle} />
+            <Attachment
+              data="{attachment}"
+              parent_shortname="{data.shortname}"
+              on:updated="{handle}"
+              on:deleted="{handle}" />
           </ListGroupItem>
         {/each}
       </ListGroup>
@@ -63,7 +76,7 @@
       {$_("replies")} ({$number(replies ? replies.length : 0)})
 
       <div class="float-end mb-0 mt-n1">
-        <Button href="#" title="Add" on:click="{() => reply_modal = true }" size="sm" outline>
+        <Button href="#" title="Add" on:click="{() => (reply_modal = true)}" size="sm" outline>
           <Icon name="plus-square-dotted" class="fs-6" />
         </Button>
       </div>
@@ -72,7 +85,11 @@
       <ListGroup>
         {#each replies as attachment (attachment.uuid)}
           <ListGroupItem>
-            <Attachment data="{attachment}" parent_shortname="{data.shortname}" on:updated={handle} on:deleted={handle} />
+            <Attachment
+              data="{attachment}"
+              parent_shortname="{data.shortname}"
+              on:updated="{handle}"
+              on:deleted="{handle}" />
           </ListGroupItem>
         {/each}
       </ListGroup>

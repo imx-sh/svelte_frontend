@@ -10,17 +10,7 @@
   import MarkdownViewer from "./MarkdownViewer.svelte";
 
   import { website } from "../../space_config";
-  import {
-    Button,
-    Badge,
-    CardLink,
-    Card,
-    CardBody,
-    CardText,
-    CardTitle,
-    CardHeader,
-    CardSubtitle,
-  } from "sveltestrap";
+  import { Button, Badge, CardLink, Card, CardBody, CardText, CardTitle, CardHeader, CardSubtitle } from "sveltestrap";
   import Icon from "./Icon.svelte";
   export let data;
   export let extended = false;
@@ -46,7 +36,6 @@
     if (data.attributes.payload && data.attributes.payload.filepath)
       entryurl = `${website.backend}/media/${website.space_name}/${data.subpath}/entry/${data.attributes.payload.filepath}`;
   }
-
 
   function handle(type) {
     //let type = event.target.title;

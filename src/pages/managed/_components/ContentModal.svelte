@@ -48,7 +48,7 @@
   }
 
   displayed_subpath = subpath;
-  if(parent_shortname) displayed_subpath = `${subpath}/${parent_shortname}`;
+  if (parent_shortname) displayed_subpath = `${subpath}/${parent_shortname}`;
 
   async function handle() {
     let record = {
@@ -64,7 +64,8 @@
 
     if (parent_shortname) record.parent_shortname = parent_shortname;
 
-    if (data == null) { // We are handling entry creation here.
+    if (data == null) {
+      // We are handling entry creation here.
       if (enableUpload && mediafile) {
         console.log("My sha1: ", mediafile.sha1);
         record.attributes.payload = {
@@ -74,24 +75,22 @@
           bytesize: mediafile.size,
         };
         //record.attributes.filename = mediafile.name;
-      } else  {
+      } else {
       }
     }
     //console.info("Record: ", record);
     let resp;
     let op;
 
-
     if (data) {
-        // Fix subpath if the type is folder.
-        if (resource_type == "folder" && subpath.endsWith(shortname)) {
-          record.subpath = subpath.substring(0, subpath.lastIndexOf("/"));
-          console.log(`Fixing subpath: from ${subpath} to ${record.subpath}`);
-        }
-        resp = await imx_content("update", record);
-        op = "updated";
+      // Fix subpath if the type is folder.
+      if (resource_type == "folder" && subpath.endsWith(shortname)) {
+        record.subpath = subpath.substring(0, subpath.lastIndexOf("/"));
+        console.log(`Fixing subpath: from ${subpath} to ${record.subpath}`);
+      }
+      resp = await imx_content("update", record);
+      op = "updated";
     } else {
-      
       if (resource_type == "media") {
         if (mediafile) {
           console.log("My sha1: ", mediafile.sha1);
@@ -104,7 +103,7 @@
           resp = await imx_postmedia(record, mediafile);
         } else {
           alert("Media file must be selected");
-          resp = {results: [{status: "failed"}]};
+          resp = { results: [{ status: "failed" }] };
         }
       } else {
         record.attributes.payload = {
@@ -118,11 +117,11 @@
       op = "created";
     }
 
-
     console.log("Content modal ...", resp, record);
     if (resp.results[0].status == "success") {
       //console.log("Trying to update entries ...", $entries[subpath]);
-      if(!parent_shortname) { // If this is not attachment, add it as main entry.
+      if (!parent_shortname) {
+        // If this is not attachment, add it as main entry.
         let entry = { data: record };
         entry.data.subpath = subpath;
         if (!entry.data.attachments) entry.data.attachments = { media: [], reply: [], reaction: [] };
@@ -150,10 +149,10 @@
     open = !open;
   }
 
-  let enableUpload = ("media" == resource_type);
+  let enableUpload = "media" == resource_type;
   function resourceTypeChanged(event) {
     console.log(event.target.value);
-    enableUpload = ("media" == event.target.value);
+    enableUpload = "media" == event.target.value;
   }
 
   function uploadMedia(event) {
@@ -216,7 +215,7 @@
     {/if}
   </ModalBody>
   <ModalFooter>
-    <Button color="secondary" on:click="{() => open = false }">{$_("cancel")}</Button>
+    <Button color="secondary" on:click="{() => (open = false)}">{$_("cancel")}</Button>
     <Button color="primary" on:click="{handle}">{$_("accept")}</Button>
   </ModalFooter>
 </Modal>

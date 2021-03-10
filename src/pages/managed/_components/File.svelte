@@ -5,7 +5,7 @@
   import { entries } from "../_stores/entries.js";
   import { imx_delete_content } from "../../../imx.js";
   import { getNotificationsContext } from "svelte-notifications";
-  import {_} from "../../../i18n";
+  import { _ } from "../../../i18n";
 
   const { addNotification } = getNotificationsContext();
 
@@ -43,7 +43,13 @@
   let details_modal;
 
   async function toggleActive() {
-    if (confirm(`Entry "${data.displayname}" is currently ${ data.attributes.is_active ? "active" : "inactive" } are you sure you want to set it to ${data.attributes.is_acitve ? "inactive" : "active"}?`)) {
+    if (
+      confirm(
+        `Entry "${data.displayname}" is currently ${
+          data.attributes.is_active ? "active" : "inactive"
+        } are you sure you want to set it to ${data.attributes.is_acitve ? "inactive" : "active"}?`
+      )
+    ) {
       data.attributes.is_active = !data.attributes.is_active;
     }
   }

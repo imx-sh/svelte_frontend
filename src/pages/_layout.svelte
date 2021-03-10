@@ -18,4 +18,3 @@
     <Col sm="12" class=""><Footer /></Col>
   </Row>
 </Container>
-
