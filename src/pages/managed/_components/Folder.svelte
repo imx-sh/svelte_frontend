@@ -34,11 +34,11 @@
   let entry_create_modal;
   async function handleEntryCreated(event) {
     //let _name = prompt("Enter the new folder shortname", "");
-    let entry = { data: event.detail };
+    /*let entry = { data: event.detail };
     entry.data.displayname = entry.data.attributes.displayname;
     entry.data.subpath = children_subpath;
     entries.add(children_subpath, entry);
-    console.log("Created folder", entry);
+  console.log("Created entry", entry);*/
     /* 
     let result = await imx_folder("create", children_subpath, entry.data.shortname);
     addNotification({

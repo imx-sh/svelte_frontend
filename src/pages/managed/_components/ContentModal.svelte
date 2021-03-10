@@ -64,29 +64,25 @@
 
     if (parent_shortname) record.parent_shortname = parent_shortname;
 
-    if (enableUpload && mediafile) {
-      console.log("My sha1: ", mediafile.sha1);
-      record.attributes.payload = {
-        checksum: `sha1:${mediafile.sha1}`,
-        filepath: mediafile.name,
-        content_type: mediafile.type,
-        bytesize: mediafile.size,
-      };
-      //record.attributes.filename = mediafile.name;
-    } else if (data == null) {
-      // Only create payload for new entries
-      record.attributes.payload = {
-        checksum: `sha1:${sha1(payload)}`,
-        embedded: payload,
-        content_type: `${payload_type}; charset=utf8`,
-        bytesize: new Blob([payload]).size,
-      };
+    if (data == null) { // We are handling entry creation here.
+      if (enableUpload && mediafile) {
+        console.log("My sha1: ", mediafile.sha1);
+        record.attributes.payload = {
+          checksum: `sha1:${mediafile.sha1}`,
+          filepath: mediafile.name,
+          content_type: mediafile.type,
+          bytesize: mediafile.size,
+        };
+        //record.attributes.filename = mediafile.name;
+      } else  {
+      }
     }
     //console.info("Record: ", record);
     let resp;
     let op;
-    if (resource_type != "media") {
-      if (data) {
+
+
+    if (data) {
         // Fix subpath if the type is folder.
         if (resource_type == "folder" && subpath.endsWith(shortname)) {
           record.subpath = subpath.substring(0, subpath.lastIndexOf("/"));
@@ -94,14 +90,39 @@
         }
         resp = await imx_content("update", record);
         op = "updated";
+    } else {
+      
+      if (resource_type == "media") {
+        if (mediafile) {
+          console.log("My sha1: ", mediafile.sha1);
+          record.attributes.payload = {
+            checksum: `sha1:${mediafile.sha1}`,
+            filepath: mediafile.name,
+            content_type: mediafile.type,
+            bytesize: mediafile.size,
+          };
+          resp = await imx_postmedia(record, mediafile);
+        } else {
+          alert("Media file must be selected");
+          resp = {results: [{status: "failed"}]};
+        }
       } else {
+        record.attributes.payload = {
+          checksum: `sha1:${sha1(payload)}`,
+          embedded: payload,
+          content_type: `${payload_type}; charset=utf8`,
+          bytesize: new Blob([payload]).size,
+        };
         resp = await imx_content("create", record);
-        op = "created";
       }
+      op = "created";
+    }
 
-      console.log("Content modal ...", resp, record);
-      if (resp.results[0].status == "success" && !parent_shortname) {
-        //console.log("Trying to update entries ...", $entries[subpath]);
+
+    console.log("Content modal ...", resp, record);
+    if (resp.results[0].status == "success") {
+      //console.log("Trying to update entries ...", $entries[subpath]);
+      if(!parent_shortname) { // If this is not attachment, add it as main entry.
         let entry = { data: record };
         entry.data.subpath = subpath;
         if (!entry.data.attachments) entry.data.attachments = { media: [], reply: [], reaction: [] };
@@ -109,32 +130,30 @@
         entries.add(subpath, entry);
         //console.log($entries[subpath]);
       }
-    } else {
-      resp = await imx_postmedia(record, mediafile);
-      op = "created";
+
+      addNotification({
+        text: `${op} "${shortname}" under ${subpath}`,
+        position: "bottom-center",
+        type: resp.results[0].status == "success" ? "success" : "warning",
+        removeAfter: 5000,
+      });
+
+      dispatch(op, record);
+      //console.log("Content modal: ", record, resp);
+      //console.log("Content modal result: ", resp.results[0]);
+
+      open = false;
     }
-
-    addNotification({
-      text: `${op} "${shortname}" under ${subpath}`,
-      position: "bottom-center",
-      type: resp.results[0].status == "success" ? "success" : "warning",
-      removeAfter: 5000,
-    });
-    dispatch(op, record);
-    //console.log("Content modal: ", record, resp);
-    //console.log("Content modal result: ", resp.results[0]);
-
-    open = false;
   }
 
   function toggle() {
     open = !open;
   }
 
-  let enableUpload = "media" == resource_type;
+  let enableUpload = ("media" == resource_type);
   function resourceTypeChanged(event) {
     console.log(event.target.value);
-    enableUpload = "media" == event.target.value;
+    enableUpload = ("media" == event.target.value);
   }
 
   function uploadMedia(event) {

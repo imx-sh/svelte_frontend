@@ -59,8 +59,8 @@
         one.hash = one.shortname.substring(5, 13);
 
         if(one.attributes.diff) {
-          one.current  = `${one.attributes.diff.payload.bytesize.new}/${one.attributes.new_checksum.substring(5,13)}`;
-          one.previous = `${one.attributes.diff.payload.bytesize.old}/${one.attributes.old_checksum.substring(5,13)}`;
+          one.current  = `${one.attributes.diff.payload?.bytesize.new}/${one.attributes.new_checksum.substring(5,13)}`;
+          one.previous = `${one.attributes.diff.payload?.bytesize.old}/${one.attributes.old_checksum.substring(5,13)}`;
         }
         return one;
     }).reverse();

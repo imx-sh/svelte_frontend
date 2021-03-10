@@ -18,7 +18,9 @@
 
 Bugs
 
-- [ ] Refresing entry link adds wwwimx improperly. 
+- [ ] Adding new media entry causes the siblings to disapear from sidebar tree and the new entry is not shown
+- [ ] Check if redisearch is doing proper arabic stemming and search
+- [ ] Enable http chunking on caddy and kemal
 
 Minor  to medium
 ================
@@ -30,6 +32,7 @@ Minor  to medium
 - [ ] Full and proper SSR with OpenGraph.
 - [ ] Managed ui: show entry in entryeditor from direct url. /entry/subpath/shortname (like public ui)
 - [ ] Add search page to managed section
+- [ ] Add media processors ffmpeg -i source.mkv -codec copy dest.mp4, qpf --linearize source.pdf dest.pdf
 
 
 Major
