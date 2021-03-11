@@ -38,7 +38,8 @@ Minor  to medium
 - [ ] Notifications (simple table/mass view into notifications folder).  /members/{name}/[messages,content,notifications,subscriptions,feed, activity?]
 - [ ] Messages section.
 - [ ] Command-line to create a member (and create empty directories for the member sections) and reset password. + list and delete.
-
+- [ ] Make sure Static file generation and SSR are working as expected including proper SPA hanlder serving from crystal pod.
+- [ ] Add meta/OG to pages.
 
 
 Major
