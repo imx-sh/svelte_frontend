@@ -8,7 +8,7 @@
   import { ready } from "@roxi/routify";
   import { onDestroy } from "svelte";
 
-  onDestroy( () => status_line.set("") );
+  onDestroy(() => status_line.set(""));
 
   export let scoped;
   scoped;

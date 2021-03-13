@@ -67,7 +67,7 @@
 </div>
 <div
   class="no-bullets scroller pe-0 w-100"
-  style="height: calc(100% - {(head_height+foot_height)}px); overflow: hidden auto;">
+  style="height: calc(100% - {head_height + foot_height}px); overflow: hidden auto;">
   <ListGroup flush class="w-100">
     {#each $active_section.children as child ($active_section.name + child.name)}
       {#if child.type == "link"}
@@ -112,8 +112,8 @@
       </small>
     </p>
   {/if}
-  {#if $status_line }
+  {#if $status_line}
     <hr class="my-1" />
-    {@html $status_line }
+    {@html $status_line}
   {/if}
 </div>
