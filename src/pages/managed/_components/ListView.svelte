@@ -3,8 +3,10 @@
   import InfiniteLoading from 'svelte-infinite-loading';
   import { imx_query } from '../../../imx';
   import { _, number } from "../../../i18n";
+  import { onDestroy } from "svelte";
   import { status_line } from "../_stores/status_line.js";
 
+  onDestroy( () => status_line.set("") );
   export let query;
   export let cols;
   export let details_split = 0;

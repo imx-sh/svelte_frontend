@@ -25,7 +25,7 @@ Bugs
 Minor  to medium
 ================
 - [ ] Fix public interactions
-- [ ] Create public demo space with sample data
+- [x] Create public demo space with sample data
 - [ ] change is_active to publish_status : Public, Draft, Pending review, Archived (Public but not surfaced or promoted).
 - [ ] EntryEditor : Support History, Term/Task/Contact ... types, Make code prismjs, add refresh (reload) button
 - [ ] Websockets and life notifications

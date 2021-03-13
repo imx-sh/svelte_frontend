@@ -6,6 +6,9 @@
   import { status_line } from "../_stores/status_line.js";
 
   import { ready } from "@roxi/routify";
+  import { onDestroy } from "svelte";
+
+  onDestroy( () => status_line.set("") );
 
   export let scoped;
   scoped;
