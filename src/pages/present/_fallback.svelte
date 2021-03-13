@@ -172,7 +172,7 @@
 				{:else if slide.attributes.payload.embedded && slide.attributes.payload.content_type.startsWith('text/markdown') }
 					<MarkdownViewer value={slide.attributes.payload.embedded} />
 				{:else }
-					<MediaView url={`${website.backend}/media/${website.space_name}/${slide.subpath}/entry/${slide.attributes.payload.filepath}`} displayname={slide.attributes.displayname} content_type={slide.attributes.payload.content_type} description="" />
+					<MediaView url={`${website.backend}/media/${website.space_name}/${slide.subpath}/entry/${slide.attributes.payload.filepath}`} displayname={slide.attributes.displayname} content_type={slide.attributes.payload.content_type} />
 				{/if}
 			</div>
 			</TabPane>
