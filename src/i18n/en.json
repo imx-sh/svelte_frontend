@@ -168,5 +168,7 @@
   "previous": "Previous",
   "current": "Current",
   "hash": "Hash",
+  "events": "Events",
+  "terminal" : "Terminal",
   "under_development": "Under development"
 }

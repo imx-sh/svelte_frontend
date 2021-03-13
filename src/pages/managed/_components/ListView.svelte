@@ -35,7 +35,7 @@
             items = [...items, ...records];
             loaded();
             // complete();
-            console.log("New: ", lastbatch, "Loaded: ", items.length, "Page: ", page, "Total: ", total);
+            // console.log("New: ", lastbatch, "Loaded: ", items.length, "Page: ", page, "Total: ", total);
           } else {
             complete();
           }

@@ -168,5 +168,7 @@
   "previous": "السابق",
   "current": "الحالي",
   "hash": "التهشير",
+  "events": "أحداث",
+  "terminal" : "طرفية",
   "under_development": "تحت التطوير"
 }
