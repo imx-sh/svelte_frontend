@@ -52,4 +52,4 @@
   };
 </script>
 
-<ListView {query} {cols} details_split={200} />
+<ListView {query} {cols} details_split={0} />

@@ -3,6 +3,7 @@
   import InfiniteLoading from 'svelte-infinite-loading';
   import { imx_query } from '../../../imx';
   import { _, number } from "../../../i18n";
+  import { status_line } from "../_stores/status_line.js";
 
   export let query;
   export let cols;
@@ -11,10 +12,9 @@
   let total;
   let lastbatch;
   let page = 0;
-
   let items = [{}];
-
   let current_item = {};
+  let api_status ="-";
 
   async function infiniteHandler({ detail: { loaded, complete, error } }) {
     try {
@@ -39,8 +39,12 @@
           } else {
             complete();
           }
+          api_status = "success";
+          status_line.set(`Loaded ${items.length-1} of ${total}.<br/>api: ${api_status}`);
         } else {
           console.log("Error with query", json);
+          api_status = json?.results[0] || "Unknown error";
+          status_line.set(`api: ${api_status}`);
         }
       }).catch((e) => {
         console.log(e);
@@ -51,7 +55,7 @@
       error();
     }
   }
-  
+
   function value(path, data, type) {
     //console.log("path: ", path, "data: ", data, "type: ", type);
     if (path.length == 1 && path[0].length > 0 && path[0] in data) {
@@ -69,10 +73,18 @@
     return $_("not_applicable");
   }
   let listHeight;
+  let resizing = false;
+  function resize(e) {
+    if (resizing) {
+      details_split = ((details_split - e.movementY) > 0) ? (details_split - e.movementY) : 0;
+    }
+  }
+  //$: console.log (details_split, resizing);
 </script>
+  <svelte:window on:mouseup="{() => resizing = false}" on:mousemove={resize} />
 <div class="list h-100" bind:offsetHeight={listHeight}>
 	<VirtualList
-    height={listHeight - details_split}
+    height={listHeight - details_split - 5}
 		width="auto"
     stickyIndices={[0]}
 		itemCount={items.length}
@@ -97,16 +109,25 @@
       <InfiniteLoading on:infinite={infiniteHandler} />
     </div>
 	</VirtualList>
-  {#if current_item && current_item > 0 && details_split}
-<div class="one-item pt-2" style="max-height: {details_split}px; height: {details_split}px; overflow: auto hide;">
-  <!--{JSON.stringify(items[current_item])}-->
-  {#each Object.keys(items[current_item]) as key}
-    <span class="w-50" style="text-align: right;"><strong>{key}: </strong></span> <span class="w-50"> <code>{JSON.stringify(items[current_item][key]).trim()}</code> </span>
-  {/each}
-</div>
+  <hr on:mousedown="{() => resizing = true}" style="cursor: {resizing?'grabbing':'grab'}"/>
+  {#if current_item && current_item > 0 && details_split > 0}
+    <div class="one-item pt-2" style="height: {details_split}px; overflow: hide;">
+    {#each Object.keys(items[current_item]) as key}
+      <span class="w-50" style="text-align: right;"><strong>{key}: </strong></span> <span class="w-50"> <code>{JSON.stringify(items[current_item][key]).trim()}</code> </span>
+    {/each}
+    </div>
   {/if}
 </div>
 <style>
+  hr {
+    color: green;
+    background-color: blue;
+    height: 5px;
+    user-select: none;
+    margin: 0;
+    /*position: absolute;*/
+    /*border: solid 1px gray;*/
+  }
 :global(.virtual-list-wrapper) {
   margin: 0 0px;
 	background: #fff;

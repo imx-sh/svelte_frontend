@@ -3,6 +3,7 @@
   import { imx_query } from "../../../imx.js";
   import { _ } from "../../../i18n";
   import signedin_user from "../_stores/signedin_user";
+  import { status_line } from "../_stores/status_line.js";
 
   import { ready } from "@roxi/routify";
 
@@ -14,7 +15,7 @@
   let events = [];
   let count = 0;
   let total = 0;
-  let status = "";
+  let api_status = "";
 
   let query = {
     query_type: "logs",
@@ -70,16 +71,16 @@
       if (json?.results[0].status == "success") {
         count = json.results[0].attributes.returned;
         total = json.results[0].attributes.total;
-        status = "success";
+        api_status = "success";
+        status_line.set(`Loaded ${count} of ${total}.<br/>api: ${api_status}`);
       } else {
-        status = json?.results[0] || "Unknown error";
+        api_status = json?.results[0] || "Unknown error";
+        status_line.set(`api: ${api_status}`);
       }
       $ready();
     })
     .catch(console.log);
 </script>
-
-<h6>Returned {count} out of {total} with status {status}</h6>
 
 <Table cols="{cols}" rows="{events}" />
 
