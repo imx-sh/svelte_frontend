@@ -41,8 +41,8 @@
     resource_type = data.resource_type;
     if ("attributes" in data && "embedded" in data.attributes && data.attributes.payload.embedded)
       payload = data.attributes.payload.embedded;
-    if ("attributes" in data && "tags" in data.attributes);
-    tags = data.attributes.tags.join(",");
+    if ("attributes" in data && "tags" in data.attributes)
+      tags = data.attributes.tags.join(",");
   } else {
     displayname = description = tags = "";
   }

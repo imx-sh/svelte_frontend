@@ -1,5 +1,5 @@
 <script>
-  import marked from "marked";
+  import {marked} from "marked";
   import { afterUpdate } from "svelte";
   import { getTokens } from "./_utils/get_tokens.js";
 

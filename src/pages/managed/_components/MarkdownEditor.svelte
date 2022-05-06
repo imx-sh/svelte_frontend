@@ -1,7 +1,7 @@
 <script>
   import { Container, Row, Col } from "sveltestrap";
   import { createEventDispatcher } from "svelte";
-  import marked from "marked";
+  import {marked} from "marked";
   /*
   import MarkdownIt from 'markdown-it';
   import hljs from 'highlight.js';
